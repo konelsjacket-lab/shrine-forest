@@ -24,8 +24,8 @@ async function run(t) {
       return { dlg: !!state.dlg, node, line: state.line, text: $('#dialogue-text').textContent, name: $('#speaker-name').textContent };
     }, t);
     if (st.node && path[path.length - 1] !== st.node) path.push(st.node);
-    if (shotAt[t].includes(st.node) && !shots.has(st.node) && st.dlg && st.line >= 3) { shots.add(st.node); await page.waitForTimeout(900); await page.screenshot({ path: `pt-${t}-${st.node}.png` }); }
-    if (st.done) { await page.screenshot({ path: `pt-${t}-END.png` }); return { t, ok: true, title: st.title, path, errs, aff: await page.evaluate(() => state.affection), steps }; }
+    if (shotAt[t].includes(st.node) && !shots.has(st.node) && st.dlg && st.line >= 3) { shots.add(st.node); await page.waitForTimeout(900); await page.screenshot({ path: `/tmp/pt-${t}-${st.node}.png` }); }
+    if (st.done) { await page.screenshot({ path: `/tmp/pt-${t}-END.png` }); return { t, ok: true, title: st.title, path, errs, aff: await page.evaluate(() => state.affection), steps }; }
     if (st.choice !== undefined) { await page.locator('.choice-btn').nth(st.choice).click(); steps++; await page.waitForTimeout(60); continue; }
     if (st.dlg) { await page.evaluate(() => { $('#dialogue-box').click(); if (state.dlg) $('#dialogue-box').click(); }); steps++; await page.waitForTimeout(15); }
     else await page.waitForTimeout(120);
