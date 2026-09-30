@@ -189,17 +189,17 @@ html, body {
 }
 
 .character-sprite {
-  position: absolute; bottom: 0;
-  width: 100vw; height: 85vh;
+  position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 100%;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
   display: flex; align-items: flex-end; justify-content: center;
 }
-.char-center { left: 50%; transform: translateX(-50%); }
-.char-left { left: 10%; }
-.char-right { right: 10%; left: auto; }
+.char-center { left: 0; transform: none; }
+.char-left { left: 0; }
+.char-right { right: 0; left: 0; }
 
-.character-sprite.entering { opacity: 0; transform: translateX(-50%) translateY(20px); }
+.character-sprite.entering { opacity: 0; transform: translateY(20px); }
 .character-sprite.visible { opacity: 1; }
 
 .character-sprite.beast-transform { animation: beast-glow 2s ease-in-out; }
