@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>杜鹃森 — 神社与森林的恋爱物语</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&display=swap');
 
 :root {
   --bg: #1a1a2e;
@@ -31,6 +31,8 @@
   --ui-border: rgba(212, 168, 84, 0.3);
   --font: 'Noto Serif SC', 'Songti SC', Georgia, serif;
   --font-ui: -apple-system, 'PingFang SC', sans-serif;
+  --font-deco: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+  --ink: #3b2216;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -263,19 +265,29 @@ html, body {
 #dialogue-layer { position: absolute; bottom: 0; left: 0; right: 0; padding: 0 16px env(safe-area-inset-bottom, 16px); }
 
 #dialogue-box {
-  position: relative; max-width: 800px; margin: 0 auto 16px;
-  background: var(--ui-bg); border: 1px solid var(--ui-border);
-  border-radius: 12px; padding: 16px 20px 20px;
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 -4px 30px rgba(0,0,0,0.3); cursor: pointer; min-height: 120px;
+  position: relative; max-width: 800px; margin: 34px auto 14px; isolation: isolate;
+  padding: 26px 34px 26px; cursor: pointer; min-height: 132px;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45));
 }
-
-#speaker-name { font-size: 14px; font-weight: 600; color: var(--text-name); margin-bottom: 8px; letter-spacing: 1px; font-family: var(--font); }
-#dialogue-text { font-size: 16px; line-height: 1.8; color: var(--text); font-family: var(--font); min-height: 60px; }
+/* Painted frames sit on their own layer so the corner art can scale without touching text layout. */
+#dialogue-box::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  border-style: solid; border-width: 50px 58px 48px 58px;
+  border-image: url('assets/ui-dialogue.webp') 175 205 165 205 fill stretch;
+}
+#speaker-name {
+  position: absolute; left: 14px; top: -30px; width: 156px; height: 42px;
+  background: url('assets/ui-nameplate.webp') center / contain no-repeat;
+  display: flex; align-items: center; justify-content: center; padding: 10px 14px 0 30px;
+  font-family: var(--font-deco); font-size: 17px; letter-spacing: 3px; color: var(--ink) !important;
+  text-shadow: 0 1px 0 rgba(255,240,210,0.6);
+}
+#speaker-name:empty { display: none; }
+#dialogue-text { font-size: 16px; line-height: 1.85; color: #f1e8d8; font-family: var(--font); min-height: 60px; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
 #dialogue-text .char { opacity: 0; display: inline; transition: opacity 0.05s; }
 #dialogue-text .char.visible { opacity: 1; }
 
-#text-indicator { position: absolute; bottom: 12px; right: 16px; width: 12px; height: 12px; opacity: 0; transition: opacity 0.3s; }
+#text-indicator { position: absolute; bottom: 20px; right: 40px; color: var(--accent-gold); width: 12px; height: 12px; opacity: 0; transition: opacity 0.3s; }
 #text-indicator.show { opacity: 0.6; animation: indicator-bounce 1s ease-in-out infinite; }
 @keyframes indicator-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 
@@ -287,16 +299,21 @@ html, body {
 }
 #choice-layer.active { display: flex; }
 
-#choice-container { display: flex; flex-direction: column; gap: 12px; max-width: 500px; width: 90%; }
-
-.choice-btn {
-  background: var(--ui-bg); border: 1px solid var(--ui-border);
-  border-radius: 8px; padding: 14px 20px; color: var(--text);
-  font-family: var(--font); font-size: 15px; cursor: pointer;
-  transition: all 0.3s ease; text-align: left; line-height: 1.5;
+.choice-btn, .title-btn {
+  position: relative; background: none; border: none; min-height: 60px; isolation: isolate;
+  padding: 9px 34px 24px 58px; color: var(--ink); /* the paper is the top ~70% of the art; the rest is ribbon */
+  font-family: var(--font); font-size: 15px; cursor: pointer; text-align: left; line-height: 1.5;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.45));
 }
-.choice-btn:hover { background: rgba(212, 168, 84, 0.15); border-color: var(--accent-gold); transform: translateX(4px); }
-.choice-btn:active { transform: translateX(2px); background: rgba(212, 168, 84, 0.25); }
+.choice-btn::before, .title-btn::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  border-style: solid; border-width: 0 34px 0 52px;
+  border-image: url('assets/ui-choice.webp') 0 214 0 310 fill stretch;
+}
+#choice-container { display: flex; flex-direction: column; gap: 14px; max-width: 500px; width: 92%; }
+.choice-btn:hover { transform: translateX(4px); filter: drop-shadow(0 0 10px rgba(255,200,110,0.65)) brightness(1.06); }
+.choice-btn:active { transform: translateX(2px) scale(0.99); }
 
 /* === Affection === */
 .aff-change {
@@ -310,7 +327,7 @@ html, body {
 #title-screen {
   position: absolute; inset: 0; display: flex; flex-direction: column;
   justify-content: center; align-items: center;
-  background: linear-gradient(180deg, #0a0e1e 0%, #101828 20%, #0a2018 40%, #1a3020 60%, #0a1810 80%, #050a08 100%);
+  background: #0a0a18 url('assets/ui-title.webp') center / cover no-repeat;
   z-index: 50; transition: opacity 1.5s ease;
 }
 #title-screen.hidden { opacity: 0; pointer-events: none; }
@@ -323,21 +340,17 @@ html, body {
 }
 @keyframes title-fly { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 0.8; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
 
-#title-content { position: relative; text-align: center; z-index: 1; }
-#title-jp { font-size: 14px; color: var(--accent-gold); letter-spacing: 8px; margin-bottom: 12px; opacity: 0; animation: title-fade 2s ease 0.5s forwards; font-family: var(--font); }
-#title-main { font-size: clamp(36px, 8vw, 64px); font-weight: 700; color: var(--text); text-shadow: 0 0 40px rgba(212, 168, 84, 0.3); margin-bottom: 8px; opacity: 0; animation: title-fade 2s ease 1s forwards; font-family: var(--font); }
-#title-sub { font-size: 14px; color: var(--text-dim); letter-spacing: 4px; margin-bottom: 48px; opacity: 0; animation: title-fade 2s ease 1.5s forwards; font-family: var(--font); }
+#title-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 1; padding-top: 13vh; }
+#title-content::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 48%; z-index: -1; background: radial-gradient(ellipse 70% 60% at 50% 38%, rgba(8,8,24,0.55) 0%, transparent 70%); }
+#title-jp { font-size: 14px; color: #f3cf7a; text-shadow: 0 1px 6px rgba(0,0,0,0.8); letter-spacing: 8px; margin-bottom: 12px; opacity: 0; animation: title-fade 2s ease 0.5s forwards; font-family: var(--font); }
+#title-main { font-size: clamp(52px, 15vw, 88px); font-weight: 400; color: #fff4dc; letter-spacing: 10px; text-shadow: 0 0 24px rgba(255,190,90,0.55), 0 3px 0 rgba(120,20,10,0.7), 0 0 60px rgba(0,0,0,0.6); margin-bottom: 8px; opacity: 0; animation: title-fade 2s ease 1s forwards; font-family: var(--font-deco); }
+#title-sub { font-size: 14px; color: #f0e2c4; text-shadow: 0 1px 6px rgba(0,0,0,0.9); letter-spacing: 4px; margin-bottom: 0; opacity: 0; animation: title-fade 2s ease 1.5s forwards; font-family: var(--font); }
 @keyframes title-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-#title-buttons { display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: 0; animation: title-fade 2s ease 2s forwards; }
-.title-btn {
-  background: transparent; border: 1px solid var(--accent-gold);
-  color: var(--accent-gold); font-family: var(--font); font-size: 16px;
-  width: 200px; padding: 12px 0; border-radius: 4px; cursor: pointer; letter-spacing: 4px;
-  transition: all 0.4s ease;
-}
-.title-btn.secondary { border-color: rgba(212,168,84,0.4); color: var(--text-dim); font-size: 14px; padding: 10px 0; }
-.title-btn:hover { background: rgba(212, 168, 84, 0.15); box-shadow: 0 0 20px rgba(212, 168, 84, 0.2); color: var(--accent-gold); }
+#title-buttons { position: absolute; left: 0; right: 0; bottom: 9vh; display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0; animation: title-fade 2s ease 2s forwards; }
+.title-btn { width: 230px; text-align: center; padding: 10px 34px 20px 56px; font-family: var(--font-deco); font-size: 18px; letter-spacing: 6px; }
+.title-btn.secondary { font-size: 15px; min-height: 48px; opacity: 0.92; }
+.title-btn:hover { filter: drop-shadow(0 0 12px rgba(255,200,110,0.7)) brightness(1.06); transform: scale(1.03); }
 .title-btn[hidden] { display: none; }
 
 /* === Transform Overlay === */
@@ -381,16 +394,25 @@ html, body {
 #confirm-layer { z-index: 70; }
 
 .sys-card {
-  width: min(92vw, 420px); max-height: 88vh; display: flex; flex-direction: column;
-  background: var(--ui-bg); border: 1px solid var(--ui-border); border-radius: 14px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden;
+  position: relative; isolation: isolate;
+  width: min(92vw, 420px); max-height: 86vh; display: flex; flex-direction: column;
+  padding: 34px 26px 36px 34px; filter: drop-shadow(0 12px 30px rgba(0,0,0,0.6));
 }
-.sys-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid rgba(212,168,84,0.15); }
-.sys-title { font-family: var(--font); font-size: 16px; color: var(--accent-gold); letter-spacing: 3px; }
+.sys-card::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  border-style: solid; border-width: 150px 36px 80px 96px;
+  border-image: url('assets/ui-panel.webp') 560 130 290 360 fill stretch;
+}
+#confirm-layer .sys-card { padding: 26px 34px; width: min(90vw, 380px); }
+#confirm-layer .sys-card::before { border-width: 50px 58px 48px 58px; border-image: url('assets/ui-dialogue.webp') 175 205 165 205 fill stretch; }
+.slot-list, .bond-list { scrollbar-width: thin; scrollbar-color: rgba(212,168,84,0.4) transparent; }
+.sys-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 6px 12px; border-bottom: 1px solid rgba(212,168,84,0.3); }
+.sys-title { flex: 1; text-align: center; font-family: var(--font-deco); font-size: 20px; color: #f3cf7a; letter-spacing: 6px; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+.sys-head > span:first-child, .sys-head > .sys-close { width: 30px; flex: 0 0 30px; }
 .sys-close { background: none; border: none; color: var(--text-dim); font-size: 22px; line-height: 1; cursor: pointer; padding: 2px 6px; }
 .sys-close:hover { color: var(--accent-gold); }
 
-.menu-list { display: flex; flex-direction: column; gap: 10px; padding: 16px; }
+.menu-list { display: flex; flex-direction: column; gap: 10px; padding: 14px 4px 6px; }
 .menu-item {
   background: rgba(255,255,255,0.03); border: 1px solid var(--ui-border); border-radius: 8px;
   color: var(--text); font-family: var(--font); font-size: 15px; letter-spacing: 2px;
@@ -460,9 +482,11 @@ html, body {
 #day-indicator.show { opacity: 1; }
 
 @media (max-width: 600px) {
-  #dialogue-box { margin: 0 8px 8px; padding: 12px 16px 16px; min-height: 100px; }
-  #dialogue-text { font-size: 14px; line-height: 1.7; }
-  .choice-btn { font-size: 14px; padding: 12px 16px; }
+  #dialogue-layer { padding: 0 6px env(safe-area-inset-bottom, 8px); }
+  #dialogue-box { margin: 34px 0 8px; padding: 30px 36px 30px; min-height: 140px; }
+  #dialogue-text { font-size: 15px; line-height: 1.75; }
+  .choice-btn { font-size: 14px; }
+  #choice-container { width: 97%; }
 }
 </style>
 </head>
@@ -3801,7 +3825,7 @@ function closeSys() { $('#sys-layer').classList.remove('active'); }
 function openMenu() {
   const card = $('#sys-card');
   card.innerHTML = `
-    <div class="sys-head"><div class="sys-title">菜 单</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
+    <div class="sys-head"><span></span><div class="sys-title">菜 单</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
     <div class="menu-list">
       <button class="menu-item" data-act="bonds">羁绊<small>查看你和大家的关系</small></button>
       <button class="menu-item" data-act="notes">记事<small>这座山里，还没有解开的事</small></button>
