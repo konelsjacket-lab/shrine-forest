@@ -264,6 +264,30 @@ html, body {
   position: absolute; width: auto; max-width: none;
 }
 
+/* === CG === */
+#cg-layer { position: absolute; inset: 0; z-index: 0; display: none; opacity: 0; transition: opacity 0.8s ease; background: #0a0a16; }
+#cg-layer.show { display: block; }
+#cg-layer.in { opacity: 1; }
+#cg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+#cg-layer.has-img #cg-img { display: block; }
+#cg-ph { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); width: min(80vw, 380px); padding: 28px 24px; text-align: center; isolation: isolate; }
+#cg-ph::before { content: ''; position: absolute; inset: 0; z-index: -1; border-style: solid; border-width: 50px 58px 48px 58px; border-image: url('assets/ui-dialogue.webp') 175 205 165 205 fill stretch; opacity: 0.9; }
+#cg-layer.has-img #cg-ph { display: none; }
+.cg-ph-tag { font-family: var(--font); font-size: 12px; letter-spacing: 6px; color: rgba(243,207,122,0.7); margin-bottom: 6px; }
+.cg-ph-name { font-family: var(--font-brush); font-size: 28px; color: #fff0c8; letter-spacing: 4px; text-shadow: 0 0 16px rgba(255,190,90,0.4); }
+.cg-ph-desc { font-family: var(--font); font-size: 13px; color: #d9ccb4; line-height: 1.7; margin-top: 10px; }
+#cg-viewer { position: absolute; inset: 0; z-index: 66; display: none; background: #05050c; cursor: pointer; }
+#cg-viewer.show { display: flex; align-items: center; justify-content: center; flex-direction: column; }
+#cg-viewer img { width: 100%; height: 100%; object-fit: contain; }
+#cg-viewer .cg-ph-name { position: absolute; bottom: 8%; }
+.gallery { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 2px; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 132px; align-content: start; gap: 8px; }
+.gal-item { position: relative; height: 100%; border: 1px solid var(--ui-border); border-radius: 6px; overflow: hidden; background: rgba(255,255,255,0.03); cursor: pointer; display: flex; align-items: flex-end; justify-content: center; }
+.gal-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gal-item span { position: relative; width: 100%; padding: 4px 2px; font-family: var(--font); font-size: 11px; color: #f1e8d8; background: linear-gradient(transparent, rgba(0,0,0,0.75)); text-align: center; }
+.gal-item.locked { cursor: default; }
+.gal-item.locked span { color: var(--text-dim); }
+.gal-item.locked::before { content: '？'; position: absolute; top: 38%; left: 0; right: 0; text-align: center; font-size: 22px; color: rgba(243,207,122,0.35); }
+
 /* === Dialogue === */
 #dialogue-layer { position: absolute; bottom: 0; left: 0; right: 0; padding: 0 16px env(safe-area-inset-bottom, 16px); }
 
@@ -512,6 +536,7 @@ html, body {
   <div id="scene-bg"></div>
   <div id="particles"></div>
   <div id="character-layer"></div>
+  <div id="cg-layer"><img id="cg-img" alt=""><div id="cg-ph"><div class="cg-ph-tag">CG</div><div class="cg-ph-name"></div><div class="cg-ph-desc"></div></div></div>
 
   <div id="transform-overlay"><div id="transform-text"></div></div>
   <div id="chapter-overlay"><div id="chapter-num"></div><div id="chapter-title"></div></div>
@@ -538,6 +563,7 @@ html, body {
     <button id="ending-restart" class="title-btn">从头开始</button>
   </div>
 
+  <div id="cg-viewer"><img alt=""><div class="cg-ph-name"></div></div>
   <div id="sys-layer"><div class="sys-card" id="sys-card"></div></div>
   <div id="confirm-layer">
     <div class="sys-card">
@@ -609,6 +635,38 @@ function bgmFor(id) {
   if (/^(rescue|ending)_/.test(id)) return id.startsWith('rescue') ? 'crisis' : 'moon';
   return SCENE_BGM[S[id].scene || state.scene] || 'daily';
 }
+
+// CG stills. null = not drawn yet; a framed placeholder with the name/description shows instead.
+const CG_IMAGES = {
+  cg_main_letter: null, cg_main_ceremony: null, cg_main_adeng: null,
+  cg_kohaku_torii: null, cg_kohaku_ninetails: null,
+  cg_ginro_umbrella: null, cg_ginro_back: null,
+  cg_shiro_garland: null, cg_shiro_bloom: null,
+  cg_yuki_treetop: null, cg_yuki_howl: null,
+  cg_sou_flight: null, cg_sou_letters: null,
+  cg_genya_go: null, cg_genya_coil: null,
+};
+const CG_INFO = {
+  cg_main_letter:      ['铃与信', '老屋的矮桌上，旧木盒里的铜铃与两封信。'],
+  cg_main_ceremony:    ['满月', '要石前，六人围绕，你摇响了外婆的铃。'],
+  cg_main_adeng:       ['叮当', '圆滚滚的狸猫，蹭着褪色的红铃绳。'],
+  cg_kohaku_torii:     ['鸟居之下', '黄昏的石阶上，她提着灯，在等一个人。'],
+  cg_kohaku_ninetails: ['九尾', '赤狐的尾巴燃起狐火，把你护在中间。'],
+  cg_ginro_umbrella:   ['伞', '雨里，他把整把伞都让给了你。'],
+  cg_ginro_back:       ['归途', '银狼背着受伤的白狼，走过月下的林子。'],
+  cg_shiro_garland:    ['花之王', '二十年前，小鹿哥哥给你戴上花环。'],
+  cg_shiro_bloom:      ['盛开', '白鹿的角上，所有的花一瞬间全开了。'],
+  cg_yuki_treetop:     ['北方', '最高的树顶，他望着远处的雪山。'],
+  cg_yuki_howl:        ['我的窝', '满月下，白狼对着北方长嚎。'],
+  cg_sou_flight:       ['天上', '你坐在蓝鹰背上，整片森林在脚下展开。'],
+  cg_sou_letters:      ['没寄出的信', '屋顶上，一叠旧信被风一页页翻开。'],
+  cg_genya_go:         ['对弈', '地底的棋盘，黑子白子，和一碗凉掉的茶。'],
+  cg_genya_coil:       ['蛇先生', '黑蛇盘成一圈，把六岁的你护在正中间。'],
+};
+const CG_SEEN_KEY = 'dujuansen-cg-seen';
+let cgSeenMem = {};
+function cgSeen() { try { return JSON.parse(localStorage.getItem(CG_SEEN_KEY) || '{}') || {}; } catch (e) { return cgSeenMem; } }
+function markCgSeen(id) { const s = cgSeen(); s[id] = 1; cgSeenMem = s; try { localStorage.setItem(CG_SEEN_KEY, JSON.stringify(s)); } catch (e) {} }
 
 // ex/ey: where the eyes are in the source image (% of its width/height); bx: body centre x (defaults to ex).
 // h: displayed image height as % of screen height (the character's on-screen scale).
@@ -687,6 +745,7 @@ const state = {
   particles: null,
   chars: [],
   chapter: null,
+  cg: null,
   gen: 0,       // bumped on load/reset so stale timers from the old run do nothing
   dlg: null,
 };
@@ -773,7 +832,7 @@ const S = {
       { char: 'narrator', text: '柱子上还留着一道一道的铅笔印。最矮的一道旁边写着「三岁」，最高的一道写着「六岁」。' },
       { char: 'narrator', text: '「六岁」上面，再也没有了。' },
       { char: 'narrator', text: '你在矮桌前坐下，打开了那个木盒。' },
-      { char: 'narrator', text: '里面有三样东西。一枚系着褪色红绳的小铜铃。一封拆开的信。还有一封用蜡封住的信。' },
+      { char: 'narrator', text: '里面有三样东西。一枚系着褪色红绳的小铜铃。一封拆开的信。还有一封用蜡封住的信。', cg: 'cg_main_letter' },
       { char: 'narrator', text: '封蜡的那一封，信封上只写着一行字：「满月之夜，在要石前打开。」', flag: 'q_letter' },
       { char: 'player', text: '（要石……？）' },
       { char: 'narrator', text: '你先拿起了拆开的那一封。信封上是外婆歪歪扭扭的字——「给我的小不点」。' },
@@ -2051,7 +2110,7 @@ const S = {
       { char: 'narrator', text: '你闭上眼睛。忽然——' },
       { char: 'narrator', text: '——同样的樱树下。同样的花瓣。' },
       { char: 'narrator', text: '一个翠绿头发的小男孩，笨手笨脚地编着一个花环。编散了，再编。' },
-      { char: 'narrator', text: '他把花环戴在一个穿黄色雨靴的小孩头上。' },
+      { char: 'narrator', text: '他把花环戴在一个穿黄色雨靴的小孩头上。', cg: 'cg_shiro_garland' },
       { char: 'narrator', text: '「好啦！你是花之王！」' },
       { char: 'narrator', text: '小孩摸着头上的花环，认真地说：「小鹿哥哥，等我长大了，带你去看海。」' },
       { char: 'narrator', text: '「……真的？」' },
@@ -2084,7 +2143,7 @@ const S = {
       { char: 'yukimaru', text: '别在意别在意。我被银朗骂了半年，现在耳朵都长茧了。抓紧了啊——一、二——' },
       { char: 'narrator', text: '你还没来得及说「等一下」，就被他扛上了肩膀。风在耳边呼啸，几个纵跳之后，你们站在了森林最高的那棵树上。' },
       { char: 'yukimaru', text: '看，北边。那一排白的。' },
-      { char: 'narrator', text: '很远很远的地方，天边有一线雪白的山脊，像是用刀切出来的。' },
+      { char: 'narrator', text: '很远很远的地方，天边有一线雪白的山脊，像是用刀切出来的。', cg: 'cg_yuki_treetop' },
       { char: 'yukimaru', text: '那就是我家。……以前是。' },
       { char: 'player', text: '你想回去吗？' },
       { char: 'yukimaru', text: '不想。那边规矩太多。不准化人形，不准靠近人类，不准离开领地，不准这不准那。' },
@@ -2139,7 +2198,7 @@ const S = {
       { char: 'narrator', text: '他退后一步。风忽然大了起来，蓝色的羽毛在空中散开——', transform: { char: 'sou', text: '蓝鹰 · 展翼' } },
       { char: 'narrator', text: '一只巨大的蓝鹰低下头，示意你爬上它的背。' },
       { char: 'narrator', text: '然后，地面一下子远了。' },
-      { char: 'narrator', text: '整片杜鹃森在脚下展开。绿色的海洋，神社是其中一粒小小的红点，溪流像银线一样穿过去。' },
+      { char: 'narrator', text: '整片杜鹃森在脚下展开。绿色的海洋，神社是其中一粒小小的红点，溪流像银线一样穿过去。', cg: 'cg_sou_flight' },
       { char: 'narrator', text: '可是在森林的北边，你看到了一片一片的黑色。像墨水滴在宣纸上，正在慢慢晕开。' },
       { char: 'sou', text: '三天前，只有一片。今天，是十一片。' },
       { char: 'sou', text: '我每天都在数。' },
@@ -2183,7 +2242,7 @@ const S = {
       { char: 'genya', text: '会下棋吗？' },
       { char: 'player', text: '……只知道五子连成一线就赢。' },
       { char: 'genya', text: '那是五子棋。算了，教你。反正你外婆当年也是从这个水平开始的。' },
-      { char: 'narrator', text: '黑子，白子。他下得很慢，每一步都要按着要石缓一口气。你输了三盘，第四盘，他故意让你赢了。' },
+      { char: 'narrator', text: '黑子，白子。他下得很慢，每一步都要按着要石缓一口气。你输了三盘，第四盘，他故意让你赢了。', cg: 'cg_genya_go' },
       { char: 'genya', text: '跟你外婆一样。赢了就笑得像个傻子。' },
       { char: 'player', text: '玄夜。六十年前，白露的娘……到底发生了什么？' },
       { char: 'narrator', text: '他捏着一枚白子，停在了半空中。' },
@@ -2303,7 +2362,7 @@ const S = {
       { char: 'ginro', text: '你——' },
       { char: 'narrator', text: '他张了张嘴。那两个字就在嘴边。你看得出来。' },
       { char: 'ginro', text: '……笨蛋。' },
-      { char: 'narrator', text: '他把雪丸背了起来。雪丸比他矮一个头，趴在他背上，像一只受伤的小狗。' },
+      { char: 'narrator', text: '他把雪丸背了起来。雪丸比他矮一个头，趴在他背上，像一只受伤的小狗。', cg: 'cg_ginro_back' },
       { char: 'yukimaru', text: '……那棵树，是北坡最大的结。我闻到那个怪味道……在往它那边爬……' },
       { char: 'yukimaru', text: '如果那棵树烂了……北坡就全完了……所以我……' },
       { char: 'ginro', text: '别说话。' },
@@ -2615,7 +2674,7 @@ const S = {
       { char: 'narrator', text: '黑色的烟，轻轻地抖了一下。' },
       { char: 'narrator', text: '然后，它忽然变得好大好大，朝你扑了过来。不是要咬你。是像一个饿了很久的孩子，想扑进谁的怀里。' },
       { char: 'narrator', text: '可是它太冷了，太重了。你喘不过气来。' },
-      { char: 'narrator', text: '地面裂开了。一条黑色的大蛇冲出来，把你卷进怀里，一圈一圈，护在正中间。' },
+      { char: 'narrator', text: '地面裂开了。一条黑色的大蛇冲出来，把你卷进怀里，一圈一圈，护在正中间。', cg: 'cg_genya_coil' },
       { char: 'narrator', text: '「……别碰这个孩子。」' },
       { char: 'narrator', text: '蛇先生没有杀它。他只是一直挡着，挡着，挡到天上的大鸟尖叫起来，挡到银色的大狗冲过来。' },
       { char: 'narrator', text: '黑色的烟逃走了。叮当，叮当。越来越远。' },
@@ -2779,7 +2838,7 @@ const S = {
     transform_immediate: { char: 'kohaku', text: '九尾灵狐 · 觉醒' },
     lines: [
       { char: 'narrator', text: '八条火焰一样的尾巴在你周围展开，像一堵温暖的墙。' },
-      { char: 'narrator', text: '一只巨大的赤狐挡在你身前。八条尾巴同时燃起青白色的狐火，把黑雾一口气烧穿了。' },
+      { char: 'narrator', text: '一只巨大的赤狐挡在你身前。八条尾巴同时燃起青白色的狐火，把黑雾一口气烧穿了。', cg: 'cg_kohaku_ninetails' },
       { char: 'kohaku', text: '不准碰这个孩子。' },
       { char: 'kohaku', text: '二十年前不准。现在，也不准。' },
       { char: 'narrator', text: '堕兽在狐火里发出最后一声嘶吼，化作黑烟散了。' },
@@ -2826,7 +2885,7 @@ const S = {
       { char: 'narrator', text: '它的腿在流血，在发抖。可是它低下头，把那对小小的角，对准了比它大十倍的黑影。' },
       { char: 'shiro', text: '六十年前，我躲在树洞里。' },
       { char: 'shiro', text: '这一次——我不躲了！！' },
-      { char: 'narrator', text: '鹿角上的花，一瞬间全部盛开。' },
+      { char: 'narrator', text: '鹿角上的花，一瞬间全部盛开。', cg: 'cg_shiro_bloom' },
       { char: 'narrator', text: '地面裂开，无数藤蔓破土而出，缠住堕兽的四肢。白色的花瓣像暴雪一样卷起来，把黑雾一层一层裹住。' },
       { char: 'narrator', text: '藤蔓收紧。花瓣落下的时候，那里只剩下一棵小小的、刚刚长出来的白樱。' },
       { char: 'narrator', text: '白鹿腿一软，倒在你怀里，变回了那个翠发的少年。',
@@ -2979,7 +3038,7 @@ const S = {
     scene: 'shrine', particles: 'sakura',
     chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
     lines: [
-      { char: 'narrator', text: '黄昏。你和琥珀并排坐在鸟居下面的石阶上。' },
+      { char: 'narrator', text: '黄昏。你和琥珀并排坐在鸟居下面的石阶上。', cg: 'cg_kohaku_torii' },
       { char: 'kohaku', text: '上个满月，我就是坐在这里等千代的。从太阳落山，等到太阳出来。' },
       { char: 'kohaku', text: '天亮的时候我跟自己说，下个月吧。下个月她就来了。' },
       { char: 'narrator', text: '她的尾巴绕过来，搭在你们俩中间的石阶上。尾尖轻轻地、一下一下地拍着。' },
@@ -3144,7 +3203,7 @@ const S = {
       { char: 'narrator', text: '「小不点。如果你想起来了——就替我们，念一念它吧。」' },
       { char: 'narrator', text: '「念完以后，这枚铃留不留，你自己决定。留下，外婆很高兴。下山，外婆也很高兴。」' },
       { char: 'narrator', text: '「你只要记得：你是被很多很多人喜欢着的孩子。——外婆」', flag: 'a_letter' },
-      { char: 'narrator', text: '你把信折好，放回怀里。深吸一口气。摇响了铃。' },
+      { char: 'narrator', text: '你把信折好，放回怀里。深吸一口气。摇响了铃。', cg: 'cg_main_ceremony' },
       { char: 'narrator', text: '叮——' },
       { char: 'narrator', text: '铃声在洞窟里回荡，越来越响，像是有很多很多只铃，在同时回应。' },
       { char: 'player', text: '琥珀。',
@@ -3176,7 +3235,7 @@ const S = {
       { char: 'narrator', text: '很远很远的地方，从洞窟最深处的黑暗里，传来一声。' },
       { char: 'narrator', text: '叮。' },
       { char: 'narrator', text: '然后，一个小小的、圆滚滚的影子，从黑暗里慢慢走了出来。' },
-      { char: 'narrator', text: '那是一只狸猫。毛是褐色的，肚子是圆的，眼睛是亮的。一点都不黑了。' },
+      { char: 'narrator', text: '那是一只狸猫。毛是褐色的，肚子是圆的，眼睛是亮的。一点都不黑了。', cg: 'cg_main_adeng' },
       { char: 'narrator', text: '它走到你脚边，抬头看着你。看了很久。' },
       { char: 'narrator', text: '然后，它低下头，用脑袋蹭了蹭你手里的红绳。' },
       { char: 'narrator', text: '要石亮了。' },
@@ -3250,7 +3309,7 @@ const S = {
     scene: 'snowfield', particles: 'snowflakes',
     chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
     lines: [
-      { char: 'narrator', text: '你走下石阶的时候，北坡的最高处传来一声狼嚎。' },
+      { char: 'narrator', text: '你走下石阶的时候，北坡的最高处传来一声狼嚎。', cg: 'cg_yuki_howl' },
       { char: 'narrator', text: '长长的，响亮的，一点都不悲伤。' },
       { char: 'narrator', text: '然后，一道白影从树梢上一路跳下来，落在你面前。' },
       { char: 'yukimaru', text: '我说了我会一直看着的！结果看着看着，腿自己就跑下来了！' },
@@ -3405,6 +3464,7 @@ function playNode(id) {
   if (node.transform_immediate) showTransform(node.transform_immediate.char, node.transform_immediate.text);
   if (node.chapter) state.chapter = node.chapter;
   (node.flags || []).forEach(setFlag);
+  setCG(null);
   playBgm(bgmFor(id));
   setFlashback(!!node.flashback);
   autoSave();
@@ -3422,10 +3482,52 @@ function startLines(node, i) {
   const line = node.lines[i];
   if ((line.if && !state.flags[line.if]) || (line.ifnot && state.flags[line.ifnot])) { startLines(node, i + 1); return; }
   if (line.chars) { state.chars = line.chars.map(c => ({ ...c })); setChars(state.chars); }
+  if ('cg' in line) setCG(line.cg); else if (line.chars) setCG(null);
   if (line.transform) showTransform(line.transform.char, line.transform.text);
   if (line.flag) setFlag(line.flag);
   if (line.text.startsWith('叮')) playBell();
   showDialogue(line, () => startLines(node, i + 1));
+}
+
+function setCG(id) {
+  const layer = $('#cg-layer');
+  state.cg = id || null;
+  if (!id) { layer.classList.remove('in'); setTimeout(() => { if (!state.cg) layer.classList.remove('show'); }, 800); return; }
+  const src = CG_IMAGES[id], info = CG_INFO[id] || [id, ''];
+  layer.classList.toggle('has-img', !!src);
+  if (src) $('#cg-img').src = src;
+  layer.querySelector('.cg-ph-name').textContent = info[0];
+  layer.querySelector('.cg-ph-desc').textContent = info[1];
+  layer.classList.add('show');
+  requestAnimationFrame(() => requestAnimationFrame(() => layer.classList.add('in')));
+  markCgSeen(id);
+}
+
+function openGallery() {
+  const seen = cgSeen();
+  const items = Object.keys(CG_INFO).map(id => {
+    const ok = seen[id], src = CG_IMAGES[id];
+    return `<div class="gal-item${ok ? '' : ' locked'}" data-cg="${ok ? id : ''}">${ok && src ? `<img src="${src}" alt="">` : ''}<span>${ok ? CG_INFO[id][0] : '？？？'}</span></div>`;
+  }).join('');
+  const n = Object.keys(CG_INFO).filter(id => seen[id]).length;
+  const card = $('#sys-card');
+  card.innerHTML = `
+    <div class="sys-head"><button class="sys-close" data-act="back" aria-label="返回">‹</button><div class="sys-title">回 忆</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
+    <div class="slot-note" style="padding:8px 4px 0;text-align:center">已收集 ${n} / ${Object.keys(CG_INFO).length}</div>
+    <div class="gallery">${items}</div>`;
+  card.onclick = e => {
+    const act = e.target.closest('[data-act]')?.dataset.act;
+    if (act === 'close') return closeSys();
+    if (act === 'back') return openMenu();
+    const id = e.target.closest('[data-cg]')?.dataset.cg;
+    if (!id) return;
+    const v = $('#cg-viewer'), src = CG_IMAGES[id];
+    v.querySelector('img').style.display = src ? '' : 'none';
+    if (src) v.querySelector('img').src = src;
+    v.querySelector('.cg-ph-name').textContent = src ? '' : CG_INFO[id][0] + '（图还没画好）';
+    v.classList.add('show');
+  };
+  $('#sys-layer').classList.add('active');
 }
 
 function setFlashback(on) { $('#game').classList.toggle('flashback', on); }
@@ -3706,7 +3808,7 @@ function snapshot() {
     node: state.currentNode, line: state.line,
     aff: { ...state.affection }, flags: { ...state.flags }, day: state.day,
     scene: state.scene, particles: state.particles,
-    chars: state.chars.map(c => ({ ...c })), chapter: state.chapter,
+    chars: state.chars.map(c => ({ ...c })), chapter: state.chapter, cg: state.cg || null,
     preview: ln ? { char: ln.char, text: ln.text, atChoice } : null,
   };
 }
@@ -3759,6 +3861,7 @@ function applySave(d) {
   setParticles(state.particles);
   setChars(state.chars);
   setFlashback(!!S[d.node].flashback);
+  setCG(d.cg || null);
   playBgm(bgmFor(d.node));
 
   const node = S[d.node], lines = node.lines || [], i = d.line || 0;
@@ -3786,6 +3889,7 @@ function resetGame() {
   ['#chapter-overlay', '#choice-layer', '#ending-screen', '#transform-overlay'].forEach(s => $(s).classList.remove('active'));
   $('#dialogue-layer').style.display = '';
   setFlashback(false);
+  setCG(null);
 }
 
 function backToTitle() {
@@ -3806,7 +3910,7 @@ function refreshTitleButtons() {
 
 // ---- UI ----
 function overlayOpen() {
-  return $('#sys-layer').classList.contains('active') || $('#confirm-layer').classList.contains('active');
+  return $('#sys-layer').classList.contains('active') || $('#confirm-layer').classList.contains('active') || $('#cg-viewer').classList.contains('show');
 }
 
 function toast(msg) {
@@ -3832,6 +3936,7 @@ function openMenu() {
     <div class="menu-list">
       <button class="menu-item" data-act="bonds">羁绊<small>查看你和大家的关系</small></button>
       <button class="menu-item" data-act="notes">记事<small>这座山里，还没有解开的事</small></button>
+      <button class="menu-item" data-act="gallery">回忆<small>看过的 CG</small></button>
       <button class="menu-item" data-act="save">保存进度<small>存到 8 个存档栏中的任意一个</small></button>
       <button class="menu-item" data-act="load">读取进度<small>回到之前保存的某一刻</small></button>
       <button class="menu-item" data-act="title">回到标题<small>自动存档会记住当前场景的开头</small></button>
@@ -3842,6 +3947,7 @@ function openMenu() {
     if (act === 'close') closeSys();
     else if (act === 'bonds') openBonds();
     else if (act === 'notes') openNotes();
+    else if (act === 'gallery') openGallery();
     else if (act === 'save') openSlots('save');
     else if (act === 'load') openSlots('load');
     else if (act === 'title') confirmBox('回到标题画面？', backToTitle);
@@ -3995,6 +4101,7 @@ function renderSlots(mode) {
 }
 
 $('#menu-btn').addEventListener('click', e => { e.stopPropagation(); openMenu(); });
+$('#cg-viewer').addEventListener('click', () => $('#cg-viewer').classList.remove('show'));
 $('#sys-layer').addEventListener('click', e => { if (e.target.id === 'sys-layer') closeSys(); });
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
