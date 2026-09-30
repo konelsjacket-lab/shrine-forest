@@ -61,7 +61,12 @@ html, body {
   position: absolute; inset: 0;
   background-size: cover;
   background-position: center;
-  transition: all 1.5s ease;
+  transition: opacity 0.8s ease;
+}
+.scene-img { background-color: #0a0a14; background-repeat: no-repeat; }
+.scene-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 25%, transparent 60%, rgba(0,0,0,0.35) 100%);
 }
 
 .bg-forest {
@@ -528,6 +533,16 @@ const PORTRAITS = {
   'genya-human':    'assets/genya-human.webp',
   'genya-beast':    'assets/genya-beast.webp',
 };
+
+// Scene backgrounds; a scene without an image falls back to its CSS gradient.
+const BACKGROUNDS = {
+  'town':         'assets/bg-town.webp',
+  'room':         'assets/bg-room.webp',
+  'forest':       'assets/bg-forest.webp',
+  'shrine':       'assets/bg-shrine.webp',
+  'night-shrine': 'assets/bg-night-shrine.webp',
+};
+Object.values(BACKGROUNDS).forEach(src => { new Image().src = src; });
 
 // ex/ey: where the eyes are in the source image (% of its width/height); bx: body centre x (defaults to ex).
 // h: displayed image height as % of screen height (the character's on-screen scale).
@@ -2279,10 +2294,15 @@ function routeToEnding() {
 
 function setScene(name) {
   const bg = $('#scene-bg');
-  bg.innerHTML = '';
   const l = document.createElement('div');
-  l.className = `scene-layer bg-${name}`;
+  const img = BACKGROUNDS[name];
+  l.className = img ? 'scene-layer scene-img' : `scene-layer bg-${name}`;
+  if (img) l.style.backgroundImage = `url("${img}")`;
+  l.style.opacity = '0';
   bg.appendChild(l);
+  requestAnimationFrame(() => requestAnimationFrame(() => { l.style.opacity = '1'; }));
+  const old = [...bg.children].filter(c => c !== l);
+  setTimeout(() => old.forEach(c => c.remove()), 900);
 }
 
 function setParticles(type) {
