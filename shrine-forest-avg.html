@@ -19,6 +19,12 @@
   --accent-wolf-glow: rgba(126, 184, 218, 0.3);
   --accent-deer: #8fd4a0;
   --accent-deer-glow: rgba(143, 212, 160, 0.3);
+  --accent-whitewolf: #e8e0d0;
+  --accent-whitewolf-glow: rgba(232, 224, 208, 0.3);
+  --accent-hawk: #4a7eb8;
+  --accent-hawk-glow: rgba(74, 126, 184, 0.3);
+  --accent-snake: #9a5abf;
+  --accent-snake-glow: rgba(154, 90, 191, 0.3);
   --accent-gold: #d4a854;
   --accent-sakura: #e8a0b4;
   --ui-bg: rgba(20, 16, 30, 0.92);
@@ -45,7 +51,7 @@ html, body {
   overflow: hidden;
 }
 
-/* === Background Scene === */
+/* === Background Scenes === */
 #scene-bg {
   position: absolute; inset: 0;
   transition: opacity 1.2s ease;
@@ -58,15 +64,11 @@ html, body {
   transition: all 1.5s ease;
 }
 
-/* Scene: Forest */
 .bg-forest {
-  background: linear-gradient(180deg,
-    #0a1628 0%, #0f2418 15%, #0a3012 30%,
-    #1a4a20 50%, #2a5a30 70%, #1a3a18 100%);
+  background: linear-gradient(180deg, #0a1628 0%, #0f2418 15%, #0a3012 30%, #1a4a20 50%, #2a5a30 70%, #1a3a18 100%);
 }
 .bg-forest::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 3px 80px at 15% 60%, #1a3a18 0%, transparent 100%),
     radial-gradient(ellipse 4px 90px at 25% 55%, #0f2a10 0%, transparent 100%),
@@ -76,184 +78,131 @@ html, body {
     radial-gradient(ellipse 4px 88px at 85% 56%, #1a4020 0%, transparent 100%);
 }
 .bg-forest::after {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(circle at 20% 30%, rgba(80,180,100,0.08) 0%, transparent 40%),
     radial-gradient(circle at 70% 20%, rgba(60,160,80,0.06) 0%, transparent 35%),
     radial-gradient(circle at 50% 80%, rgba(40,80,40,0.15) 0%, transparent 50%);
 }
 
-/* Scene: Shrine */
 .bg-shrine {
-  background: linear-gradient(180deg,
-    #1a0a2e 0%, #2a1040 20%, #3a1848 35%,
-    #2a1838 50%, #1a1028 70%, #0a0818 100%);
+  background: linear-gradient(180deg, #1a0a2e 0%, #2a1040 20%, #3a1848 35%, #2a1838 50%, #1a1028 70%, #0a0818 100%);
 }
 .bg-shrine::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 120px 8px at 50% 72%, rgba(180,80,60,0.15) 0%, transparent 100%),
-    radial-gradient(circle at 50% 40%, rgba(255,160,80,0.06) 0%, transparent 50%),
-    linear-gradient(0deg, rgba(180,80,40,0.08) 0%, transparent 30%);
-}
-.bg-shrine::after {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 30% 25%, rgba(255,200,100,0.04) 0%, transparent 20%),
-    radial-gradient(circle at 70% 25%, rgba(255,200,100,0.04) 0%, transparent 20%),
-    radial-gradient(circle at 50% 60%, rgba(200,100,60,0.08) 0%, transparent 40%);
+    radial-gradient(circle at 50% 40%, rgba(255,160,80,0.06) 0%, transparent 50%);
 }
 
-/* Scene: Night shrine */
 .bg-night-shrine {
-  background: linear-gradient(180deg,
-    #050510 0%, #0a0a20 20%, #101030 40%,
-    #0a0a20 60%, #050510 100%);
+  background: linear-gradient(180deg, #050510 0%, #0a0a20 20%, #101030 40%, #0a0a20 60%, #050510 100%);
 }
 .bg-night-shrine::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(circle at 80% 15%, rgba(200,220,255,0.8) 0%, rgba(200,220,255,0.1) 2%, transparent 4%),
     radial-gradient(circle at 30% 10%, rgba(255,255,200,0.3) 0%, transparent 1%),
     radial-gradient(circle at 60% 8%, rgba(255,255,200,0.2) 0%, transparent 0.5%),
-    radial-gradient(circle at 45% 12%, rgba(255,255,200,0.25) 0%, transparent 0.8%),
-    radial-gradient(circle at 15% 18%, rgba(255,255,200,0.15) 0%, transparent 0.5%),
-    radial-gradient(circle at 90% 5%, rgba(255,255,200,0.2) 0%, transparent 0.6%);
+    radial-gradient(circle at 45% 12%, rgba(255,255,200,0.25) 0%, transparent 0.8%);
 }
 .bg-night-shrine::after {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 50% 70%, rgba(255,140,60,0.08) 0%, transparent 30%),
-    radial-gradient(circle at 35% 65%, rgba(255,140,60,0.05) 0%, transparent 20%),
-    radial-gradient(circle at 65% 65%, rgba(255,140,60,0.05) 0%, transparent 20%);
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 70%, rgba(255,140,60,0.08) 0%, transparent 30%);
 }
 
-/* Scene: Spring */
 .bg-spring {
-  background: linear-gradient(180deg,
-    #f0d0d8 0%, #e8c0c8 15%, #d4a0b0 30%,
-    #98c088 50%, #78a868 70%, #5a8a48 100%);
+  background: linear-gradient(180deg, #f0d0d8 0%, #e8c0c8 15%, #d4a0b0 30%, #98c088 50%, #78a868 70%, #5a8a48 100%);
 }
 .bg-spring::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(circle at 20% 20%, rgba(255,180,200,0.4) 0%, transparent 30%),
-    radial-gradient(circle at 80% 15%, rgba(255,200,210,0.3) 0%, transparent 25%),
-    radial-gradient(circle at 50% 25%, rgba(255,190,200,0.2) 0%, transparent 35%);
+    radial-gradient(circle at 80% 15%, rgba(255,200,210,0.3) 0%, transparent 25%);
 }
 
-/* Scene: Moonlit clearing */
 .bg-moonlit {
-  background: linear-gradient(180deg,
-    #0a0e1e 0%, #101830 20%, #182040 35%,
-    #1a3030 55%, #0a2018 80%, #081810 100%);
+  background: linear-gradient(180deg, #0a0e1e 0%, #101830 20%, #182040 35%, #1a3030 55%, #0a2018 80%, #081810 100%);
 }
 .bg-moonlit::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 200px 200px at 65% 20%, rgba(200,220,255,0.15) 0%, transparent 70%),
     radial-gradient(circle at 65% 20%, rgba(220,240,255,0.3) 0%, rgba(200,220,255,0.05) 15%, transparent 30%);
 }
 
-/* === Particle Systems === */
-#particles {
-  position: absolute; inset: 0;
-  pointer-events: none;
-  overflow: hidden;
+.bg-sky {
+  background: linear-gradient(180deg, #0a1840 0%, #1a3060 15%, #2a5090 35%, #4a80c0 55%, #3a6090 75%, #1a3040 100%);
+}
+.bg-sky::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 40% 25%, rgba(255,255,255,0.05) 0%, transparent 30%),
+    radial-gradient(circle at 70% 40%, rgba(200,220,255,0.08) 0%, transparent 25%);
 }
 
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+.bg-cave {
+  background: linear-gradient(180deg, #0a0510 0%, #100818 20%, #180a20 40%, #100818 60%, #0a0510 100%);
+}
+.bg-cave::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(120,60,180,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 30% 70%, rgba(100,40,150,0.04) 0%, transparent 30%);
 }
 
-.firefly {
-  width: 4px; height: 4px;
-  background: rgba(255, 220, 100, 0.8);
-  box-shadow: 0 0 6px rgba(255, 220, 100, 0.6), 0 0 12px rgba(255, 200, 60, 0.3);
-  animation: firefly-float 8s ease-in-out infinite;
+.bg-snowfield {
+  background: linear-gradient(180deg, #c8d8e8 0%, #d8e4f0 20%, #e0e8f0 40%, #e8f0f4 60%, #d0dce8 80%, #b8c8d8 100%);
+}
+.bg-snowfield::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 60% 30%, rgba(255,255,255,0.4) 0%, transparent 40%),
+    radial-gradient(circle at 30% 50%, rgba(200,220,240,0.2) 0%, transparent 30%);
 }
 
-@keyframes firefly-float {
-  0%, 100% { opacity: 0; transform: translate(0, 0); }
-  20% { opacity: 0.9; }
-  50% { opacity: 0.4; transform: translate(30px, -40px); }
-  80% { opacity: 0.8; }
-}
+/* === Particles === */
+#particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 
-.sakura-petal {
-  width: 8px; height: 6px;
-  background: rgba(255, 180, 200, 0.7);
-  border-radius: 50% 0 50% 0;
-  animation: sakura-fall linear infinite;
-}
+.particle { position: absolute; border-radius: 50%; pointer-events: none; animation-timing-function: linear; animation-iteration-count: infinite; }
 
-@keyframes sakura-fall {
-  0% { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
-  10% { opacity: 0.8; }
-  90% { opacity: 0.6; }
-  100% { transform: translate(-80px, calc(100vh + 20px)) rotate(720deg); opacity: 0; }
-}
+.firefly { width: 4px; height: 4px; background: rgba(255, 220, 100, 0.8); box-shadow: 0 0 6px rgba(255, 220, 100, 0.6), 0 0 12px rgba(255, 200, 60, 0.3); animation: firefly-float 8s ease-in-out infinite; }
+@keyframes firefly-float { 0%, 100% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 0.9; } 50% { opacity: 0.4; transform: translate(30px, -40px); } 80% { opacity: 0.8; } }
 
-.spirit-orb {
-  width: 6px; height: 6px;
-  background: rgba(100, 200, 255, 0.6);
-  box-shadow: 0 0 8px rgba(100, 200, 255, 0.4);
-  animation: spirit-drift 10s ease-in-out infinite;
-}
+.sakura-petal { width: 8px; height: 6px; background: rgba(255, 180, 200, 0.7); border-radius: 50% 0 50% 0; animation: sakura-fall linear infinite; }
+@keyframes sakura-fall { 0% { transform: translate(0, -20px) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.6; } 100% { transform: translate(-80px, calc(100vh + 20px)) rotate(720deg); opacity: 0; } }
 
-@keyframes spirit-drift {
-  0%, 100% { opacity: 0; transform: translate(0, 0) scale(1); }
-  30% { opacity: 0.7; transform: translate(20px, -30px) scale(1.3); }
-  70% { opacity: 0.5; transform: translate(-10px, -60px) scale(0.8); }
-}
+.spirit-orb { width: 6px; height: 6px; background: rgba(100, 200, 255, 0.6); box-shadow: 0 0 8px rgba(100, 200, 255, 0.4); animation: spirit-drift 10s ease-in-out infinite; }
+@keyframes spirit-drift { 0%, 100% { opacity: 0; transform: translate(0, 0) scale(1); } 30% { opacity: 0.7; transform: translate(20px, -30px) scale(1.3); } 70% { opacity: 0.5; transform: translate(-10px, -60px) scale(0.8); } }
 
-/* === Character Sprites === */
+.snowflake { width: 5px; height: 5px; background: rgba(255, 255, 255, 0.8); animation: snow-fall linear infinite; }
+@keyframes snow-fall { 0% { transform: translate(0, -10px) rotate(0deg); opacity: 0; } 10% { opacity: 0.7; } 90% { opacity: 0.5; } 100% { transform: translate(-30px, calc(100vh + 10px)) rotate(360deg); opacity: 0; } }
+
+.feather { width: 10px; height: 4px; background: rgba(100, 150, 220, 0.5); border-radius: 50% 0; animation: feather-drift linear infinite; }
+@keyframes feather-drift { 0% { transform: translate(0, -10px) rotate(0deg); opacity: 0; } 15% { opacity: 0.6; } 85% { opacity: 0.4; } 100% { transform: translate(-60px, calc(100vh + 10px)) rotate(540deg); opacity: 0; } }
+
+/* === Character Layer === */
 #character-layer {
   position: absolute; inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 28%;
-  pointer-events: none;
+  display: flex; justify-content: center; align-items: flex-end;
+  padding-bottom: 28%; pointer-events: none;
 }
 
 .character-sprite {
-  position: absolute;
-  bottom: 22%;
-  width: 260px;
-  height: 400px;
+  position: absolute; bottom: 18%;
+  width: 240px; height: 380px;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
+  display: flex; align-items: center; justify-content: center;
 }
-
 .char-center { left: 50%; transform: translateX(-50%); }
-.char-left { left: 15%; }
-.char-right { right: 15%; left: auto; }
+.char-left { left: 10%; }
+.char-right { right: 10%; left: auto; }
 
-.character-sprite.entering {
-  opacity: 0;
-  transform: translateX(-50%) translateY(20px);
-}
+.character-sprite.entering { opacity: 0; transform: translateX(-50%) translateY(20px); }
+.character-sprite.visible { opacity: 1; }
 
-.character-sprite.visible {
-  opacity: 1;
-}
-
-.character-sprite.beast-transform {
-  animation: beast-glow 2s ease-in-out;
-}
-
+.character-sprite.beast-transform { animation: beast-glow 2s ease-in-out; }
 @keyframes beast-glow {
   0% { filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4)) brightness(1); }
   30% { filter: drop-shadow(0 0 40px rgba(255,180,80,0.8)) brightness(1.5); }
@@ -262,497 +211,192 @@ html, body {
   100% { filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4)) brightness(1); }
 }
 
-/* Character SVG portraits */
-.char-portrait {
+/* Placeholder portrait when no image */
+.char-placeholder {
   width: 100%; height: 100%;
+  border-radius: 12px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; font-family: var(--font);
+  overflow: hidden; position: relative;
+}
+.char-placeholder::before {
+  content: ''; position: absolute; inset: 0;
+  opacity: 0.5; border-radius: 12px;
+}
+.char-placeholder .placeholder-icon { font-size: 64px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); z-index: 1; }
+.char-placeholder .placeholder-name {
+  font-size: 14px; color: rgba(255,255,255,0.9); z-index: 1;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5); letter-spacing: 2px;
 }
 
-/* === Dialogue Box === */
-#dialogue-layer {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 0 16px env(safe-area-inset-bottom, 16px);
+.char-portrait-img {
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: center bottom;
 }
+
+/* === Dialogue === */
+#dialogue-layer { position: absolute; bottom: 0; left: 0; right: 0; padding: 0 16px env(safe-area-inset-bottom, 16px); }
 
 #dialogue-box {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto 16px;
-  background: var(--ui-bg);
-  border: 1px solid var(--ui-border);
-  border-radius: 12px;
-  padding: 16px 20px 20px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 -4px 30px rgba(0,0,0,0.3);
-  cursor: pointer;
-  min-height: 120px;
+  position: relative; max-width: 800px; margin: 0 auto 16px;
+  background: var(--ui-bg); border: 1px solid var(--ui-border);
+  border-radius: 12px; padding: 16px 20px 20px;
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 -4px 30px rgba(0,0,0,0.3); cursor: pointer; min-height: 120px;
 }
 
-#speaker-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-name);
-  margin-bottom: 8px;
-  letter-spacing: 1px;
-  font-family: var(--font);
-}
+#speaker-name { font-size: 14px; font-weight: 600; color: var(--text-name); margin-bottom: 8px; letter-spacing: 1px; font-family: var(--font); }
+#dialogue-text { font-size: 16px; line-height: 1.8; color: var(--text); font-family: var(--font); min-height: 60px; }
+#dialogue-text .char { opacity: 0; display: inline; transition: opacity 0.05s; }
+#dialogue-text .char.visible { opacity: 1; }
 
-#dialogue-text {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--text);
-  font-family: var(--font);
-  min-height: 60px;
-}
+#text-indicator { position: absolute; bottom: 12px; right: 16px; width: 12px; height: 12px; opacity: 0; transition: opacity 0.3s; }
+#text-indicator.show { opacity: 0.6; animation: indicator-bounce 1s ease-in-out infinite; }
+@keyframes indicator-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 
-#dialogue-text .char {
-  opacity: 0;
-  display: inline;
-  transition: opacity 0.05s;
-}
-#dialogue-text .char.visible {
-  opacity: 1;
-}
-
-#text-indicator {
-  position: absolute;
-  bottom: 12px; right: 16px;
-  width: 12px; height: 12px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-#text-indicator.show {
-  opacity: 0.6;
-  animation: indicator-bounce 1s ease-in-out infinite;
-}
-
-@keyframes indicator-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
-}
-
-/* === Choice Menu === */
+/* === Choices === */
 #choice-layer {
-  position: absolute;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(4px);
-  z-index: 20;
+  position: absolute; inset: 0; display: none;
+  justify-content: center; align-items: center;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 20;
 }
-
 #choice-layer.active { display: flex; }
 
-#choice-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 500px;
-  width: 90%;
-}
+#choice-container { display: flex; flex-direction: column; gap: 12px; max-width: 500px; width: 90%; }
 
 .choice-btn {
-  background: var(--ui-bg);
-  border: 1px solid var(--ui-border);
-  border-radius: 8px;
-  padding: 14px 20px;
-  color: var(--text);
-  font-family: var(--font);
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
-  line-height: 1.5;
+  background: var(--ui-bg); border: 1px solid var(--ui-border);
+  border-radius: 8px; padding: 14px 20px; color: var(--text);
+  font-family: var(--font); font-size: 15px; cursor: pointer;
+  transition: all 0.3s ease; text-align: left; line-height: 1.5;
 }
+.choice-btn:hover { background: rgba(212, 168, 84, 0.15); border-color: var(--accent-gold); transform: translateX(4px); }
+.choice-btn:active { transform: translateX(2px); background: rgba(212, 168, 84, 0.25); }
 
-.choice-btn:hover {
-  background: rgba(212, 168, 84, 0.15);
-  border-color: var(--accent-gold);
-  transform: translateX(4px);
-}
-
-.choice-btn:active {
-  transform: translateX(2px);
-  background: rgba(212, 168, 84, 0.25);
-}
-
-/* === Affection Display === */
+/* === Affection === */
 #affection-display {
-  position: absolute;
-  top: 16px; right: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.5s;
+  position: absolute; top: 16px; right: 16px;
+  display: flex; flex-direction: column; gap: 6px;
+  z-index: 10; opacity: 0; transition: opacity 0.5s;
 }
 #affection-display.show { opacity: 1; }
 
 .affection-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(10,10,20,0.8);
-  border-radius: 20px;
-  padding: 4px 12px 4px 6px;
-  backdrop-filter: blur(8px);
-  font-family: var(--font-ui);
-  font-size: 12px;
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(10,10,20,0.8); border-radius: 20px;
+  padding: 3px 10px 3px 5px; backdrop-filter: blur(8px);
+  font-family: var(--font-ui); font-size: 11px;
 }
-
-.aff-icon {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
-}
+.aff-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.aff-name { color: var(--text-dim); font-size: 10px; min-width: 24px; }
+.aff-meter { width: 40px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+.aff-fill { height: 100%; border-radius: 2px; transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
 
 .aff-fox .aff-icon { background: var(--accent-fox-glow); }
 .aff-wolf .aff-icon { background: var(--accent-wolf-glow); }
 .aff-deer .aff-icon { background: var(--accent-deer-glow); }
-
-.aff-meter {
-  width: 60px; height: 4px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.aff-fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
+.aff-whitewolf .aff-icon { background: var(--accent-whitewolf-glow); }
+.aff-hawk .aff-icon { background: var(--accent-hawk-glow); }
+.aff-snake .aff-icon { background: var(--accent-snake-glow); }
 
 .aff-fox .aff-fill { background: var(--accent-fox); }
 .aff-wolf .aff-fill { background: var(--accent-wolf); }
 .aff-deer .aff-fill { background: var(--accent-deer); }
+.aff-whitewolf .aff-fill { background: var(--accent-whitewolf); }
+.aff-hawk .aff-fill { background: var(--accent-hawk); }
+.aff-snake .aff-fill { background: var(--accent-snake); }
 
 .aff-change {
-  position: fixed;
-  font-size: 18px;
-  font-weight: 700;
-  pointer-events: none;
-  animation: aff-popup 1.5s ease-out forwards;
-  z-index: 100;
+  position: fixed; font-size: 18px; font-weight: 700; pointer-events: none;
+  animation: aff-popup 1.5s ease-out forwards; z-index: 100;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
-
-@keyframes aff-popup {
-  0% { opacity: 1; transform: translateY(0) scale(1); }
-  50% { opacity: 1; transform: translateY(-30px) scale(1.2); }
-  100% { opacity: 0; transform: translateY(-60px) scale(0.8); }
-}
+@keyframes aff-popup { 0% { opacity: 1; transform: translateY(0) scale(1); } 50% { opacity: 1; transform: translateY(-30px) scale(1.2); } 100% { opacity: 0; transform: translateY(-60px) scale(0.8); } }
 
 /* === Title Screen === */
 #title-screen {
-  position: absolute; inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(180deg,
-    #0a0e1e 0%, #101828 20%, #0a2018 40%,
-    #1a3020 60%, #0a1810 80%, #050a08 100%);
-  z-index: 50;
-  transition: opacity 1.5s ease;
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  background: linear-gradient(180deg, #0a0e1e 0%, #101828 20%, #0a2018 40%, #1a3020 60%, #0a1810 80%, #050a08 100%);
+  z-index: 50; transition: opacity 1.5s ease;
 }
+#title-screen.hidden { opacity: 0; pointer-events: none; }
 
-#title-screen.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-#title-particles {
-  position: absolute; inset: 0;
-  overflow: hidden;
-}
-
+#title-particles { position: absolute; inset: 0; overflow: hidden; }
 .title-firefly {
-  position: absolute;
-  width: 3px; height: 3px;
-  background: rgba(255, 220, 100, 0.7);
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 220, 100, 0.5);
+  position: absolute; width: 3px; height: 3px; background: rgba(255, 220, 100, 0.7);
+  border-radius: 50%; box-shadow: 0 0 6px rgba(255, 220, 100, 0.5);
   animation: title-fly linear infinite;
 }
+@keyframes title-fly { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 0.8; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
 
-@keyframes title-fly {
-  0% { opacity: 0; transform: translate(0, 0); }
-  20% { opacity: 0.8; }
-  80% { opacity: 0.6; }
-  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
-}
-
-#title-content {
-  position: relative;
-  text-align: center;
-  z-index: 1;
-}
-
-#title-jp {
-  font-size: 14px;
-  color: var(--accent-gold);
-  letter-spacing: 8px;
-  margin-bottom: 12px;
-  opacity: 0;
-  animation: title-fade-in 2s ease 0.5s forwards;
-  font-family: var(--font);
-}
-
-#title-main {
-  font-size: clamp(36px, 8vw, 64px);
-  font-weight: 700;
-  color: var(--text);
-  text-shadow: 0 0 40px rgba(212, 168, 84, 0.3);
-  margin-bottom: 8px;
-  opacity: 0;
-  animation: title-fade-in 2s ease 1s forwards;
-  font-family: var(--font);
-}
-
-#title-sub {
-  font-size: 14px;
-  color: var(--text-dim);
-  letter-spacing: 4px;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: title-fade-in 2s ease 1.5s forwards;
-  font-family: var(--font);
-}
-
-@keyframes title-fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+#title-content { position: relative; text-align: center; z-index: 1; }
+#title-jp { font-size: 14px; color: var(--accent-gold); letter-spacing: 8px; margin-bottom: 12px; opacity: 0; animation: title-fade 2s ease 0.5s forwards; font-family: var(--font); }
+#title-main { font-size: clamp(36px, 8vw, 64px); font-weight: 700; color: var(--text); text-shadow: 0 0 40px rgba(212, 168, 84, 0.3); margin-bottom: 8px; opacity: 0; animation: title-fade 2s ease 1s forwards; font-family: var(--font); }
+#title-sub { font-size: 14px; color: var(--text-dim); letter-spacing: 4px; margin-bottom: 48px; opacity: 0; animation: title-fade 2s ease 1.5s forwards; font-family: var(--font); }
+@keyframes title-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 #start-btn {
-  background: transparent;
-  border: 1px solid var(--accent-gold);
-  color: var(--accent-gold);
-  font-family: var(--font);
-  font-size: 16px;
-  padding: 12px 40px;
-  border-radius: 4px;
-  cursor: pointer;
-  letter-spacing: 4px;
-  transition: all 0.4s ease;
-  opacity: 0;
-  animation: title-fade-in 2s ease 2s forwards;
+  background: transparent; border: 1px solid var(--accent-gold);
+  color: var(--accent-gold); font-family: var(--font); font-size: 16px;
+  padding: 12px 40px; border-radius: 4px; cursor: pointer; letter-spacing: 4px;
+  transition: all 0.4s ease; opacity: 0; animation: title-fade 2s ease 2s forwards;
 }
+#start-btn:hover { background: rgba(212, 168, 84, 0.15); box-shadow: 0 0 20px rgba(212, 168, 84, 0.2); }
 
-#start-btn:hover {
-  background: rgba(212, 168, 84, 0.15);
-  box-shadow: 0 0 20px rgba(212, 168, 84, 0.2);
-}
+/* === Transform Overlay === */
+#transform-overlay { position: absolute; inset: 0; display: none; justify-content: center; align-items: center; z-index: 30; pointer-events: none; }
+#transform-overlay.active { display: flex; animation: transform-flash 2.5s ease-in-out forwards; }
+@keyframes transform-flash { 0% { background: transparent; } 20% { background: rgba(255, 220, 140, 0.6); } 40% { background: rgba(255, 200, 100, 0.3); } 60% { background: rgba(255, 180, 80, 0.1); } 100% { background: transparent; } }
+#transform-text { font-size: clamp(24px, 5vw, 40px); font-weight: 700; color: var(--accent-gold); text-shadow: 0 0 30px rgba(212, 168, 84, 0.8); font-family: var(--font); opacity: 0; animation: transform-text-show 2.5s ease-in-out forwards; }
+@keyframes transform-text-show { 0% { opacity: 0; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1.1); } 70% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.05); } }
 
-/* === CG / Full screen image overlay === */
-#cg-layer {
-  position: absolute; inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.9);
-  z-index: 15;
-  cursor: pointer;
-}
-#cg-layer.active { display: flex; }
+/* === Chapter overlay === */
+#chapter-overlay { position: absolute; inset: 0; display: none; justify-content: center; align-items: center; flex-direction: column; background: rgba(0,0,0,0.85); z-index: 25; pointer-events: none; }
+#chapter-overlay.active { display: flex; }
+#chapter-num { font-size: 13px; color: var(--accent-gold); letter-spacing: 6px; margin-bottom: 12px; opacity: 0; animation: chap-in 1.5s ease 0.3s forwards; }
+#chapter-title { font-size: clamp(24px, 5vw, 36px); font-weight: 700; color: var(--text); font-family: var(--font); opacity: 0; animation: chap-in 1.5s ease 0.6s forwards; }
+@keyframes chap-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-.cg-scene {
-  width: 90%; max-width: 700px;
-  aspect-ratio: 16/9;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-}
+/* === Ending === */
+#ending-screen { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 40; background: rgba(0,0,0,0.95); }
+#ending-screen.active { display: flex; }
+#ending-title { font-size: clamp(28px, 6vw, 48px); font-weight: 700; color: var(--accent-gold); font-family: var(--font); margin-bottom: 16px; text-shadow: 0 0 30px rgba(212,168,84,0.4); }
+#ending-subtitle { font-size: 16px; color: var(--text-dim); font-family: var(--font); margin-bottom: 40px; text-align: center; line-height: 1.8; padding: 0 20px; white-space: pre-line; }
+#ending-restart { background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); font-family: var(--font); font-size: 15px; padding: 10px 32px; border-radius: 4px; cursor: pointer; letter-spacing: 2px; transition: all 0.3s; }
+#ending-restart:hover { background: rgba(212,168,84,0.15); }
 
-/* === Beast Transform Overlay === */
-#transform-overlay {
-  position: absolute; inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 30;
-  background: transparent;
-  pointer-events: none;
-}
+/* === Menu === */
+#menu-btn { position: absolute; top: 16px; left: 16px; z-index: 10; width: 36px; height: 36px; background: rgba(10,10,20,0.7); border: 1px solid rgba(212,168,84,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-dim); font-size: 14px; backdrop-filter: blur(8px); transition: all 0.3s; }
+#menu-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
 
-#transform-overlay.active {
-  display: flex;
-  animation: transform-flash 2.5s ease-in-out forwards;
-}
+.save-toast { position: fixed; top: 60px; left: 50%; transform: translateX(-50%); background: rgba(10,10,20,0.9); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 8px 20px; font-family: var(--font-ui); font-size: 13px; color: var(--accent-gold); z-index: 100; opacity: 0; animation: toast-show 2s ease forwards; }
+@keyframes toast-show { 0% { opacity: 0; transform: translateX(-50%) translateY(-10px); } 15% { opacity: 1; transform: translateX(-50%) translateY(0); } 75% { opacity: 1; } 100% { opacity: 0; } }
 
-@keyframes transform-flash {
-  0% { background: transparent; }
-  20% { background: rgba(255, 220, 140, 0.6); }
-  40% { background: rgba(255, 200, 100, 0.3); }
-  60% { background: rgba(255, 180, 80, 0.1); }
-  100% { background: transparent; }
-}
-
-#transform-text {
-  font-size: clamp(24px, 5vw, 40px);
-  font-weight: 700;
-  color: var(--accent-gold);
-  text-shadow: 0 0 30px rgba(212, 168, 84, 0.8);
-  font-family: var(--font);
-  opacity: 0;
-  animation: transform-text-show 2.5s ease-in-out forwards;
-}
-
-@keyframes transform-text-show {
-  0% { opacity: 0; transform: scale(0.8); }
-  30% { opacity: 1; transform: scale(1.1); }
-  70% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.05); }
-}
-
-/* === Menu Button === */
-#menu-btn {
-  position: absolute;
-  top: 16px; left: 16px;
-  z-index: 10;
-  width: 36px; height: 36px;
-  background: rgba(10,10,20,0.7);
-  border: 1px solid rgba(212,168,84,0.2);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  color: var(--text-dim);
-  font-size: 14px;
+/* === Day indicator === */
+#day-indicator {
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  background: rgba(10,10,20,0.7); border: 1px solid rgba(212,168,84,0.2);
+  border-radius: 20px; padding: 4px 16px;
+  font-family: var(--font); font-size: 12px; color: var(--accent-gold);
+  letter-spacing: 2px; z-index: 10; opacity: 0; transition: opacity 0.5s;
   backdrop-filter: blur(8px);
-  transition: all 0.3s;
 }
-#menu-btn:hover {
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
-}
+#day-indicator.show { opacity: 1; }
 
-/* === Save indicator === */
-.save-toast {
-  position: fixed;
-  top: 60px; left: 50%;
-  transform: translateX(-50%);
-  background: rgba(10,10,20,0.9);
-  border: 1px solid var(--accent-gold);
-  border-radius: 6px;
-  padding: 8px 20px;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--accent-gold);
-  z-index: 100;
-  opacity: 0;
-  animation: toast-show 2s ease forwards;
-}
-
-@keyframes toast-show {
-  0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-  15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  75% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* === Mobile adjustments === */
 @media (max-width: 600px) {
   #dialogue-box { margin: 0 8px 8px; padding: 12px 16px 16px; min-height: 100px; }
   #dialogue-text { font-size: 14px; line-height: 1.7; }
-  .character-sprite { width: 200px; height: 320px; }
+  .character-sprite { width: 180px; height: 300px; }
   .choice-btn { font-size: 14px; padding: 12px 16px; }
-  .affection-bar { padding: 3px 8px 3px 4px; }
-  .aff-meter { width: 40px; }
-}
-
-/* === Ending screen === */
-#ending-screen {
-  position: absolute; inset: 0;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 40;
-  background: rgba(0,0,0,0.95);
-}
-#ending-screen.active { display: flex; }
-
-#ending-title {
-  font-size: clamp(28px, 6vw, 48px);
-  font-weight: 700;
-  color: var(--accent-gold);
-  font-family: var(--font);
-  margin-bottom: 16px;
-  text-shadow: 0 0 30px rgba(212,168,84,0.4);
-}
-
-#ending-subtitle {
-  font-size: 16px;
-  color: var(--text-dim);
-  font-family: var(--font);
-  margin-bottom: 40px;
-  text-align: center;
-  line-height: 1.8;
-  padding: 0 20px;
-}
-
-#ending-restart {
-  background: transparent;
-  border: 1px solid var(--accent-gold);
-  color: var(--accent-gold);
-  font-family: var(--font);
-  font-size: 15px;
-  padding: 10px 32px;
-  border-radius: 4px;
-  cursor: pointer;
-  letter-spacing: 2px;
-  transition: all 0.3s;
-}
-#ending-restart:hover {
-  background: rgba(212,168,84,0.15);
-}
-
-/* === Chapter title overlay === */
-#chapter-overlay {
-  position: absolute; inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: rgba(0,0,0,0.85);
-  z-index: 25;
-  pointer-events: none;
-}
-#chapter-overlay.active { display: flex; }
-
-#chapter-num {
-  font-size: 13px;
-  color: var(--accent-gold);
-  letter-spacing: 6px;
-  margin-bottom: 12px;
-  opacity: 0;
-  animation: chap-in 1.5s ease 0.3s forwards;
-}
-
-#chapter-title {
-  font-size: clamp(24px, 5vw, 36px);
-  font-weight: 700;
-  color: var(--text);
-  font-family: var(--font);
-  opacity: 0;
-  animation: chap-in 1.5s ease 0.6s forwards;
-}
-
-@keyframes chap-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  .aff-meter { width: 30px; }
+  .aff-name { display: none; }
 }
 </style>
 </head>
 <body>
 <div id="game">
-  <!-- Title Screen -->
   <div id="title-screen">
     <div id="title-particles"></div>
     <div id="title-content">
@@ -763,61 +407,36 @@ html, body {
     </div>
   </div>
 
-  <!-- Game Layer -->
   <div id="scene-bg"></div>
   <div id="particles"></div>
   <div id="character-layer"></div>
 
-  <!-- Transform overlay -->
-  <div id="transform-overlay">
-    <div id="transform-text"></div>
-  </div>
+  <div id="transform-overlay"><div id="transform-text"></div></div>
+  <div id="chapter-overlay"><div id="chapter-num"></div><div id="chapter-title"></div></div>
 
-  <!-- Chapter overlay -->
-  <div id="chapter-overlay">
-    <div id="chapter-num"></div>
-    <div id="chapter-title"></div>
-  </div>
+  <div id="day-indicator"></div>
 
-  <!-- CG Layer -->
-  <div id="cg-layer"></div>
-
-  <!-- Affection -->
   <div id="affection-display">
-    <div class="affection-bar aff-fox">
-      <div class="aff-icon">🦊</div>
-      <div class="aff-meter"><div class="aff-fill" id="fox-fill" style="width:0%"></div></div>
-    </div>
-    <div class="affection-bar aff-wolf">
-      <div class="aff-icon">🐺</div>
-      <div class="aff-meter"><div class="aff-fill" id="wolf-fill" style="width:0%"></div></div>
-    </div>
-    <div class="affection-bar aff-deer">
-      <div class="aff-icon">🦌</div>
-      <div class="aff-meter"><div class="aff-fill" id="deer-fill" style="width:0%"></div></div>
-    </div>
+    <div class="affection-bar aff-fox"><div class="aff-icon">🦊</div><div class="aff-name">琥珀</div><div class="aff-meter"><div class="aff-fill" id="fox-fill" style="width:0%"></div></div></div>
+    <div class="affection-bar aff-wolf"><div class="aff-icon">🐺</div><div class="aff-name">银朗</div><div class="aff-meter"><div class="aff-fill" id="wolf-fill" style="width:0%"></div></div></div>
+    <div class="affection-bar aff-deer"><div class="aff-icon">🦌</div><div class="aff-name">白露</div><div class="aff-meter"><div class="aff-fill" id="deer-fill" style="width:0%"></div></div></div>
+    <div class="affection-bar aff-whitewolf"><div class="aff-icon">🐾</div><div class="aff-name">雪丸</div><div class="aff-meter"><div class="aff-fill" id="whitewolf-fill" style="width:0%"></div></div></div>
+    <div class="affection-bar aff-hawk"><div class="aff-icon">🦅</div><div class="aff-name">苍羽</div><div class="aff-meter"><div class="aff-fill" id="hawk-fill" style="width:0%"></div></div></div>
+    <div class="affection-bar aff-snake"><div class="aff-icon">🐍</div><div class="aff-name">玄夜</div><div class="aff-meter"><div class="aff-fill" id="snake-fill" style="width:0%"></div></div></div>
   </div>
 
-  <!-- Menu -->
   <div id="menu-btn">☰</div>
 
-  <!-- Dialogue -->
   <div id="dialogue-layer">
     <div id="dialogue-box">
       <div id="speaker-name"></div>
       <div id="dialogue-text"></div>
-      <svg id="text-indicator" viewBox="0 0 12 12">
-        <path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+      <svg id="text-indicator" viewBox="0 0 12 12"><path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </div>
   </div>
 
-  <!-- Choices -->
-  <div id="choice-layer">
-    <div id="choice-container"></div>
-  </div>
+  <div id="choice-layer"><div id="choice-container"></div></div>
 
-  <!-- Ending -->
   <div id="ending-screen">
     <div id="ending-title"></div>
     <div id="ending-subtitle"></div>
@@ -826,1349 +445,1249 @@ html, body {
 </div>
 
 <script>
-// === ENGINE ===
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
+// ============================================================
+//  IMAGE CONFIG — 把GPT生成的图放到 assets/ 后修改这里的路径
+//  设为 null 则使用 emoji 占位符
+// ============================================================
+const PORTRAITS = {
+  'kohaku-human':  null, // e.g. 'assets/kohaku-human.png'
+  'kohaku-beast':  null,
+  'ginro-human':   null,
+  'ginro-beast':   null,
+  'shiro-human':   null,
+  'shiro-beast':   null,
+  'yukimaru-human': null,
+  'yukimaru-beast': null,
+  'sou-human':     null,
+  'sou-beast':     null,
+  'genya-human':   null,
+  'genya-beast':   null,
+};
+
+// ============================================================
+//  CHARACTER DEFINITIONS
+// ============================================================
+const CHARS = {
+  narrator: { name: '', color: '#9a8e7e' },
+  player: { name: '你', color: '#e8e0d4' },
+  kohaku: {
+    name: '琥珀', color: '#ff6b4a', affKey: 'fox',
+    icon: '🦊', desc: '神社巫女 · 九尾灵狐',
+    human: 'kohaku-human', beast: 'kohaku-beast',
+    placeholderBg: 'linear-gradient(135deg, #8b2500 0%, #ff6b4a 50%, #ffa07a 100%)',
+  },
+  ginro: {
+    name: '银朗', color: '#7eb8da', affKey: 'wolf',
+    icon: '🐺', desc: '森之守护 · 苍银狼',
+    human: 'ginro-human', beast: 'ginro-beast',
+    placeholderBg: 'linear-gradient(135deg, #2a3a5a 0%, #7eb8da 50%, #b0d4e8 100%)',
+  },
+  shiro: {
+    name: '白露', color: '#8fd4a0', affKey: 'deer',
+    icon: '🦌', desc: '林间精灵 · 白玉鹿',
+    human: 'shiro-human', beast: 'shiro-beast',
+    placeholderBg: 'linear-gradient(135deg, #2a5a3a 0%, #8fd4a0 50%, #c0f0d0 100%)',
+  },
+  yukimaru: {
+    name: '雪丸', color: '#e8e0d0', affKey: 'whitewolf',
+    icon: '🐾', desc: '北方流浪者 · 白狼',
+    human: 'yukimaru-human', beast: 'yukimaru-beast',
+    placeholderBg: 'linear-gradient(135deg, #8a8a8a 0%, #e8e0d0 50%, #f8f4f0 100%)',
+  },
+  sou: {
+    name: '苍羽', color: '#4a7eb8', affKey: 'hawk',
+    icon: '🦅', desc: '天空守望 · 蓝鹰',
+    human: 'sou-human', beast: 'sou-beast',
+    placeholderBg: 'linear-gradient(135deg, #1a2a5a 0%, #4a7eb8 50%, #8ab0e0 100%)',
+  },
+  genya: {
+    name: '玄夜', color: '#9a5abf', affKey: 'snake',
+    icon: '🐍', desc: '幽暗低语 · 黑蛇',
+    human: 'genya-human', beast: 'genya-beast',
+    placeholderBg: 'linear-gradient(135deg, #1a0a30 0%, #9a5abf 50%, #c090e0 100%)',
+  },
+};
+
 const state = {
-  affection: { fox: 0, wolf: 0, deer: 0 },
+  affection: { fox: 0, wolf: 0, deer: 0, whitewolf: 0, hawk: 0, snake: 0 },
   flags: {},
   currentNode: null,
   textComplete: false,
   charTimers: [],
   particleInterval: null,
+  day: 0,
 };
 
-// Character definitions
-const CHARS = {
-  narrator: { name: '', color: '#9a8e7e' },
-  player: { name: '你', color: '#e8e0d4' },
-  kohaku: {
-    name: '琥珀',
-    nameJp: 'コハク',
-    color: '#ff6b4a',
-    desc: '神社巫女 · 九尾灵狐',
-    human: 'fox-human',
-    beast: 'fox-beast',
-  },
-  ginro: {
-    name: '银朗',
-    nameJp: 'ギンロウ',
-    color: '#7eb8da',
-    desc: '森之守护 · 苍银狼',
-    human: 'wolf-human',
-    beast: 'wolf-beast',
-  },
-  shiro: {
-    name: '白露',
-    nameJp: 'シロツユ',
-    color: '#8fd4a0',
-    desc: '林间精灵 · 白玉鹿',
-    human: 'deer-human',
-    beast: 'deer-beast',
-  },
-};
-
-// SVG character portraits
-function getCharSVG(charId, form) {
-  const svgs = {
-    'fox-human': `<svg viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="fh-glow"><stop offset="0%" stop-color="rgba(255,107,74,0.15)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      </defs>
-      <circle cx="130" cy="380" rx="60" ry="10" fill="rgba(0,0,0,0.2)"/>
-      <ellipse cx="130" cy="380" rx="40" ry="8" fill="url(#fh-glow)"/>
-      <!-- Body -->
-      <path d="M100 200 Q90 240 85 300 Q85 350 100 370 L160 370 Q175 350 175 300 Q170 240 160 200 Z" fill="#f8f0e8" stroke="#e8d4c0" stroke-width="1"/>
-      <!-- Miko outfit -->
-      <path d="M95 210 Q90 250 88 300 L172 300 Q170 250 165 210 Z" fill="#c83030"/>
-      <path d="M100 200 L98 230 L162 230 L160 200 Z" fill="#f0f0f0"/>
-      <!-- Hakama ties -->
-      <path d="M110 230 L120 240 L140 240 L150 230" fill="none" stroke="#c83030" stroke-width="2"/>
-      <!-- Head -->
-      <ellipse cx="130" cy="140" rx="38" ry="42" fill="#f8ece0"/>
-      <!-- Fox ears (partial, peeking) -->
-      <path d="M100 105 L90 70 L108 98" fill="#f8ece0" stroke="#e8d0b8" stroke-width="1"/>
-      <path d="M160 105 L170 70 L152 98" fill="#f8ece0" stroke="#e8d0b8" stroke-width="1"/>
-      <path d="M97 100 L92 78 L106 96" fill="#ffb0a0"/>
-      <path d="M163 100 L168 78 L154 96" fill="#ffb0a0"/>
-      <!-- Hair -->
-      <path d="M92 130 Q80 100 95 75 Q110 55 130 50 Q150 55 165 75 Q180 100 168 130" fill="#d44020" opacity="0.9"/>
-      <path d="M92 130 Q85 150 88 180 L95 180 Q95 155 98 135 Z" fill="#d44020" opacity="0.85"/>
-      <path d="M168 130 Q175 150 172 180 L165 180 Q165 155 162 135 Z" fill="#d44020" opacity="0.85"/>
-      <!-- Face -->
-      <ellipse cx="118" cy="138" rx="4" ry="4.5" fill="#a03020"/>
-      <ellipse cx="142" cy="138" rx="4" ry="4.5" fill="#a03020"/>
-      <ellipse cx="119" cy="137" rx="1.5" ry="1.5" fill="#f0f0f0"/>
-      <ellipse cx="143" cy="137" rx="1.5" ry="1.5" fill="#f0f0f0"/>
-      <path d="M124 152 Q130 156 136 152" fill="none" stroke="#c07060" stroke-width="1.5" stroke-linecap="round"/>
-      <ellipse cx="112" cy="148" rx="6" ry="3" fill="rgba(255,140,120,0.3)"/>
-      <ellipse cx="148" cy="148" rx="6" ry="3" fill="rgba(255,140,120,0.3)"/>
-      <!-- Tail hint -->
-      <path d="M160 320 Q190 300 200 270 Q210 250 200 230" fill="none" stroke="#d44020" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
-      <path d="M200 232 Q195 225 205 220" fill="#f8e0d0" stroke="none"/>
-    </svg>`,
-
-    'fox-beast': `<svg viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="fb-glow"><stop offset="0%" stop-color="rgba(255,107,74,0.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      </defs>
-      <ellipse cx="130" cy="370" rx="80" ry="12" fill="url(#fb-glow)"/>
-      <!-- Fox body -->
-      <ellipse cx="130" cy="280" rx="55" ry="70" fill="#d45030"/>
-      <ellipse cx="130" cy="290" rx="40" ry="50" fill="#f8d8c0"/>
-      <!-- Front legs -->
-      <rect x="100" y="330" width="14" height="50" rx="7" fill="#d45030"/>
-      <rect x="146" y="330" width="14" height="50" rx="7" fill="#d45030"/>
-      <ellipse cx="107" cy="378" rx="9" ry="5" fill="#1a1018"/>
-      <ellipse cx="153" cy="378" rx="9" ry="5" fill="#1a1018"/>
-      <!-- Head -->
-      <ellipse cx="130" cy="190" rx="42" ry="36" fill="#d45030"/>
-      <!-- Inner face -->
-      <ellipse cx="130" cy="198" rx="30" ry="24" fill="#f8d8c0"/>
-      <!-- Ears -->
-      <path d="M95 170 L80 120 L110 160" fill="#d45030"/>
-      <path d="M165 170 L180 120 L150 160" fill="#d45030"/>
-      <path d="M97 165 L87 130 L108 158" fill="#ffb0a0"/>
-      <path d="M163 165 L173 130 L152 158" fill="#ffb0a0"/>
-      <!-- Eyes (glowing) -->
-      <ellipse cx="115" cy="188" rx="7" ry="8" fill="#a03020"/>
-      <ellipse cx="145" cy="188" rx="7" ry="8" fill="#a03020"/>
-      <ellipse cx="116" cy="186" rx="3" ry="3" fill="#ff8060"/>
-      <ellipse cx="146" cy="186" rx="3" ry="3" fill="#ff8060"/>
-      <ellipse cx="117" cy="185" rx="1.5" ry="1.5" fill="#fff"/>
-      <ellipse cx="147" cy="185" rx="1.5" ry="1.5" fill="#fff"/>
-      <!-- Nose -->
-      <ellipse cx="130" cy="205" rx="4" ry="3" fill="#1a1018"/>
-      <!-- Multiple tails -->
-      <path d="M155 300 Q200 280 220 240 Q230 220 220 200" fill="none" stroke="#d45030" stroke-width="10" stroke-linecap="round"/>
-      <path d="M150 310 Q195 300 215 260 Q225 240 215 220" fill="none" stroke="#c04020" stroke-width="8" stroke-linecap="round"/>
-      <path d="M145 315 Q185 310 200 280 Q210 260 200 240" fill="none" stroke="#d45030" stroke-width="9" stroke-linecap="round"/>
-      <!-- Tail tips -->
-      <circle cx="220" cy="198" r="8" fill="#f8e0d0"/>
-      <circle cx="215" cy="218" r="7" fill="#f8e0d0"/>
-      <circle cx="200" cy="238" r="7" fill="#f8e0d0"/>
-      <!-- Spirit fire -->
-      <circle cx="80" cy="170" r="8" fill="rgba(255,180,80,0.5)"/>
-      <circle cx="80" cy="170" r="4" fill="rgba(255,220,140,0.8)"/>
-      <circle cx="185" cy="160" r="6" fill="rgba(255,180,80,0.4)"/>
-      <circle cx="185" cy="160" r="3" fill="rgba(255,220,140,0.7)"/>
-    </svg>`,
-
-    'wolf-human': `<svg viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="wh-glow"><stop offset="0%" stop-color="rgba(126,184,218,0.15)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      </defs>
-      <ellipse cx="130" cy="380" rx="40" ry="8" fill="url(#wh-glow)"/>
-      <!-- Body -->
-      <path d="M95 200 Q85 240 82 300 Q82 350 98 370 L162 370 Q178 350 178 300 Q175 240 165 200 Z" fill="#d8e4f0" stroke="#c0d0e0" stroke-width="1"/>
-      <!-- Outfit - dark kimono-style -->
-      <path d="M95 200 L92 210 L90 300 Q90 340 98 370 L162 370 Q170 340 170 300 L168 210 L165 200 Z" fill="#304060"/>
-      <path d="M115 200 L110 370" fill="none" stroke="#405878" stroke-width="1"/>
-      <path d="M130 200 L130 370" fill="none" stroke="#405878" stroke-width="1"/>
-      <!-- Belt -->
-      <rect x="92" y="250" width="76" height="12" rx="2" fill="#506880"/>
-      <!-- Head -->
-      <ellipse cx="130" cy="138" rx="36" ry="40" fill="#e0e8f0"/>
-      <!-- Wolf ears -->
-      <path d="M102 108 L88 65 L112 100" fill="#c0d0e0"/>
-      <path d="M158 108 L172 65 L148 100" fill="#c0d0e0"/>
-      <path d="M100 104 L93 75 L110 98" fill="#d0d8e0"/>
-      <path d="M160 104 L167 75 L150 98" fill="#d0d8e0"/>
-      <!-- Hair -->
-      <path d="M94 128 Q82 100 98 72 Q112 52 130 48 Q148 52 162 72 Q178 100 166 128" fill="#a0b8d0"/>
-      <path d="M94 128 Q88 148 90 175 L96 175 Q96 152 100 132 Z" fill="#a0b8d0" opacity="0.9"/>
-      <path d="M166 128 Q172 148 170 175 L164 175 Q164 152 160 132 Z" fill="#a0b8d0" opacity="0.9"/>
-      <!-- Longer strands -->
-      <path d="M90 175 Q85 200 88 230" fill="none" stroke="#a0b8d0" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
-      <path d="M170 175 Q175 200 172 230" fill="none" stroke="#a0b8d0" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
-      <!-- Face -->
-      <ellipse cx="116" cy="136" rx="4" ry="5" fill="#405878"/>
-      <ellipse cx="144" cy="136" rx="4" ry="5" fill="#405878"/>
-      <ellipse cx="117" cy="135" rx="1.5" ry="1.5" fill="#8ab8e0"/>
-      <ellipse cx="145" cy="135" rx="1.5" ry="1.5" fill="#8ab8e0"/>
-      <path d="M126 150 L130 153 L134 150" fill="none" stroke="#8090a0" stroke-width="1.5" stroke-linecap="round"/>
-      <!-- Scar -->
-      <path d="M150 128 L158 140" fill="none" stroke="rgba(180,140,140,0.4)" stroke-width="1.5"/>
-    </svg>`,
-
-    'wolf-beast': `<svg viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="wb-glow"><stop offset="0%" stop-color="rgba(126,184,218,0.25)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      </defs>
-      <ellipse cx="130" cy="370" rx="80" ry="12" fill="url(#wb-glow)"/>
-      <!-- Wolf body -->
-      <ellipse cx="130" cy="280" rx="60" ry="65" fill="#a0b8d0"/>
-      <ellipse cx="130" cy="285" rx="38" ry="45" fill="#d0dce8"/>
-      <!-- Front legs -->
-      <rect x="95" y="325" width="16" height="55" rx="8" fill="#a0b8d0"/>
-      <rect x="149" y="325" width="16" height="55" rx="8" fill="#a0b8d0"/>
-      <ellipse cx="103" cy="378" rx="10" ry="6" fill="#708090"/>
-      <ellipse cx="157" cy="378" rx="10" ry="6" fill="#708090"/>
-      <!-- Head -->
-      <ellipse cx="130" cy="195" rx="44" ry="38" fill="#a0b8d0"/>
-      <!-- Snout -->
-      <ellipse cx="130" cy="210" rx="20" ry="14" fill="#c0d0e0"/>
-      <!-- Ears -->
-      <path d="M95 175 L78 125 L112 168" fill="#a0b8d0"/>
-      <path d="M165 175 L182 125 L148 168" fill="#a0b8d0"/>
-      <path d="M97 172 L85 135 L110 166" fill="#c0d0e0"/>
-      <path d="M163 172 L175 135 L150 166" fill="#c0d0e0"/>
-      <!-- Eyes (ice blue glow) -->
-      <ellipse cx="115" cy="192" rx="8" ry="7" fill="#304060"/>
-      <ellipse cx="145" cy="192" rx="8" ry="7" fill="#304060"/>
-      <ellipse cx="116" cy="190" rx="4" ry="4" fill="#5aA0d8"/>
-      <ellipse cx="146" cy="190" rx="4" ry="4" fill="#5aA0d8"/>
-      <ellipse cx="117" cy="189" rx="2" ry="2" fill="#d0e8ff"/>
-      <ellipse cx="147" cy="189" rx="2" ry="2" fill="#d0e8ff"/>
-      <!-- Nose -->
-      <ellipse cx="130" cy="215" rx="5" ry="4" fill="#304060"/>
-      <!-- Tail -->
-      <path d="M75 285 Q50 260 40 230 Q35 210 45 200" fill="none" stroke="#a0b8d0" stroke-width="14" stroke-linecap="round"/>
-      <path d="M45 200 Q42 192 50 188" fill="#d0dce8"/>
-      <!-- Moonlight aura -->
-      <circle cx="130" cy="200" r="80" fill="none" stroke="rgba(126,184,218,0.1)" stroke-width="2"/>
-      <circle cx="130" cy="200" r="100" fill="none" stroke="rgba(126,184,218,0.05)" stroke-width="1"/>
-    </svg>`,
-
-    'deer-human': `<svg viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="dh-glow"><stop offset="0%" stop-color="rgba(143,212,160,0.15)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      </defs>
-      <ellipse cx="130" cy="380" rx="40" ry="8" fill="url(#dh-glow)"/>
-      <!-- Body -->
-      <path d="M100 200 Q92 240 88 300 Q88 350 102 370 L158 370 Q172 350 172 300 Q168 240 160 200 Z" fill="#f0f4e8" stroke="#d8e0c8" stroke-width="1"/>
-      <!-- Outfit - green forest garment -->
-      <path d="M100 200 L96 300 Q96 340 102 370 L158 370 Q164 340 164 300 L160 200 Z" fill="#4a8060"/>
-      <!-- Leaf patterns -->
-      <ellipse cx="120" cy="260" rx="8" ry="4" fill="#5a9070" transform="rotate(-15 120 260)"/>
-      <ellipse cx="145" cy="280" rx="7" ry="3.5" fill="#5a9070" transform="rotate(10 145 280)"/>
-      <ellipse cx="115" cy="300" rx="6" ry="3" fill="#5a9070" transform="rotate(-5 115 300)"/>
-      <!-- Sash -->
-      <path d="M98 240 L162 235" fill="none" stroke="#6aA880" stroke-width="6"/>
-      <path d="M140 235 Q145 260 135 280" fill="none" stroke="#6aA880" stroke-width="4" stroke-linecap="round"/>
-      <!-- Head -->
-      <ellipse cx="130" cy="138" rx="34" ry="38" fill="#f0ece0"/>
-      <!-- Small antlers -->
-      <path d="M108 108 L100 80 M100 80 L92 72 M100 80 L105 68" fill="none" stroke="#c8b898" stroke-width="3" stroke-linecap="round"/>
-      <path d="M152 108 L160 80 M160 80 L168 72 M160 80 L155 68" fill="none" stroke="#c8b898" stroke-width="3" stroke-linecap="round"/>
-      <!-- Hair -->
-      <path d="M96 130 Q86 105 100 80 Q112 60 130 56 Q148 60 160 80 Q174 105 164 130" fill="#90c8a0"/>
-      <path d="M96 130 Q92 150 94 170 L100 170 Q98 152 102 132 Z" fill="#90c8a0" opacity="0.9"/>
-      <path d="M164 130 Q168 150 166 170 L160 170 Q162 152 158 132 Z" fill="#90c8a0" opacity="0.9"/>
-      <!-- Flower in hair -->
-      <circle cx="158" cy="110" r="6" fill="#f0c0d0"/>
-      <circle cx="158" cy="110" r="3" fill="#f8e0e8"/>
-      <!-- Face -->
-      <ellipse cx="118" cy="136" rx="4.5" ry="5" fill="#508060"/>
-      <ellipse cx="142" cy="136" rx="4.5" ry="5" fill="#508060"/>
-      <ellipse cx="119" cy="135" rx="2" ry="2" fill="#a0e0b0"/>
-      <ellipse cx="143" cy="135" rx="2" ry="2" fill="#a0e0b0"/>
-      <path d="M125 150 Q130 154 135 150" fill="none" stroke="#a09080" stroke-width="1.5" stroke-linecap="round"/>
-      <!-- Freckle-like spots -->
-      <circle cx="110" cy="144" r="1.5" fill="rgba(180,160,120,0.3)"/>
-      <circle cx="115" cy="148" r="1" fill="rgba(180,160,120,0.25)"/>
-      <circle cx="150" cy="144" r="1.5" fill="rgba(180,160,120,0.3)"/>
-      <circle cx="145" cy="148" r="1" fill="rgba(180,160,120,0.25)"/>
-    </svg>`,
-
-    'deer-beast': `<svg viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="db-glow"><stop offset="0%" stop-color="rgba(143,212,160,0.3)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      </defs>
-      <ellipse cx="130" cy="370" rx="80" ry="12" fill="url(#db-glow)"/>
-      <!-- Deer body -->
-      <ellipse cx="130" cy="280" rx="50" ry="60" fill="#f0ece0"/>
-      <!-- Spots -->
-      <circle cx="115" cy="265" r="4" fill="rgba(200,185,150,0.3)"/>
-      <circle cx="140" cy="275" r="3.5" fill="rgba(200,185,150,0.3)"/>
-      <circle cx="125" cy="290" r="3" fill="rgba(200,185,150,0.25)"/>
-      <circle cx="145" cy="260" r="3" fill="rgba(200,185,150,0.25)"/>
-      <!-- Legs -->
-      <rect x="105" y="330" width="10" height="50" rx="5" fill="#e8e0d0"/>
-      <rect x="145" y="330" width="10" height="50" rx="5" fill="#e8e0d0"/>
-      <ellipse cx="110" cy="378" rx="7" ry="4" fill="#c8b898"/>
-      <ellipse cx="150" cy="378" rx="7" ry="4" fill="#c8b898"/>
-      <!-- Neck -->
-      <path d="M115 230 Q120 200 125 180 L135 180 Q140 200 145 230" fill="#f0ece0"/>
-      <!-- Head -->
-      <ellipse cx="130" cy="170" rx="28" ry="24" fill="#f0ece0"/>
-      <!-- Ears -->
-      <path d="M105 158 Q92 145 88 155 Q90 165 105 162" fill="#f0ece0"/>
-      <path d="M155 158 Q168 145 172 155 Q170 165 155 162" fill="#f0ece0"/>
-      <path d="M103 158 Q94 148 91 155 Q93 163 103 161" fill="#f8d0d8"/>
-      <path d="M157 158 Q166 148 169 155 Q167 163 157 161" fill="#f8d0d8"/>
-      <!-- Antlers (glowing) -->
-      <path d="M110 155 L100 120 M100 120 L88 105 M100 120 L95 100 M100 120 L108 108" fill="none" stroke="#a0e8b8" stroke-width="3" stroke-linecap="round"/>
-      <path d="M150 155 L160 120 M160 120 L172 105 M160 120 L165 100 M160 120 L152 108" fill="none" stroke="#a0e8b8" stroke-width="3" stroke-linecap="round"/>
-      <!-- Antler glow -->
-      <circle cx="88" cy="105" r="4" fill="rgba(160,232,184,0.4)"/>
-      <circle cx="95" cy="100" r="3" fill="rgba(160,232,184,0.3)"/>
-      <circle cx="172" cy="105" r="4" fill="rgba(160,232,184,0.4)"/>
-      <circle cx="165" cy="100" r="3" fill="rgba(160,232,184,0.3)"/>
-      <!-- Eyes -->
-      <ellipse cx="120" cy="168" rx="5" ry="6" fill="#406050"/>
-      <ellipse cx="140" cy="168" rx="5" ry="6" fill="#406050"/>
-      <ellipse cx="121" cy="166" rx="2.5" ry="2.5" fill="#80d8a0"/>
-      <ellipse cx="141" cy="166" rx="2.5" ry="2.5" fill="#80d8a0"/>
-      <ellipse cx="122" cy="165" rx="1.2" ry="1.2" fill="#fff"/>
-      <ellipse cx="142" cy="165" rx="1.2" ry="1.2" fill="#fff"/>
-      <!-- Nose -->
-      <ellipse cx="130" cy="180" rx="4" ry="3" fill="#806858"/>
-      <!-- Flowers growing from body -->
-      <circle cx="108" cy="255" r="5" fill="rgba(240,200,210,0.6)"/>
-      <circle cx="108" cy="255" r="2.5" fill="rgba(255,230,240,0.8)"/>
-      <circle cx="155" cy="270" r="4" fill="rgba(200,220,240,0.5)"/>
-      <circle cx="155" cy="270" r="2" fill="rgba(230,240,255,0.7)"/>
-      <!-- Nature aura -->
-      <circle cx="130" cy="270" r="90" fill="none" stroke="rgba(143,212,160,0.08)" stroke-width="2"/>
-    </svg>`,
-  };
-  return svgs[form] || '';
+function getPortrait(charId, formKey) {
+  const key = formKey;
+  const imgPath = PORTRAITS[key];
+  if (imgPath) {
+    return `<img class="char-portrait-img" src="${imgPath}" alt="${CHARS[charId].name}">`;
+  }
+  const c = CHARS[charId];
+  return `<div class="char-placeholder" style="background:${c.placeholderBg}">
+    <div class="placeholder-icon">${c.icon}</div>
+    <div class="placeholder-name">${c.name}</div>
+  </div>`;
 }
 
-// === STORY SCRIPT ===
-const SCRIPT = {
-  // ===== PROLOGUE =====
+// ============================================================
+//  STORY SCRIPT
+// ============================================================
+const S = {
+  // =============== PROLOGUE ===============
   'start': {
-    scene: 'forest',
-    particles: 'fireflies',
+    scene: 'forest', particles: 'fireflies',
     chapter: { num: '序章', title: '迷途之人' },
     lines: [
       { char: 'narrator', text: '深山之中，有一座被遗忘的神社。' },
-      { char: 'narrator', text: '传说中，这里住着能化为人形的兽灵——它们守护着森林的秘密，也守护着通往彼岸的道路。' },
-      { char: 'narrator', text: '而你，在一个雨后的黄昏，踏入了这片森林。' },
-      { char: 'player', text: '（GPS完全没有信号了……这条山路看起来也越来越窄。）' },
-      { char: 'player', text: '（不对，这里……好像根本就没有路。）' },
-      { char: 'narrator', text: '四周的树木越来越密集，苔藓覆盖的石头上隐约可见古老的刻痕。' },
-      { char: 'narrator', text: '空气中弥漫着雨后泥土的气息，混合着一种奇异的、甘甜的花香。' },
-      { char: 'player', text: '（这股香味……从没闻过。好像在引着我往深处走。）' },
+      { char: 'narrator', text: '传说这片名为「杜鹃森」的古老森林，栖息着能化为人形的兽灵。' },
+      { char: 'narrator', text: '它们守护着两界之间的通道，也守护着这片森林千年来的宁静。' },
+      { char: 'narrator', text: '而你，在一个雨后的黄昏，独自一人走上了这条登山道。' },
     ],
-    next: 'forest_encounter',
+    next: 'prologue_2',
   },
 
-  'forest_encounter': {
-    scene: 'forest',
-    particles: 'fireflies',
+  'prologue_2': {
+    scene: 'forest', particles: 'fireflies',
     lines: [
-      { char: 'narrator', text: '一道白色的身影从树丛间一闪而过。' },
-      { char: 'player', text: '什——什么！？' },
-      { char: 'narrator', text: '你追了过去，却踉跄着滑倒在湿滑的落叶上。' },
-      { char: 'narrator', text: '抬起头时，一座朱红色的鸟居出现在眼前。' },
-      { char: 'player', text: '（深山里……有神社？鸟居上的漆看起来还很新。）' },
-      { char: 'narrator', text: '穿过鸟居，沿着石阶而上，石灯笼中闪烁着微弱的火光。' },
-      { char: 'narrator', text: '在石阶的尽头，有三个人站在那里。' },
+      { char: 'player', text: '（GPS已经完全没有信号了……手机也只剩百分之三的电。）' },
+      { char: 'player', text: '（这条路越走越窄，两边的树也越来越高。说好的登山步道呢？）' },
+      { char: 'narrator', text: '脚下的碎石路不知何时变成了松软的落叶，空气中弥漫着雨后泥土的气息。' },
+      { char: 'narrator', text: '你停下脚步，环顾四周。夕阳的最后一丝光线正从树冠的缝隙中消逝。' },
+      { char: 'player', text: '（完了。这绝对不是来时的路。）' },
     ],
-    next: 'first_meeting',
+    next: 'prologue_3',
   },
 
-  'first_meeting': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chars: [
-      { id: 'kohaku', pos: 'left', form: 'human' },
-      { id: 'ginro', pos: 'center', form: 'human' },
-      { id: 'shiro', pos: 'right', form: 'human' },
-    ],
+  'prologue_3': {
+    scene: 'forest', particles: 'fireflies',
     lines: [
-      { char: 'narrator', text: '一位身着巫女服的红发少女，一个身披深蓝色和服的银发青年，还有一个穿着绿色短打的翠发少年。' },
-      { char: 'narrator', text: '他们都有着一双不像普通人类的、带着竖瞳的眼睛。' },
-      { char: 'kohaku', text: '哎呀……又有人类迷了进来呢。', emotion: 'gentle' },
-      { char: 'ginro', text: '…………站住。你是怎么通过结界的。', emotion: 'cold' },
-      { char: 'shiro', text: '呜哇！真的有人来了！我还以为琥珀姐在骗我！', emotion: 'excited' },
-      { char: 'kohaku', text: '欢迎来到杜鹃森神社。我是这里的巫女……琥珀。请不要害怕。' },
-      { char: 'player', text: '（她的耳朵上面……好像有两个尖尖的东西在动……？）' },
-      { char: 'ginro', text: '琥珀。说明情况。为什么结界没有生效。' },
-      { char: 'kohaku', text: '嗯——也许是因为这孩子与森林有缘吧？' },
-      { char: 'kohaku', text: '倒不如说……这样的夜晚，独自一人能走到这里的人类，几十年来都没有过了哦。' },
-      { char: 'shiro', text: '那那那——这个人可以留下来吗！我好久没见过人类了！', emotion: 'excited' },
-      { char: 'ginro', text: '不行。人类不应该待在这里。' },
+      { char: 'narrator', text: '就在这时，一股奇异的香味飘了过来。' },
+      { char: 'narrator', text: '不是花香，也不是果香。像是被雨水淋过的檀木，又混合着一种说不上来的、甘甜的气息。' },
+      { char: 'player', text: '（好奇怪的味道……但不知道为什么，闻着很安心。）' },
+      { char: 'player', text: '（像是在说——往这边走，就对了。）' },
+      { char: 'narrator', text: '你循着香味向前走去。脚下的落叶渐渐变成了铺满苔藓的石板。' },
+      { char: 'narrator', text: '某块石板上，隐约刻着某种古老的纹样。你蹲下身想看清——' },
     ],
-    next: 'first_choice',
+    next: 'prologue_4',
   },
 
-  'first_choice': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chars: [
-      { id: 'kohaku', pos: 'left', form: 'human' },
-      { id: 'ginro', pos: 'center', form: 'human' },
-      { id: 'shiro', pos: 'right', form: 'human' },
-    ],
+  'prologue_4': {
+    scene: 'forest', particles: 'fireflies',
     lines: [
-      { char: 'narrator', text: '三个人的目光同时落在了你身上。' },
-      { char: 'player', text: '（虽然不知道发生了什么……但我得说些什么。）' },
+      { char: 'narrator', text: '一道白色的身影从眼角一闪而过。' },
+      { char: 'player', text: '——！' },
+      { char: 'narrator', text: '你猛地抬头。什么也没有。只有树影在晚风中摇晃。' },
+      { char: 'player', text: '（……看错了？刚才好像是什么白色的……动物？）' },
+      { char: 'narrator', text: '你站起身继续向前走。石板路在一个转弯处突然开阔了。' },
+      { char: 'narrator', text: '眼前——' },
+      { char: 'narrator', text: '一座朱红色的鸟居，矗立在暮色之中。' },
+      { char: 'narrator', text: '鸟居的漆面崭新得不可思议，仿佛刚刚涂上一般。在它的上方，挂着一块写着「杜鹃森」的木匾。' },
+      { char: 'player', text: '（深山里有神社……？而且看上去还有人在打理。）' },
     ],
     choices: [
-      {
-        text: '「请多关照。我好像……真的迷路了。」',
-        affection: { fox: 2, deer: 1 },
-        next: 'polite_response',
-      },
-      {
-        text: '「这里真漂亮。你们的耳朵……是真的吗？」',
-        affection: { deer: 3 },
-        next: 'curious_response',
-      },
-      {
-        text: '「……我无意打扰。如果方便的话，请告诉我下山的路。」',
-        affection: { wolf: 3 },
-        next: 'respectful_response',
-      },
+      { text: '穿过鸟居，沿着石阶往上走', next: 'enter_shrine' },
+      { text: '犹豫了一下，但还是走了进去——天快黑了', next: 'enter_shrine' },
     ],
   },
 
-  'polite_response': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chars: [
-      { id: 'kohaku', pos: 'left', form: 'human' },
-      { id: 'ginro', pos: 'center', form: 'human' },
-      { id: 'shiro', pos: 'right', form: 'human' },
-    ],
+  'enter_shrine': {
+    scene: 'shrine', particles: 'spirits',
     lines: [
-      { char: 'kohaku', text: '呵呵，真是有礼貌的孩子。', emotion: 'smile' },
-      { char: 'kohaku', text: '不过很遗憾——这座山的结界已经在日落时关闭了。在下一个月圆之夜之前，你恐怕无法离开。' },
-      { char: 'player', text: '诶……？下一个月圆……那要多久？' },
-      { char: 'kohaku', text: '大约……七天吧。' },
-      { char: 'ginro', text: '……麻烦。' },
-      { char: 'shiro', text: '七天！太好了！可以一起玩七天！' },
-      { char: 'kohaku', text: '那么，这七天就请你在神社住下吧。作为巫女，照顾迷途之人也是我的职责。' },
+      { char: 'narrator', text: '穿过鸟居的瞬间，你感到空气似乎变了。' },
+      { char: 'narrator', text: '更加清澈、更加冰凉，像是走进了另一个季节。' },
+      { char: 'narrator', text: '石阶两侧的石灯笼中，跳动着微弱的火光。这些灯笼不像是用电点亮的——火焰的颜色泛着淡淡的青蓝。' },
+      { char: 'player', text: '（是真正的火？谁在维护这些灯笼？）' },
+      { char: 'narrator', text: '你一步步走上石阶。每走一步，身后的森林就变得更远一些。' },
+      { char: 'narrator', text: '最后一级石阶。' },
+      { char: 'narrator', text: '一座古老而端正的神社出现在眼前。正殿的门是敞开的，里面透出温暖的光。' },
+      { char: 'narrator', text: '而神社的前庭——有一个人站在那里。' },
     ],
-    next: 'chapter1_start',
+    next: 'meet_kohaku',
   },
 
-  'curious_response': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chars: [
-      { id: 'kohaku', pos: 'left', form: 'human' },
-      { id: 'ginro', pos: 'center', form: 'human' },
-      { id: 'shiro', pos: 'right', form: 'human' },
-    ],
+  // =============== DAY 1: MEETING KOHAKU ===============
+  'meet_kohaku': {
+    scene: 'shrine', particles: 'spirits', day: 1,
+    chapter: { num: '第一章', title: '杜鹃森的住民' },
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
     lines: [
-      { char: 'shiro', text: '是真的是真的！你看！', emotion: 'excited' },
-      { char: 'narrator', text: '翠发少年头顶的小角微微晃动，耳朵也轻轻转了一下。' },
-      { char: 'player', text: '真的会动……！太不可思议了……' },
-      { char: 'ginro', text: '白露。不要随便向人类展示。', emotion: 'cold' },
-      { char: 'shiro', text: '可是这个人好像一点都不害怕耶？大部分人类看到我们都会尖叫的吧？' },
-      { char: 'kohaku', text: '确实呢。有趣的孩子。不过……结界已经关闭了，七天之内你都无法离开这座山。' },
+      { char: 'narrator', text: '一位身着白衣红裙的巫女服少女，手中拿着竹帚，正在打扫石板路。' },
+      { char: 'narrator', text: '她有着一头流水般的赤红色长发，在灯火的映照下泛着温暖的光泽。' },
+      { char: 'narrator', text: '最引人注目的是——她的头顶，有两只毛茸茸的、三角形的耳朵。' },
+      { char: 'narrator', text: '你揉了揉眼睛。' },
+      { char: 'narrator', text: '耳朵动了一下。' },
+      { char: 'kohaku', text: '……嗯？' },
+      { char: 'narrator', text: '她转过头来。琥珀色的眼瞳在灯火中闪了闪，瞳孔是细长的竖线。' },
+      { char: 'kohaku', text: '哎呀。' },
+      { char: 'kohaku', text: '又有人类迷了进来呢。' },
+      { char: 'narrator', text: '她放下竹帚，朝你微微一笑。那个笑容温柔得不可思议。' },
+      { char: 'kohaku', text: '欢迎来到杜鹃森神社。我叫琥珀——这里的巫女。请不要害怕哦。' },
+    ],
+    choices: [
+      { text: '「你的……耳朵是真的吗？」', affection: { fox: 1 }, next: 'kohaku_ears' },
+      { text: '「请多关照。我好像走错路了。」', affection: { fox: 1 }, next: 'kohaku_polite' },
+      { text: '一句话都说不出来，只是盯着那对耳朵看', affection: { fox: 1 }, next: 'kohaku_stare' },
+    ],
+  },
+
+  'kohaku_ears': {
+    scene: 'shrine', particles: 'spirits',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '琥珀愣了一下，然后扑哧笑了出来。' },
+      { char: 'kohaku', text: '第一句话就问这个？你倒是很直接啊。' },
+      { char: 'narrator', text: '她弯下腰，把头凑到你面前。两只耳朵轻轻抖动了一下。' },
+      { char: 'kohaku', text: '是真的哦。要摸摸看吗？' },
+      { char: 'player', text: '……不、不用了……' },
+      { char: 'kohaku', text: '呵呵。脸好红。' },
+    ],
+    next: 'kohaku_explain',
+  },
+
+  'kohaku_polite': {
+    scene: 'shrine', particles: 'spirits',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'kohaku', text: '有礼貌的孩子。真难得。' },
+      { char: 'kohaku', text: '不过——你确实走错了路。走错了很远很远。' },
+      { char: 'narrator', text: '她的语气很温柔，但那句「很远很远」，不知为什么让你心里一紧。' },
+    ],
+    next: 'kohaku_explain',
+  },
+
+  'kohaku_stare': {
+    scene: 'shrine', particles: 'spirits',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '你张了张嘴。什么声音也没发出来。' },
+      { char: 'narrator', text: '琥珀歪了歪头，耳朵跟着歪了一下。' },
+      { char: 'kohaku', text: '吓到了？还是……冻住了？' },
+      { char: 'kohaku', text: '先进来吧，外面冷。我泡了茶。' },
+      { char: 'narrator', text: '她伸出手。那只手温暖而纤细，指甲上泛着淡淡的橘色。' },
+    ],
+    next: 'kohaku_explain',
+  },
+
+  'kohaku_explain': {
+    scene: 'shrine', particles: 'spirits',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '在正殿的缘廊上，琥珀为你端来了一碗热茶。茶水中漂浮着一小朵金色的花。' },
+      { char: 'kohaku', text: '喝吧，这是杜鹃花茶。可以暖身子。' },
+      { char: 'player', text: '谢谢……那个，这里到底是……' },
+      { char: 'kohaku', text: '这里是杜鹃森——一片位于人界与灵界交汇处的森林。' },
+      { char: 'kohaku', text: '我们是住在这里的兽灵。简单来说就是——动物修炼成精的存在吧。' },
+      { char: 'player', text: '兽……灵……' },
+      { char: 'kohaku', text: '嗯。我是灵狐。所以有耳朵和尾巴。' },
+      { char: 'narrator', text: '说着，她身后轻轻晃了晃——一条蓬松的赤红色大尾巴从巫女服后探了出来。' },
+      { char: 'kohaku', text: '不过呢，有一件事要先告诉你。' },
+      { char: 'kohaku', text: '今天日落的时候，结界已经关闭了。在下一个月圆之夜之前——也就是七天后——你无法离开这片森林。' },
       { char: 'player', text: '七天？！' },
-      { char: 'kohaku', text: '别担心，我们会照顾你的。对吧，银朗？' },
-      { char: 'ginro', text: '……随你便。' },
+      { char: 'kohaku', text: '嗯。抱歉呢，这不是我能控制的。' },
+      { char: 'kohaku', text: '不过请放心。这七天里，你可以住在神社。这里很安全的。' },
     ],
-    next: 'chapter1_start',
+    next: 'meet_ginro_approach',
   },
 
-  'respectful_response': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chars: [
-      { id: 'kohaku', pos: 'left', form: 'human' },
-      { id: 'ginro', pos: 'center', form: 'human' },
-      { id: 'shiro', pos: 'right', form: 'human' },
-    ],
+  // =============== DAY 1 EVENING: MEETING GINRO ===============
+  'meet_ginro_approach': {
+    scene: 'forest', particles: 'fireflies',
     lines: [
-      { char: 'ginro', text: '…………' },
-      { char: 'narrator', text: '银发青年看了你一眼，冰蓝色的眼瞳中闪过一丝难以捉摸的光。' },
-      { char: 'ginro', text: '……至少知道分寸。不过，结界已经关闭。你走不了。' },
-      { char: 'player', text: '结界……？' },
-      { char: 'kohaku', text: '简单来说，在下一个月圆之夜之前——也就是七天后——你无法离开这片森林。' },
-      { char: 'kohaku', text: '所以呢，不如就在神社住下来吧？我可以给你准备房间。' },
-      { char: 'shiro', text: '对对对！住下来！' },
-      { char: 'ginro', text: '……我去巡逻了。', emotion: 'turn_away' },
-      { char: 'narrator', text: '银朗转身离去的时候，你似乎看见他的背后……有一条毛茸茸的银色尾巴一闪而过。' },
+      { char: 'narrator', text: '正说着，前庭传来了沉稳的脚步声。' },
+      { char: 'narrator', text: '不——那种声音更像是兽爪踩在石板上。' },
     ],
-    next: 'chapter1_start',
+    next: 'meet_ginro',
   },
 
-  // ===== CHAPTER 1 =====
-  'chapter1_start': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chapter: { num: '第一章', title: '七日之约' },
-    lines: [
-      { char: 'narrator', text: '第二天清晨。阳光穿过纸窗，在榻榻米上画出温暖的格纹。' },
-      { char: 'narrator', text: '这是你在杜鹃森神社的第一个早晨。' },
-      { char: 'player', text: '（昨晚发生的事……不是做梦吧？兽耳、结界、神社……）' },
-      { char: 'narrator', text: '推开障子门，空气中飘来了味噌汤和米饭的香气。' },
-    ],
-    next: 'morning_choice',
-  },
-
-  'morning_choice': {
-    scene: 'spring',
-    particles: 'sakura',
-    lines: [
-      { char: 'narrator', text: '走出房间，你发现神社的庭院比想象中要大得多。' },
-      { char: 'narrator', text: '樱花飘落在石板路上，远处传来溪水的声音。' },
-      { char: 'narrator', text: '三个方向，分别传来了不同的声响。' },
-    ],
-    choices: [
-      {
-        text: '去厨房方向——味噌汤的香气令人安心',
-        affection: { fox: 2 },
-        next: 'morning_kohaku',
-      },
-      {
-        text: '去森林边缘——似乎听到了巡逻的脚步声',
-        affection: { wolf: 2 },
-        next: 'morning_ginro',
-      },
-      {
-        text: '去溪边——有人在哼着歌',
-        affection: { deer: 2 },
-        next: 'morning_shiro',
-      },
-    ],
-  },
-
-  'morning_kohaku': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '厨房里，琥珀正系着围裙，手脚麻利地准备着早餐。' },
-      { char: 'narrator', text: '她的狐耳微微晃动，似乎在听你靠近的脚步。' },
-      { char: 'kohaku', text: '啊，早上好。睡得还习惯吗？' },
-      { char: 'player', text: '嗯，那个房间很舒服……你在做早饭？' },
-      { char: 'kohaku', text: '是呀。虽然是兽灵，但我在人间生活了很久，学会了不少人类的料理呢。' },
-      { char: 'kohaku', text: '来，帮我尝尝咸淡？' },
-      { char: 'narrator', text: '她递过来一个木勺，勺中是金黄色的味噌汤。' },
-      { char: 'narrator', text: '你尝了一口，温暖的味道从舌尖蔓延开来。' },
-      { char: 'player', text: '……好好吃。' },
-      { char: 'kohaku', text: '呵呵。' },
-      { char: 'narrator', text: '琥珀的尾巴轻轻摇了一下——虽然她很快就把它藏到了巫女服后面。' },
-      { char: 'kohaku', text: '对了，你想知道关于这座森林的事吗？七天说长不长，说短不短……如果你感兴趣的话，我可以带你看看。' },
-    ],
-    choices: [
-      {
-        text: '「我很想了解。琥珀，你愿意当我的向导吗？」',
-        affection: { fox: 3 },
-        next: 'kohaku_route_1',
-      },
-      {
-        text: '「那个……你的尾巴刚才是不是在摇？」',
-        affection: { fox: 2 },
-        next: 'kohaku_route_1',
-      },
-    ],
-  },
-
-  'morning_ginro': {
-    scene: 'forest',
-    particles: 'fireflies',
-    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '在神社与森林交界的地方，银朗正靠着一棵大树，闭着眼睛。' },
-      { char: 'narrator', text: '你以为他在睡觉，但刚走近几步——' },
-      { char: 'ginro', text: '站住。再靠近三步就踩到陷阱了。' },
-      { char: 'player', text: '！……谢、谢谢。' },
-      { char: 'ginro', text: '这是防范野兽的。昨晚有外来的妖兽试图靠近结界。' },
-      { char: 'player', text: '妖兽？听起来很危险……' },
-      { char: 'ginro', text: '……只要结界在，就没事。我的职责是守护这里。' },
-      { char: 'narrator', text: '他终于睁开了眼睛。冰蓝色的瞳孔在晨光中近乎透明。' },
-      { char: 'ginro', text: '你为什么要来这里。不怕吗。' },
-      { char: 'player', text: '怕……倒也不是不怕。但你昨晚提醒我小心台阶的时候，我觉得你不像坏人。' },
-      { char: 'ginro', text: '………………我不是人。' },
-      { char: 'narrator', text: '但他的耳朵，几乎不可察觉地，轻轻动了一下。' },
-    ],
-    choices: [
-      {
-        text: '「你是不是……比看起来温柔得多？」',
-        affection: { wolf: 3 },
-        next: 'ginro_route_1',
-      },
-      {
-        text: '「你守护这片森林多久了？」',
-        affection: { wolf: 2 },
-        next: 'ginro_route_1',
-      },
-    ],
-  },
-
-  'morning_shiro': {
-    scene: 'forest',
-    particles: 'fireflies',
-    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '沿着溪流走去，你看到白露赤脚站在浅水中，正在和一群鱼说话。' },
-      { char: 'shiro', text: '——然后呢然后呢，昨天来了一个人类！真的！没骗你们！' },
-      { char: 'narrator', text: '小鱼们围着他的脚踝游来游去，好像真的在听。' },
-      { char: 'player', text: '你在和鱼说话……？' },
-      { char: 'shiro', text: '哦！你来啦！对呀，这些是溪灵鱼，它们能听懂话的！', emotion: 'excited' },
-      { char: 'shiro', text: '来来来，你也来试试！把脚放进水里！' },
-      { char: 'narrator', text: '你脱了鞋，小心翼翼地把脚放进了溪水中。清凉的水流和鱼的触感让你忍不住笑了。' },
-      { char: 'shiro', text: '你笑了！太好了！我就知道你是好人！' },
-      { char: 'shiro', text: '银朗哥说人类很危险，但我一直觉得不是所有人类都那样。' },
-      { char: 'shiro', text: '对了对了，你想看看森林里最漂亮的地方吗！我知道一个秘密花园！' },
-    ],
-    choices: [
-      {
-        text: '「好啊！带我去看看吧！」',
-        affection: { deer: 3 },
-        next: 'shiro_route_1',
-      },
-      {
-        text: '「嗯……不过你的角上好像有花在开。」',
-        affection: { deer: 2 },
-        next: 'shiro_route_1',
-      },
-    ],
-  },
-
-  // ===== ROUTE BRANCHES =====
-  'kohaku_route_1': {
-    scene: 'shrine',
-    particles: 'spirits',
-    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'kohaku', text: '那今天就由我来带你认识这片森林吧。' },
-      { char: 'narrator', text: '琥珀带你穿过神社的后院，来到一条被苔藓覆盖的小径。' },
-      { char: 'kohaku', text: '这座杜鹃森，其实是一个很特别的地方。它位于人界与灵界的交汇处。' },
-      { char: 'kohaku', text: '我们这些兽灵，就是两个世界之间的守望者。' },
-      { char: 'player', text: '两个世界……所以你们平时都不能出去吗？' },
-      { char: 'kohaku', text: '我偶尔会去人间呢。以前在京都待过很长一段时间。' },
-      { char: 'kohaku', text: '但银朗和白露出去得比较少。银朗是不愿意，白露是……还太小了。' },
-      { char: 'player', text: '你说得好像妈妈一样。' },
-      { char: 'kohaku', text: '……我可是看起来只有二十出头吧？虽然实际年龄——呵呵，这是秘密。' },
-      { char: 'narrator', text: '她笑的时候，你注意到她的眼角会微微弯起，那双琥珀色的眼睛中映着斑驳的树影。' },
-      { char: 'narrator', text: '不知为什么，你觉得那个笑容里，藏着很深很深的温柔。' },
-    ],
-    next: 'kohaku_transform',
-  },
-
-  'kohaku_transform': {
-    scene: 'night-shrine',
-    particles: 'fireflies',
-    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '那天傍晚，你在神社的缘廊上看夕阳，琥珀走了过来。' },
-      { char: 'kohaku', text: '今晚的月亮很美呢。在月光下，我们的灵力会更强。' },
-      { char: 'kohaku', text: '你……想看看我真正的样子吗？' },
-      { char: 'player', text: '真正的样子？' },
-      { char: 'kohaku', text: '嗯。平时我都用人类的姿态生活。但在月光下……' },
-    ],
-    transform: { char: 'kohaku', to: 'beast', text: '灵狐 · 琥珀' },
-    next: 'kohaku_after_transform',
-  },
-
-  'kohaku_after_transform': {
-    scene: 'night-shrine',
-    particles: 'fireflies',
-    chars: [{ id: 'kohaku', pos: 'center', form: 'beast' }],
-    lines: [
-      { char: 'narrator', text: '一道温暖的金光闪过。你眼前的少女化为了一只美丽的赤狐。' },
-      { char: 'narrator', text: '九条蓬松的尾巴在月光下舒展开来，身边飘浮着淡蓝色的狐火。' },
-      { char: 'kohaku', text: '……怎么样？是不是很吓人？' },
-      { char: 'player', text: '……好漂亮。' },
-      { char: 'kohaku', text: '…………诶？' },
-      { char: 'player', text: '你的毛好漂亮……还有，那些火焰也是。一点都不吓人。' },
-      { char: 'narrator', text: '狐狸的耳朵一下子竖了起来，所有的尾巴都轻轻摇了摇。' },
-      { char: 'kohaku', text: '呜……你真的是，很奇怪的人类呢。' },
-      { char: 'narrator', text: '虽然是兽形，但你依然能看到——她在笑。' },
-    ],
-    choices: [
-      {
-        text: '「我可以……摸摸你吗？」',
-        affection: { fox: 4 },
-        next: 'day5_crisis',
-      },
-      {
-        text: '轻轻伸出手，让她自己靠过来',
-        affection: { fox: 3, wolf: 1 },
-        next: 'day5_crisis',
-      },
-    ],
-  },
-
-  'ginro_route_1': {
-    scene: 'moonlit',
-    particles: 'fireflies',
-    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '此后的几天里，你注意到银朗总是在远处默默地看着你。' },
-      { char: 'narrator', text: '他从不主动说话，但每次你走到危险的地方，他都会适时出现。' },
-      { char: 'player', text: '银朗，你又在跟着我吗？' },
-      { char: 'ginro', text: '……巡逻路线刚好经过。' },
-      { char: 'player', text: '连着三天都「刚好」吗？' },
-      { char: 'ginro', text: '…………你话很多。' },
-      { char: 'narrator', text: '但他没有走开。' },
-      { char: 'ginro', text: '……那边的悬崖，以前有人类掉下去过。所以别乱走。' },
-      { char: 'player', text: '谢谢你的关心。' },
-      { char: 'ginro', text: '不是关心。是不想增加麻烦。' },
-      { char: 'narrator', text: '他转过身，但你看到他耳朵尖微微泛红。' },
-      { char: 'narrator', text: '——原来狼的耳朵也会红的吗。' },
-    ],
-    next: 'ginro_transform',
-  },
-
-  'ginro_transform': {
-    scene: 'moonlit',
-    particles: 'fireflies',
-    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '第四天的深夜。你被一阵嚎叫声惊醒。' },
-      { char: 'narrator', text: '循着声音走到森林的空地上，月光如水银般倾泻而下。' },
-      { char: 'narrator', text: '银朗站在月光中央，仰头望着满月。' },
-      { char: 'ginro', text: '……你来了。我知道你不会睡着。' },
-      { char: 'ginro', text: '……既然看到了，就让你看个够吧。' },
-    ],
-    transform: { char: 'ginro', to: 'beast', text: '苍银狼 · 银朗' },
-    next: 'ginro_after_transform',
-  },
-
-  'ginro_after_transform': {
-    scene: 'moonlit',
-    particles: 'fireflies',
-    chars: [{ id: 'ginro', pos: 'center', form: 'beast' }],
-    lines: [
-      { char: 'narrator', text: '月光被他吞入体内。银色的光芒炸开，一头巨大的银狼出现在你面前。' },
-      { char: 'narrator', text: '冰蓝色的眼睛在黑暗中发出柔和的光，银色的皮毛像是液态的月光。' },
-      { char: 'ginro', text: '……害怕了吗。' },
-      { char: 'player', text: '不。我觉得……你很美。' },
-      { char: 'ginro', text: '…………' },
-      { char: 'narrator', text: '巨狼沉默了很久。然后，他缓缓低下了头，用温热的鼻尖碰了碰你的手心。' },
-      { char: 'ginro', text: '……你是第一个这样说的人。以前……所有人看到这个样子都只有恐惧。' },
-      { char: 'narrator', text: '月光下，你轻轻抚上了他银色的毛。比想象中更柔软，像是会流动的光。' },
-    ],
-    choices: [
-      {
-        text: '「你一个人守护这片森林，很辛苦吧。」',
-        affection: { wolf: 4 },
-        next: 'day5_crisis',
-      },
-      {
-        text: '什么都不说，只是安静地靠在他身边',
-        affection: { wolf: 5 },
-        next: 'day5_crisis',
-      },
-    ],
-  },
-
-  'shiro_route_1': {
-    scene: 'spring',
-    particles: 'sakura',
-    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '白露带你穿过了一片只有他知道的密林小径。' },
-      { char: 'shiro', text: '快看快看！就是这里！' },
-      { char: 'narrator', text: '眼前豁然开朗——一片被春光笼罩的花之谷地。' },
-      { char: 'narrator', text: '各种颜色的花朵铺满了整个山谷，蝴蝶和蜜蜂在花海中穿梭。' },
-      { char: 'player', text: '哇……这也太美了。' },
-      { char: 'shiro', text: '嘿嘿，漂亮吧！这里是我的秘密基地！连琥珀姐都不知道！' },
-      { char: 'shiro', text: '其实啊……这些花都是我种的。作为鹿灵，我可以让植物生长。' },
-      { char: 'narrator', text: '说着，白露蹲下身，轻轻触碰了一颗枯萎的花苗。' },
-      { char: 'narrator', text: '他的指尖发出淡绿色的光。花苗颤抖了一下，然后飞速地生长、绽放——变成了一朵洁白的百合。' },
-      { char: 'shiro', text: '送给你！这是杜鹃森的百合，只在这里开。' },
-      { char: 'player', text: '谢谢你，白露。' },
-      { char: 'shiro', text: '嘿嘿……你知道吗，其实我一直很羡慕人类。' },
-      { char: 'shiro', text: '人类可以去好多地方，看好多东西。而我……只能待在这片森林里。' },
-      { char: 'player', text: '等你长大了，也许可以出去看看？' },
-      { char: 'shiro', text: '嗯！所以我很努力地在学习变成人类的样子！你看我是不是变得很像了？', emotion: 'excited' },
-      { char: 'narrator', text: '他转了个圈，但转的时候——头上的小角还是露了出来。' },
-      { char: 'player', text: '嗯……除了角以外。' },
-      { char: 'shiro', text: '呜……角是最难藏的……' },
-    ],
-    next: 'shiro_transform',
-  },
-
-  'shiro_transform': {
-    scene: 'spring',
-    particles: 'sakura',
-    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
-    lines: [
-      { char: 'narrator', text: '几天后的下午，白露在花谷中央停下了脚步。' },
-      { char: 'shiro', text: '那个……我有一件事想给你看。但你要答应我不要笑。' },
-      { char: 'player', text: '我不会笑的。' },
-      { char: 'shiro', text: '真的？那……我要变了哦？' },
-    ],
-    transform: { char: 'shiro', to: 'beast', text: '白玉鹿 · 白露' },
-    next: 'shiro_after_transform',
-  },
-
-  'shiro_after_transform': {
-    scene: 'spring',
-    particles: 'sakura',
-    chars: [{ id: 'shiro', pos: 'center', form: 'beast' }],
-    lines: [
-      { char: 'narrator', text: '绿色的光从他体内绽放。当光芒散去，一头通体雪白的小鹿站在花丛中。' },
-      { char: 'narrator', text: '晶莹的鹿角上生长着发光的苔藓和小花，身上有着淡淡的斑点。' },
-      { char: 'narrator', text: '他的周围，花朵像是呼应一般全部盛开了。' },
-      { char: 'shiro', text: '……这就是……真正的我。是不是……很奇怪？' },
-      { char: 'player', text: '不奇怪。白露，你好像森林的精灵一样。' },
-      { char: 'shiro', text: '精灵！' },
-      { char: 'narrator', text: '小鹿高兴地蹦了一下，鹿角上的花朵洒下了一片花瓣雨。' },
-      { char: 'shiro', text: '嘿嘿嘿嘿，太好了……我还以为你会觉得鹿很无聊……' },
-      { char: 'player', text: '怎么会呢。' },
-      { char: 'narrator', text: '白露小心翼翼地靠了过来，把温暖的鹿首轻轻靠在了你的掌心。' },
-    ],
-    choices: [
-      {
-        text: '轻轻抚摸他的额头和鹿角',
-        affection: { deer: 4 },
-        next: 'day5_crisis',
-      },
-      {
-        text: '「你的角上开花了，好神奇。」',
-        affection: { deer: 3 },
-        next: 'day5_crisis',
-      },
-    ],
-  },
-
-  // ===== CRISIS =====
-  'day5_crisis': {
-    scene: 'night-shrine',
-    particles: 'spirits',
-    chapter: { num: '第五章', title: '裂隙' },
+  'meet_ginro': {
+    scene: 'shrine', particles: 'spirits',
     chars: [
       { id: 'kohaku', pos: 'left', form: 'human' },
       { id: 'ginro', pos: 'right', form: 'human' },
     ],
     lines: [
-      { char: 'narrator', text: '第五天的夜晚，神社突然震动起来。' },
-      { char: 'kohaku', text: '结界……出现了裂隙！' },
-      { char: 'ginro', text: '是那群妖兽。它们从第一天就在试探了。' },
-      { char: 'narrator', text: '远处传来了令人不安的嗥叫。不是银朗那样的声音——而是更加阴暗、扭曲的。' },
-      { char: 'kohaku', text: '银朗，你去北侧。我去修补结界。' },
-      { char: 'ginro', text: '……那个人类怎么办。' },
-      { char: 'kohaku', text: '让白露看着——' },
+      { char: 'narrator', text: '一个银发的青年从阴影中走了出来。他身着深蓝色的和服，银灰色的狼耳竖在头顶。' },
+      { char: 'narrator', text: '冰蓝色的眼睛如同冬天的湖水，毫无表情地看着你。' },
+      { char: 'ginro', text: '……琥珀。为什么有人类在这里。' },
+      { char: 'kohaku', text: '迷路进来的。结界关闭前。' },
+      { char: 'ginro', text: '结界应该会排斥人类才对。' },
+      { char: 'kohaku', text: '所以才说有趣嘛。也许是和森林有缘的人呢。' },
+      { char: 'ginro', text: '…………' },
+      { char: 'narrator', text: '他的目光在你身上停留了几秒，像是一匹狼在判断猎物还是路人。' },
+      { char: 'ginro', text: '七天。七天之后你就离开。这段时间，不要乱走。' },
+      { char: 'player', text: '你是……' },
+      { char: 'ginro', text: '银朗。这片森林的守护者。别的不需要你知道。' },
+      { char: 'narrator', text: '他转身就走了。和服下摆掠过石板的声音中，你隐约看到——一条银色的尾巴一闪而过。' },
+      { char: 'kohaku', text: '他就是那个性格。别介意。其实是个好孩子的。' },
     ],
-    next: 'day5_crisis_2',
+    next: 'day1_night',
   },
 
-  'day5_crisis_2': {
-    scene: 'night-shrine',
-    particles: 'spirits',
+  // =============== DAY 1 NIGHT ===============
+  'day1_night': {
+    scene: 'night-shrine', particles: 'fireflies',
+    lines: [
+      { char: 'narrator', text: '琥珀为你准备了一间面朝庭院的和室。' },
+      { char: 'narrator', text: '铺好了被褥，放好了浴衣，甚至在枕边放了一只小小的狐狸香囊。' },
+      { char: 'player', text: '（好香……薰衣草？不，是更淡的香味。）' },
+      { char: 'player', text: '（兽灵、结界、七天……今天发生的一切都像是梦。）' },
+      { char: 'player', text: '（但这杯茶的温度、那条尾巴的触感……又太过真实了。）' },
+      { char: 'narrator', text: '月光从纸窗外渗入。远处，传来一声悠长的狼嚎。' },
+      { char: 'narrator', text: '然后是寂静。深深的、属于深山的寂静。' },
+      { char: 'narrator', text: '你沉沉睡去。' },
+    ],
+    next: 'day2_morning',
+  },
+
+  // =============== DAY 2: MEETING SHIRO ===============
+  'day2_morning': {
+    scene: 'spring', particles: 'sakura', day: 2,
+    chapter: { num: '第二天', title: '溪边的少年' },
+    lines: [
+      { char: 'narrator', text: '第二天的早晨，是被鸟鸣声叫醒的。' },
+      { char: 'narrator', text: '推开障子门，阳光刺得你眯了眯眼。' },
+      { char: 'narrator', text: '庭院里，樱花正落在石板路上。空气中飘着味噌汤的香味。' },
+      { char: 'player', text: '（这里的时间好像流动得特别慢。明明是深山，却像是另一个世界。）' },
+      { char: 'narrator', text: '早饭是琥珀准备的。简单的米饭、味噌汤和渍物，但味道好得不可思议。' },
+      { char: 'kohaku', text: '吃饱了就四处走走吧。不过记得别走出鸟居的范围哦。', note: 'offscreen' },
+      { char: 'narrator', text: '饭后，你沿着神社旁的小路散步。溪水声越来越近。' },
+    ],
+    next: 'meet_shiro',
+  },
+
+  'meet_shiro': {
+    scene: 'spring', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
-      { char: 'shiro', text: '琥珀姐！北侧的结界已经破了一个洞！有东西进来了！', emotion: 'scared' },
-      { char: 'narrator', text: '一声震耳的咆哮从森林深处传来。一只全身散发着黑雾的巨型猪妖冲破了树丛。' },
-      { char: 'player', text: '（那是什么——！？）' },
-      { char: 'narrator', text: '黑雾弥漫，你觉得身体变得很重。眼前开始模糊。' },
-      { char: 'narrator', text: '但就在这时——' },
+      { char: 'narrator', text: '溪边，一个翠绿色头发的少年正赤脚站在浅水中。' },
+      { char: 'narrator', text: '他的头顶长着一对小小的、骨白色的鹿角。角上开着几朵细小的花。' },
+      { char: 'narrator', text: '他正蹲在水里，和鱼说话。' },
+      { char: 'shiro', text: '——然后啊然后啊，银朗哥昨天晚上又对着月亮嚎了一整夜。' },
+      { char: 'shiro', text: '真的好吵啊。你们说是不是？' },
+      { char: 'narrator', text: '鱼群围着他的脚踝游来游去，好像真的听得懂。' },
+      { char: 'narrator', text: '你不小心踩到了一根树枝。' },
+      { char: 'shiro', text: '呜哇——！' },
+      { char: 'narrator', text: '少年猛地转过头来，翠绿的大眼睛瞪得圆圆的。' },
+      { char: 'narrator', text: '然后——' },
+      { char: 'shiro', text: '啊！你就是昨天那个人类！' },
+      { char: 'narrator', text: '他连鞋都没穿就跑了过来，水花溅了你一身。' },
+      { char: 'shiro', text: '我叫白露！是白玉鹿！你呢你呢，你叫什么名字！' },
     ],
-    next: 'day5_rescue',
+    choices: [
+      { text: '微笑着做了自我介绍', affection: { deer: 2 }, next: 'shiro_talk' },
+      { text: '「你的角上……开花了？」', affection: { deer: 2 }, next: 'shiro_talk' },
+    ],
   },
 
-  'day5_rescue': {
-    scene: 'night-shrine',
-    particles: 'spirits',
+  'shiro_talk': {
+    scene: 'spring', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
-      { char: 'narrator', text: '一道光芒挡在了你面前。' },
+      { char: 'shiro', text: '嘿嘿，对吧！我的角会根据心情开花！' },
+      { char: 'narrator', text: '说着，他头上的角上果然又冒出了一朵粉色的小花。' },
+      { char: 'shiro', text: '我好久没见过人类了！上一个来的人类是——嗯——大概三十年前？' },
+      { char: 'player', text: '三十年……？你看起来才十五六岁……' },
+      { char: 'shiro', text: '我今年一百二十七岁啦！对我们鹿灵来说还是小孩子。' },
+      { char: 'shiro', text: '银朗哥都六百多了呢！琥珀姐更夸张，她——' },
+      { char: 'kohaku', text: '白露？', note: 'offscreen' },
+      { char: 'shiro', text: '——她是秘密！是秘密！' },
+      { char: 'narrator', text: '远处传来琥珀轻笑的声音。' },
+    ],
+    next: 'day2_afternoon',
+  },
+
+  // =============== DAY 2 AFTERNOON: MEETING YUKIMARU ===============
+  'day2_afternoon': {
+    scene: 'forest', particles: 'fireflies',
+    lines: [
+      { char: 'narrator', text: '下午，你在神社旁的林间小路上散步时——' },
+      { char: 'narrator', text: '一个白色的影子从树上飞了下来，「砰」地一声落在你面前。' },
+      { char: 'player', text: '——！！' },
+    ],
+    next: 'meet_yukimaru',
+  },
+
+  'meet_yukimaru': {
+    scene: 'snowfield', particles: 'snowflakes',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '一个白发的少年单膝蹲在你面前。纯白的头发乱糟糟地支棱着，一对白色的狼耳竖得高高的。' },
+      { char: 'narrator', text: '他穿着敞开的白色皮毛短褂，露出的手臂上缠着绷带。' },
+      { char: 'narrator', text: '最显眼的是那双淡金色的眼睛，带着野性而好奇的光。' },
+      { char: 'yukimaru', text: '哈——！所以你就是那个穿过结界的人类？' },
+      { char: 'narrator', text: '他凑到你面前，鼻子抽动了几下——像在嗅你的气味。' },
+      { char: 'yukimaru', text: '闻起来好奇怪。又不像猎物，又不像同类。' },
+      { char: 'player', text: '你、你是……' },
+      { char: 'yukimaru', text: '雪丸！白狼！从北边的雪山来的！' },
+      { char: 'narrator', text: '他咧嘴一笑，露出一颗锋利的虎牙。尾巴在身后摇得像个风扇。' },
+      { char: 'yukimaru', text: '你和银朗那家伙是不一样的味道。他一闻就知道是冷冰冰的，你嘛——' },
+      { char: 'yukimaru', text: '嘿嘿，挺好闻的。' },
+    ],
+    choices: [
+      { text: '「你和银朗……是同类？」', affection: { whitewolf: 2 }, next: 'yukimaru_talk' },
+      { text: '「别闻了！太近了！」', affection: { whitewolf: 2 }, next: 'yukimaru_talk' },
+    ],
+  },
+
+  'yukimaru_talk': {
+    scene: 'forest', particles: 'fireflies',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'yukimaru', text: '嗯？银朗？勉强算吧。他是苍银狼，我是白狼。种族不太一样。' },
+      { char: 'yukimaru', text: '他在这片森林守了几百年，不挪窝。我是到处跑的那种！' },
+      { char: 'yukimaru', text: '半年前路过这里觉得挺舒服的，就赖着不走了。银朗每天都嫌我吵，嘿嘿。' },
+      { char: 'narrator', text: '他挠了挠自己那只缺了一角的耳朵。' },
+      { char: 'yukimaru', text: '对了对了，我带你去看个好地方！从那棵大树上面可以看到整片森林！' },
+      { char: 'player', text: '你是说……爬树？' },
+      { char: 'yukimaru', text: '怎么，人类不会爬树吗？真弱啊哈哈哈——开玩笑的！我背你上去！' },
+      { char: 'narrator', text: '在你能拒绝之前，雪丸已经把你扛了起来。' },
+      { char: 'narrator', text: '风在耳边呼啸，几个纵跳之后，你站在了一棵参天大树的顶端。' },
+      { char: 'narrator', text: '整片杜鹃森在眼前展开——比你想象的要大得多，绿色的海洋一直延伸到天际。' },
+      { char: 'yukimaru', text: '帅吧？这是我最喜欢的地方。' },
+      { char: 'narrator', text: '夕阳给森林镀上了一层金色的光。你注意到远处有一个黑色的身影站在另一棵高树上。' },
+    ],
+    next: 'day3_morning',
+  },
+
+  // =============== DAY 3: MEETING SOU ===============
+  'day3_morning': {
+    scene: 'sky', particles: 'feathers', day: 3,
+    chapter: { num: '第三天', title: '天空与深渊' },
+    lines: [
+      { char: 'narrator', text: '第三天。你越来越习惯这里的生活了。' },
+      { char: 'narrator', text: '早上起来时，一根蓝灰色的羽毛落在了你的窗台上。' },
+      { char: 'player', text: '（好漂亮的羽毛……这是什么鸟的？）' },
+      { char: 'narrator', text: '带着羽毛走出房间，你发现今天的天格外地蓝。' },
+      { char: 'narrator', text: '然后你看到了——神社最高的屋脊上，坐着一个人。' },
+    ],
+    next: 'meet_sou',
+  },
+
+  'meet_sou': {
+    scene: 'sky', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '那是一个中性而优雅的身影。长长的蓝黑色头发在风中飘动，像是一面旗。' },
+      { char: 'narrator', text: '此人穿着蓝白相间的宽袖长袍，发间编入了几根真正的蓝灰色羽毛。' },
+      { char: 'narrator', text: '深邃的蓝宝石色眼睛从高处俯瞰着你，表情平静得像天空本身。' },
+      { char: 'sou', text: '……是你捡到了我的羽毛。' },
+      { char: 'player', text: '这是你的？抱歉，我——' },
+      { char: 'sou', text: '不必还。它落下来，是因为它想落在那里。' },
+      { char: 'narrator', text: '说完，此人从屋脊上一跃而下——不，不是跃下。' },
+      { char: 'narrator', text: '是滑翔。' },
+      { char: 'narrator', text: '衣袍在空中展开的一瞬间，你看到了袖底隐约的蓝灰色翅膀的轮廓。' },
+      { char: 'narrator', text: '无声无息地落在了你面前。' },
+      { char: 'sou', text: '我叫苍羽。蓝鹰。守望这片森林天空的人。' },
+      { char: 'sou', text: '你是那个穿过结界的人类。' },
+      { char: 'player', text: '是的。苍羽……你一直在天上看着？' },
+      { char: 'sou', text: '我看着一切。风会告诉我这片森林中发生的所有事情。' },
+      { char: 'sou', text: '包括——你昨天被雪丸扛上了树顶时吓得抓住他耳朵的事。' },
+      { char: 'player', text: '……请你忘了那件事。' },
+      { char: 'narrator', text: '苍羽嘴角几乎不可察觉地弯了一下。大概是在笑。大概。' },
+    ],
+    choices: [
+      { text: '「你为什么总在天上？不孤独吗？」', affection: { hawk: 2 }, next: 'sou_talk' },
+      { text: '「这根羽毛我可以留着吗？」', affection: { hawk: 2 }, next: 'sou_talk' },
+    ],
+  },
+
+  'sou_talk': {
+    scene: 'sky', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'sou', text: '……天空很安静。我习惯了安静。' },
+      { char: 'sou', text: '地上太吵了。尤其是雪丸来了之后。' },
+      { char: 'player', text: '那你今天为什么下来了？' },
+      { char: 'sou', text: '…………' },
+      { char: 'narrator', text: '苍羽沉默了片刻。风吹过，掀起了一缕蓝黑色的长发。' },
+      { char: 'sou', text: '因为你捡起了那根羽毛。' },
+      { char: 'sou', text: '大多数人会扔掉的。或者踩过去。' },
+      { char: 'narrator', text: '说完，苍羽转身走向神社的后方。走出几步后，短暂地回了一下头。' },
+      { char: 'sou', text: '……如果你想看日出，明天早上到那棵最高的杉树下来。' },
+      { char: 'narrator', text: '然后就消失了。像融入了天空一样。' },
+    ],
+    next: 'day3_night',
+  },
+
+  // =============== DAY 3 NIGHT: MEETING GENYA ===============
+  'day3_night': {
+    scene: 'cave', particles: 'spirits',
+    lines: [
+      { char: 'narrator', text: '第三天的深夜。你被一种奇异的感觉弄醒了。' },
+      { char: 'narrator', text: '不是声音，而是某种目光。有什么东西在看着你。' },
+      { char: 'player', text: '……谁在那里？' },
+      { char: 'narrator', text: '月光从纸窗渗入。在房间的角落里，有一双发着淡紫色光的眼睛。' },
+    ],
+    next: 'meet_genya',
+  },
+
+  'meet_genya': {
+    scene: 'cave', particles: 'spirits',
+    chars: [{ id: 'genya', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '从阴影中，一个人缓缓现出了身形。' },
+      { char: 'narrator', text: '他有着一头乌黑笔直的长发，在月光下泛着微微的紫色光泽。' },
+      { char: 'narrator', text: '紫水晶色的眼睛是竖瞳——比其他兽灵的竖瞳更加细长，更加……冷冽。' },
+      { char: 'narrator', text: '他穿着黑色和深紫色的和服，苍白的皮肤上隐约可见细密的鳞纹。' },
+      { char: 'genya', text: '呵。原来这就是让整个杜鹃森都骚动起来的人类。' },
+      { char: 'narrator', text: '他的声音低沉而柔滑，像丝绸在石板上滑过。' },
+      { char: 'player', text: '你是——' },
+      { char: 'genya', text: '玄夜。黑蛇。住在这片森林最深处的……怎么说呢。' },
+      { char: 'genya', text: '他们大概会说我是「不太好相处的那个」吧。' },
+      { char: 'narrator', text: '他微微一笑。那个笑容既妖艳又危险，像是盛满了毒酒的精美杯子。' },
+      { char: 'genya', text: '我只是来看看——什么样的人类，能穿过杜鹃森的结界。' },
+      { char: 'narrator', text: '他走近了一步。你能感到他身上散发出一种冰冷的气息。' },
+      { char: 'genya', text: '嗯——有意思。你身上有很多东西纠缠在一起。过去、现在、还有……' },
+      { char: 'genya', text: '算了。有些事情，太早知道反而没趣。' },
+    ],
+    choices: [
+      { text: '「你能看到什么？」', affection: { snake: 2 }, next: 'genya_talk' },
+      { text: '「……你真的是来看看而已？」', affection: { snake: 2 }, next: 'genya_talk' },
+    ],
+  },
+
+  'genya_talk': {
+    scene: 'cave', particles: 'spirits',
+    chars: [{ id: 'genya', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'genya', text: '我看到的嘛——比你想知道的要多。比你该知道的也要多。' },
+      { char: 'genya', text: '蛇有蛇的眼睛。我们看得到热、看得到气、看得到……命运的纹路。' },
+      { char: 'narrator', text: '他伸出手，细长的手指在你眼前晃了晃。指甲是黑色的，指背上隐约有鳞片的纹理。' },
+      { char: 'genya', text: '不过放心。我对人类没什么兴趣。' },
+      { char: 'genya', text: '……本来是这样的。' },
+      { char: 'narrator', text: '他后退了一步，身体融入了阴影中。最后只剩一双紫色的眼睛。' },
+      { char: 'genya', text: '七天很短。但也许对某些事来说——刚刚好。' },
+      { char: 'genya', text: '晚安，人类。下次见面——也许在更有趣的时候。' },
+      { char: 'narrator', text: '紫色的光消失了。房间里只剩下淡淡的、像蛇蜕皮一样的幽冷气味。' },
+      { char: 'player', text: '（……这个人好危险。但为什么，我的心跳这么快？）' },
+    ],
+    next: 'day4_freetime',
+  },
+
+  // =============== DAY 4: FREE CHOICE ===============
+  'day4_freetime': {
+    scene: 'shrine', particles: 'spirits', day: 4,
+    chapter: { num: '第四天', title: '日常与羁绊' },
+    lines: [
+      { char: 'narrator', text: '第四天的早晨。你已经认识了杜鹃森所有的住民。' },
+      { char: 'narrator', text: '琥珀像往常一样准备了早饭。白露在缘廊上晃着腿等你。银朗巡逻归来后沉默地坐在角落。' },
+      { char: 'narrator', text: '雪丸倒挂在屋檐上，苍羽不知在哪个高处注视着，而玄夜大概还在森林深处的某个阴影里沉睡。' },
+      { char: 'narrator', text: '今天——你想和谁一起度过？' },
+    ],
+    choices: [
+      { text: '帮琥珀打扫神社', affection: { fox: 3 }, next: 'day4_kohaku' },
+      { text: '陪银朗巡逻', affection: { wolf: 3 }, next: 'day4_ginro' },
+      { text: '和白露去秘密花园', affection: { deer: 3 }, next: 'day4_shiro' },
+      { text: '跟雪丸去冒险', affection: { whitewolf: 3 }, next: 'day4_yukimaru' },
+    ],
+  },
+
+  'day4_kohaku': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'kohaku', text: '哎呀，你要帮忙？那太好了。来，帮我擦这排灯笼吧。' },
+      { char: 'narrator', text: '你和琥珀一起打扫着神社。她动作优雅而熟练，像是做了几百年一样。' },
+      { char: 'player', text: '琥珀，你在这座神社待了多久了？' },
+      { char: 'kohaku', text: '嗯——很久了。久到我都记不清是先有我还是先有这座神社了。' },
+      { char: 'kohaku', text: '不过呢，我以前也在人间生活过。京都、奈良、有时候还去大阪。' },
+      { char: 'player', text: '你喜欢人间吗？' },
+      { char: 'kohaku', text: '……喜欢啊。人类的世界虽然吵吵嚷嚷的，但很有活力。' },
+      { char: 'kohaku', text: '只是——活得太久了，看着认识的人一个个老去、消失……' },
+      { char: 'narrator', text: '她的手停了一下。然后又笑了。' },
+      { char: 'kohaku', text: '所以我回来了。回到这个永远不会变的地方。' },
+      { char: 'kohaku', text: '……不过，偶尔也会觉得寂寞呢。' },
+      { char: 'narrator', text: '她的尾巴轻轻垂了下来。夕阳把她的侧脸染成了琥珀色。' },
+    ],
+    next: 'day5_crisis',
+  },
+
+  'day4_ginro': {
+    scene: 'moonlit', particles: 'fireflies',
+    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'ginro', text: '……你要跟着？会拖慢我的速度。' },
+      { char: 'player', text: '我尽量不添麻烦。' },
+      { char: 'ginro', text: '…………随你。别踩到陷阱就行。' },
+      { char: 'narrator', text: '巡逻路线穿过了整片森林的边缘。银朗走在前面，步伐稳健而无声。' },
+      { char: 'narrator', text: '你发现他每隔一段就会停下来，用手触碰某棵树的树干，闭上眼睛感应什么。' },
+      { char: 'player', text: '你在做什么？' },
+      { char: 'ginro', text: '……听。结界的声音。' },
+      { char: 'ginro', text: '结界不是一面墙，而是一张网。每一棵树都是网的一个节点。' },
+      { char: 'ginro', text: '我的工作就是——确保没有节点断裂。' },
+      { char: 'player', text: '六百年来一直这样？' },
+      { char: 'ginro', text: '…………你怎么知道的。是白露那个多嘴的小鬼说的。' },
+      { char: 'player', text: '六百年……不觉得累吗？' },
+      { char: 'ginro', text: '……' },
+      { char: 'narrator', text: '他沉默了很久。久到你以为他不会回答了。' },
+      { char: 'ginro', text: '……有时候觉得，这片森林就是我。我的根扎在这里。离开就会枯死。' },
+      { char: 'ginro', text: '这不叫累。这叫……活着。' },
+      { char: 'narrator', text: '他说这话的时候没有看你。但他的步子明显放慢了——慢到你可以走在他身边。' },
+    ],
+    next: 'day5_crisis',
+  },
+
+  'day4_shiro': {
+    scene: 'spring', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'shiro', text: '真的？你要来我的秘密基地？太好了太好了！' },
+      { char: 'narrator', text: '白露拉着你的手，穿过了一条只有他知道的密林小径。' },
+      { char: 'narrator', text: '眼前豁然开朗——一整个被春光笼罩的花之谷地。' },
+      { char: 'shiro', text: '这些花都是我种的哦！用灵力！' },
+      { char: 'narrator', text: '他蹲下身，手指触碰一颗枯萎的花苗。指尖发出淡绿色的光。' },
+      { char: 'narrator', text: '花苗颤抖了一下，飞速地生长、绽放——变成了一朵洁白的百合。' },
+      { char: 'shiro', text: '送给你！' },
+      { char: 'player', text: '谢谢你，白露。' },
+      { char: 'shiro', text: '嘿嘿……其实我一直很羡慕人类。' },
+      { char: 'shiro', text: '人类可以去好多地方。坐电车、坐飞机、去看海……' },
+      { char: 'shiro', text: '海到底是什么样的呀？琥珀姐说过很大很大，但我想象不出来。' },
+      { char: 'player', text: '嗯……比你见过的所有溪流加起来还要大。蓝色的，一眼看不到边。' },
+      { char: 'shiro', text: '一眼看不到边……' },
+      { char: 'narrator', text: '白露的眼睛里映出了一整片想象中的海洋。他头上的角，又开了一朵小花。' },
+    ],
+    next: 'day5_crisis',
+  },
+
+  'day4_yukimaru': {
+    scene: 'snowfield', particles: 'snowflakes',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'yukimaru', text: '哈！你选了我！你眼光不错嘛！' },
+      { char: 'narrator', text: '雪丸二话不说就拉着你跑了。目标是森林北边的高地。' },
+      { char: 'yukimaru', text: '你知道吗，从北边可以看到远处的雪山！那是我老家！' },
+      { char: 'player', text: '你为什么离开雪山？' },
+      { char: 'yukimaru', text: '啊——那个嘛。' },
+      { char: 'narrator', text: '他的脚步慢了一下。只有一瞬间。' },
+      { char: 'yukimaru', text: '……雪山那边也有兽灵的聚落。但规矩太多了。什么不准化人形，不准接近人类，不准离开领地。' },
+      { char: 'yukimaru', text: '我觉得那样活着跟死了有什么区别。所以就跑了。' },
+      { char: 'yukimaru', text: '跑了好多地方！北海道、东北、关东——然后就来到了这里。' },
+      { char: 'yukimaru', text: '银朗那家伙虽然臭脸，但他不赶我走。琥珀姐会给我做饭。白露是个好玩的小鬼。' },
+      { char: 'yukimaru', text: '所以就赖着了。嘿嘿。' },
+      { char: 'narrator', text: '他笑得很灿烂。但你注意到他看向远方雪山的眼神，比平时安静了许多。' },
+      { char: 'yukimaru', text: '不过——有时候也会想。那边是不是也有人在想我呢。' },
+      { char: 'narrator', text: '风吹过来，带着远方隐约的寒意。' },
+    ],
+    next: 'day5_crisis',
+  },
+
+  // =============== DAY 5: CRISIS ===============
+  'day5_crisis': {
+    scene: 'night-shrine', particles: 'spirits', day: 5,
+    chapter: { num: '第五天', title: '裂隙' },
+    lines: [
+      { char: 'narrator', text: '第五天的深夜。' },
+      { char: 'narrator', text: '你被一声巨响震醒。整座神社都在颤抖。' },
+      { char: 'narrator', text: '冲出房间时，六道身影已经聚集在了前庭。' },
+    ],
+    next: 'crisis_gather',
+  },
+
+  'crisis_gather': {
+    scene: 'night-shrine', particles: 'spirits',
+    chars: [
+      { id: 'kohaku', pos: 'left', form: 'human' },
+      { id: 'ginro', pos: 'right', form: 'human' },
+    ],
+    lines: [
+      { char: 'kohaku', text: '结界北侧出现了裂隙。有东西在试图闯入。' },
+      { char: 'ginro', text: '不是「在试图」——已经闯入了。至少三只堕兽。' },
+      { char: 'yukimaru', text: '嘿，终于有仗打了！', note: 'offscreen' },
+      { char: 'sou', text: '北侧的树冠有黑色瘴气在蔓延。它们在腐蚀结界的节点。', note: 'offscreen' },
+      { char: 'genya', text: '呵……来者不善。这些不是普通的野兽。有人在背后操纵。', note: 'offscreen' },
+      { char: 'ginro', text: '琥珀，你修补结界。苍羽和我在空中和地面拦截。雪丸去北侧。' },
+      { char: 'yukimaru', text: '收到！', note: 'offscreen' },
+      { char: 'ginro', text: '白露——保护那个人类。' },
+      { char: 'shiro', text: '交给我！', note: 'offscreen' },
+      { char: 'genya', text: '那我呢？', note: 'offscreen' },
+      { char: 'ginro', text: '……你想做什么就做什么。你向来如此。' },
+      { char: 'genya', text: '哼。算你了解我。', note: 'offscreen' },
+    ],
+    next: 'crisis_battle',
+  },
+
+  'crisis_battle': {
+    scene: 'night-shrine', particles: 'spirits',
+    lines: [
+      { char: 'narrator', text: '所有人散开了。' },
+      { char: 'narrator', text: '远处传来了嘶吼与光芒交错的声音——战斗开始了。' },
+      { char: 'narrator', text: '你和白露待在正殿前。黑色的瘴气正从森林的方向涌来。' },
+      { char: 'narrator', text: '一只浑身散发黑雾的巨型妖兽突破了防线，直冲向你。' },
+      { char: 'shiro', text: '——小心！！', note: 'offscreen' },
+      { char: 'narrator', text: '你的身体无法动弹。黑雾的压力让你几乎窒息。' },
+      { char: 'narrator', text: '就在这时——' },
+      { char: 'narrator', text: '一道光挡在了你面前。' },
     ],
     next_by_affection: true,
   },
 
+  // =============== RESCUE SCENES ===============
   'rescue_fox': {
-    scene: 'night-shrine',
-    particles: 'fireflies',
+    scene: 'night-shrine', particles: 'fireflies',
     chars: [{ id: 'kohaku', pos: 'center', form: 'beast' }],
     transform_immediate: { char: 'kohaku', text: '九尾灵狐 · 觉醒' },
     lines: [
       { char: 'narrator', text: '九条火焰般的尾巴展开，将你完全护在中间。' },
-      { char: 'narrator', text: '琥珀的灵狐形态散发着耀眼的金红色光芒，狐火在她周围旋转。' },
-      { char: 'kohaku', text: '不准碰这个人。', emotion: 'fierce' },
-      { char: 'narrator', text: '她低吼着，声音中带着不容侵犯的威严。九尾同时喷出灵火，将黑雾燃尽。' },
-      { char: 'narrator', text: '猪妖发出惨叫，化为青烟消散了。' },
-      { char: 'kohaku', text: '……你没事吧？' },
-      { char: 'player', text: '琥珀……你受伤了？你的尾巴在发抖……' },
-      { char: 'kohaku', text: '没事的……只是用了太多灵力。比起这个——' },
-      { char: 'narrator', text: '她的身体摇晃了一下。你赶忙接住了恢复人形的她。' },
-      { char: 'kohaku', text: '……抱歉。让我这样靠一会儿。就一会儿就好。' },
+      { char: 'narrator', text: '琥珀化为了一只巨大而美丽的赤狐。九尾同时喷出灵火，将黑雾燃尽。' },
+      { char: 'kohaku', text: '不准碰这个人。' },
+      { char: 'narrator', text: '猪妖化为青烟消散了。琥珀恢复了人形，但身体摇晃了一下。' },
+      { char: 'kohaku', text: '……让我靠一会儿。' },
     ],
-    next: 'day7_ending',
+    next: 'crisis_aftermath',
   },
 
   'rescue_wolf': {
-    scene: 'moonlit',
-    particles: 'fireflies',
+    scene: 'moonlit', particles: 'fireflies',
     chars: [{ id: 'ginro', pos: 'center', form: 'beast' }],
     transform_immediate: { char: 'ginro', text: '苍银狼 · 觉醒' },
     lines: [
-      { char: 'narrator', text: '一头巨大的银狼从黑暗中飞出，将猪妖扑倒在地。' },
-      { char: 'narrator', text: '银朗的兽形比平时更大，眼中燃烧着冰蓝色的火焰。' },
-      { char: 'ginro', text: '滚。', emotion: 'fierce' },
-      { char: 'narrator', text: '只有一个字。但伴随着那一声低吼，月光凝聚成利刃，将黑雾撕裂殆尽。' },
-      { char: 'narrator', text: '猪妖连惨叫都来不及发出，就已经化为虚无。' },
-      { char: 'narrator', text: '银朗转向你，巨大的身躯挡在你面前。他的鼻息温热，打在你的脸上。' },
+      { char: 'narrator', text: '一头巨大的银狼从黑暗中飞出，将妖兽扑倒在地。' },
+      { char: 'narrator', text: '月光凝聚成利刃，将黑雾撕裂殆尽。' },
+      { char: 'ginro', text: '滚。' },
+      { char: 'narrator', text: '银朗低下头，用温热的鼻尖碰了碰你的手心。' },
       { char: 'ginro', text: '……受伤了吗。' },
-      { char: 'player', text: '没有。因为你来了。' },
-      { char: 'ginro', text: '……当然会来。我说过，守护这里的一切是我的职责。' },
-      { char: 'ginro', text: '…………包括你。' },
-      { char: 'narrator', text: '那句话，轻得几乎被风带走。但你听到了。' },
     ],
-    next: 'day7_ending',
+    next: 'crisis_aftermath',
   },
 
   'rescue_deer': {
-    scene: 'spring',
-    particles: 'sakura',
+    scene: 'spring', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'beast' }],
     transform_immediate: { char: 'shiro', text: '白玉鹿 · 觉醒' },
     lines: [
-      { char: 'narrator', text: '一道绿色的光墙从地面升起，将黑雾隔绝在外。' },
-      { char: 'narrator', text: '白露以鹿形态立在你面前，鹿角上绽放着耀眼的花朵。整片大地被他的灵力唤醒，藤蔓和花朵疯狂生长。' },
-      { char: 'shiro', text: '我不会让你碰到这个人的！', emotion: 'brave' },
-      { char: 'narrator', text: '藤蔓缠住了猪妖的四肢，花朵绽放出净化的光芒。黑雾被一点点驱散。' },
-      { char: 'narrator', text: '猪妖挣扎着，最终被封印在了巨大的樱花树中。' },
-      { char: 'shiro', text: '呼……呼……我做到了！' },
-      { char: 'narrator', text: '白露变回人形，因为用力过度，脚步踉跄地扑到了你怀里。' },
-      { char: 'shiro', text: '嘿嘿……我厉害吧？我保护了你哦？' },
-      { char: 'player', text: '嗯，你很厉害。谢谢你，白露。' },
-      { char: 'shiro', text: '那……作为奖励……可以让我在这里多靠一会儿吗？' },
+      { char: 'narrator', text: '一道绿色的光墙从地面升起。白露化为白鹿，鹿角上的花全部盛开。' },
+      { char: 'narrator', text: '藤蔓和花朵将妖兽封印在了巨大的樱花树中。' },
+      { char: 'shiro', text: '我保护了你哦！……嘿嘿。' },
+      { char: 'narrator', text: '白露变回人形，一头扑进了你怀里。' },
+    ],
+    next: 'crisis_aftermath',
+  },
+
+  'rescue_whitewolf': {
+    scene: 'snowfield', particles: 'snowflakes',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'beast' }],
+    transform_immediate: { char: 'yukimaru', text: '白狼 · 觉醒' },
+    lines: [
+      { char: 'narrator', text: '一道白色的闪电从侧面冲来，将妖兽撞飞了出去。' },
+      { char: 'narrator', text: '雪丸化为了一头纯白的狼，比人形时更加野性、更加自由。' },
+      { char: 'yukimaru', text: '嘿——在我地盘撒野？找死啊！' },
+      { char: 'narrator', text: '他的动作快得几乎看不清，几个回合就将妖兽击溃了。' },
+      { char: 'narrator', text: '战斗结束后他甩了甩毛，化回人形，露出了一个大大的笑容。' },
+      { char: 'yukimaru', text: '怎么样，帅不帅？' },
+    ],
+    next: 'crisis_aftermath',
+  },
+
+  'rescue_hawk': {
+    scene: 'sky', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'beast' }],
+    transform_immediate: { char: 'sou', text: '蓝鹰 · 觉醒' },
+    lines: [
+      { char: 'narrator', text: '一声鹰啸划破夜空。' },
+      { char: 'narrator', text: '苍羽化为了一只巨大的蓝色鹰隼，从天空俯冲而下。' },
+      { char: 'narrator', text: '钢铁般的利爪和暴风般的气流，一击就将妖兽撕裂。' },
+      { char: 'sou', text: '……差一秒。我应该更快的。' },
+      { char: 'narrator', text: '他恢复人形，难得地露出了一丝焦虑的表情。' },
+      { char: 'sou', text: '……你没事就好。' },
+    ],
+    next: 'crisis_aftermath',
+  },
+
+  'rescue_snake': {
+    scene: 'cave', particles: 'spirits',
+    chars: [{ id: 'genya', pos: 'center', form: 'beast' }],
+    transform_immediate: { char: 'genya', text: '黑蛇 · 觉醒' },
+    lines: [
+      { char: 'narrator', text: '黑暗中，一道紫色的光无声无息地缠上了妖兽。' },
+      { char: 'narrator', text: '玄夜化为了一条巨大的黑蛇。鳞片如宝石般闪烁，紫色的双眼散发着催眠般的光。' },
+      { char: 'narrator', text: '妖兽甚至来不及挣扎，就被缠紧、绞杀、吞噬。' },
+      { char: 'genya', text: '味道不怎么样。' },
+      { char: 'narrator', text: '他恢复人形，舔了舔嘴唇。然后看向你，半眯着那双紫色的眼睛。' },
+      { char: 'genya', text: '别用那种眼神看我。我只是碰巧路过。' },
+      { char: 'genya', text: '……真的只是碰巧。' },
+    ],
+    next: 'crisis_aftermath',
+  },
+
+  // =============== CRISIS AFTERMATH & DAY 6 ===============
+  'crisis_aftermath': {
+    scene: 'shrine', particles: 'spirits', day: 6,
+    chapter: { num: '第六天', title: '余波' },
+    lines: [
+      { char: 'narrator', text: '天亮了。战斗留下的痕迹在晨光中慢慢消退。' },
+      { char: 'narrator', text: '结界被修补好了，但每个人都显得疲惫。' },
+      { char: 'narrator', text: '你坐在缘廊上，看着六位兽灵各自休息的样子。' },
+      { char: 'narrator', text: '琥珀在厨房里做补汤。银朗靠着柱子闭目养神。' },
+      { char: 'narrator', text: '白露缩在你旁边打瞌睡。雪丸在屋顶上伸懒腰。' },
+      { char: 'narrator', text: '苍羽在远处的树上梳理羽毛。玄夜不知道去了哪里——又消失了。' },
+      { char: 'player', text: '（昨晚的事太可怕了。但是……他们都来保护我了。）' },
+      { char: 'player', text: '（明天就是第七天。月圆之夜。结界会打开。）' },
+      { char: 'player', text: '（我就可以离开了。）' },
+      { char: 'player', text: '（……为什么。想到要离开，心里会这么难受。）' },
+    ],
+    next: 'day6_choice',
+  },
+
+  'day6_choice': {
+    scene: 'shrine', particles: 'spirits',
+    lines: [
+      { char: 'narrator', text: '最后一个完整的白天。你想和谁度过？' },
+    ],
+    choices: [
+      { text: '琥珀——想问她关于结界的事', affection: { fox: 3 }, next: 'day6_kohaku' },
+      { text: '银朗——想安静地走最后一次巡逻路线', affection: { wolf: 3 }, next: 'day6_ginro' },
+      { text: '白露——想再去一次秘密花园', affection: { deer: 3 }, next: 'day6_shiro' },
+      { text: '雪丸——想再从高处看一次森林', affection: { whitewolf: 3 }, next: 'day6_yukimaru' },
+    ],
+  },
+
+  'day6_kohaku': {
+    scene: 'night-shrine', particles: 'fireflies',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'kohaku', text: '嗯？结界能不能留人？' },
+      { char: 'kohaku', text: '……理论上是可以的。但那需要你放弃作为人类的一部分。' },
+      { char: 'player', text: '什么意思？' },
+      { char: 'kohaku', text: '结界只允许灵气流通。纯粹的人类在这里待太久，身体会逐渐虚弱。' },
+      { char: 'kohaku', text: '除非——你的身体里也被注入灵气。变得……不完全是人类。' },
+      { char: 'narrator', text: '琥珀低下了头。她的尾巴紧紧地缠在身侧。' },
+      { char: 'kohaku', text: '我不希望你做这种选择。人类有人类的世界。那里有你的生活、你的朋友。' },
+      { char: 'kohaku', text: '不应该为了这里……为了我们……' },
+      { char: 'narrator', text: '她没有把话说完。月光把她的影子拉得很长很长。' },
     ],
     next: 'day7_ending',
   },
 
-  // ===== ENDING =====
+  'day6_ginro': {
+    scene: 'moonlit', particles: 'fireflies',
+    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '银朗没有拒绝你。他只是看了你一眼，然后默默往前走了。' },
+      { char: 'narrator', text: '你跟在他身后，走过了那条已经走了几遍的巡逻路线。' },
+      { char: 'narrator', text: '这一次，他走得很慢。比任何一次都慢。' },
+      { char: 'ginro', text: '……你走之后，这条路会安静很多。' },
+      { char: 'player', text: '你会想我吗？' },
+      { char: 'ginro', text: '…………' },
+      { char: 'ginro', text: '……狼不会忘记气味。永远不会。' },
+      { char: 'narrator', text: '他说这句话的时候，声音轻得几乎被风吹散。' },
+    ],
+    next: 'day7_ending',
+  },
+
+  'day6_shiro': {
+    scene: 'spring', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'shiro', text: '……你明天就要走了对不对。' },
+      { char: 'player', text: '嗯。' },
+      { char: 'shiro', text: '…………' },
+      { char: 'narrator', text: '白露没有像往常一样蹦蹦跳跳。他安安静静地走在你旁边。' },
+      { char: 'narrator', text: '到了花园以后，他蹲在花丛中间，用灵力让所有的花同时盛开了。' },
+      { char: 'shiro', text: '我想让你记住这个样子。' },
+      { char: 'shiro', text: '这样你回去以后，闭上眼睛就能看到。' },
+      { char: 'narrator', text: '花瓣雨中，他的角上又开了一朵小花。但这一次，你发现——那朵花是蓝色的。' },
+      { char: 'player', text: '白露，你的花……是蓝色的。之前不是一直是粉色和白色吗？' },
+      { char: 'shiro', text: '……蓝色是代表想念的颜色。' },
+    ],
+    next: 'day7_ending',
+  },
+
+  'day6_yukimaru': {
+    scene: 'snowfield', particles: 'snowflakes',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'yukimaru', text: '最后一天啊。那一定要做点帅气的事！' },
+      { char: 'narrator', text: '雪丸带你爬上了森林中最高的那棵树。夕阳在云层中燃烧着。' },
+      { char: 'yukimaru', text: '你知道吗，我到处跑了这么久，每次离开一个地方都不会回头的。' },
+      { char: 'yukimaru', text: '但这次——' },
+      { char: 'narrator', text: '他把头转向另一边。但你看到他那只完好的耳朵在微微颤抖。' },
+      { char: 'yukimaru', text: '这次可能会想回头看看。' },
+      { char: 'yukimaru', text: '……你、你不许笑啊！' },
+    ],
+    next: 'day7_ending',
+  },
+
+  // =============== DAY 7: ENDINGS ===============
   'day7_ending': {
-    scene: 'shrine',
-    particles: 'spirits',
+    scene: 'shrine', particles: 'spirits', day: 7,
     chapter: { num: '终章', title: '月圆之夜' },
     lines: [
-      { char: 'narrator', text: '第七天。月圆之夜终于来了。' },
-      { char: 'narrator', text: '结界恢复了正常，通往山下的道路也重新开放了。' },
-      { char: 'narrator', text: '你站在鸟居前，身后是与你度过了七天的三位兽灵。' },
+      { char: 'narrator', text: '第七天。月圆之夜。' },
+      { char: 'narrator', text: '黄昏时分，结界开始发出淡淡的光——通道即将打开。' },
+      { char: 'narrator', text: '你站在鸟居前。身后是与你度过了七天的兽灵们。' },
     ],
     next_by_affection_ending: true,
   },
 
   'ending_fox': {
-    scene: 'night-shrine',
-    particles: 'fireflies',
+    scene: 'night-shrine', particles: 'fireflies',
     chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
     lines: [
       { char: 'kohaku', text: '结界开了。你可以回去了。' },
-      { char: 'narrator', text: '琥珀的声音很平静。但她的手，紧紧攥着袖口。' },
-      { char: 'player', text: '琥珀。' },
-      { char: 'kohaku', text: '嗯？' },
-      { char: 'player', text: '你说过你以前在京都住了很久对吧。' },
-      { char: 'kohaku', text: '是呀。那是很久很久以前的事了。' },
-      { char: 'player', text: '那……下次可以带我去吗？我想看看你曾经生活过的地方。' },
+      { char: 'narrator', text: '琥珀的声音很平静。但她的手紧紧攥着袖口。' },
+      { char: 'player', text: '琥珀。你以前在京都住了很久对吧。' },
+      { char: 'kohaku', text: '是呀。很久很久以前的事了。' },
+      { char: 'player', text: '那——下次可以带我去吗？' },
       { char: 'kohaku', text: '…………你这样说，我会当真的哦？' },
       { char: 'player', text: '我是认真的。' },
-      { char: 'narrator', text: '月光下，琥珀的眼中泛起了一层水光。她露出了这七天来最温柔的笑容。' },
+      { char: 'narrator', text: '月光下，琥珀的眼中泛起了一层水光。' },
       { char: 'kohaku', text: '好。那等下一个月圆——我去找你。' },
-      { char: 'kohaku', text: '只要循着那股甘甜的花香，你就能知道我来了。' },
       { char: 'narrator', text: '她踮起脚尖，在你额头上留下了一个温热的吻。' },
-      { char: 'narrator', text: '你的额心，浮现出一个淡淡的、狐火般的光印。' },
-      { char: 'kohaku', text: '这是我的印记。有了它，不管你在哪里——我都找得到你。' },
+      { char: 'kohaku', text: '这是我的印记。有了它——不管你在哪里，我都找得到你。' },
     ],
-    ending: { title: '灵狐之约', subtitle: '「此后每一个月圆之夜，窗边都会飘来那股熟悉的花香。\n推开窗，月光下总站着一位红发的美丽女子。\n她笑着说——\n『我来找你了。』」\n\n—— 琥珀线 · 完 ——' },
+    ending: { title: '灵狐之约', subtitle: '此后每一个月圆之夜，窗边都会飘来那股熟悉的花香。\n推开窗，月光下总站着一位红发的美丽女子。\n她笑着说——「我来找你了。」\n\n—— 琥珀线 · 完 ——' },
   },
 
   'ending_wolf': {
-    scene: 'moonlit',
-    particles: 'fireflies',
+    scene: 'moonlit', particles: 'fireflies',
     chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
     lines: [
-      { char: 'narrator', text: '其他人都已经道过别了。只有银朗还站在原地，没有说话。' },
-      { char: 'player', text: '银朗。' },
-      { char: 'ginro', text: '…………' },
-      { char: 'player', text: '你不来送我吗？' },
+      { char: 'narrator', text: '所有人都道过别了。只有银朗还站在原地。' },
       { char: 'ginro', text: '……送别这种事。我不擅长。' },
       { char: 'player', text: '那你擅长什么？' },
       { char: 'ginro', text: '……等待。' },
-      { char: 'narrator', text: '月光下，你看到银朗的眼中第一次有了温度。' },
-      { char: 'ginro', text: '你如果……想回来的话。在任何一个月圆之夜，到你最初迷路的地方。我会在那里。' },
-      { char: 'player', text: '每个月圆之夜？' },
-      { char: 'ginro', text: '……每一个。' },
-      { char: 'narrator', text: '他说完，转过了身。但走出几步后，又停下了。' },
-      { char: 'ginro', text: '……名字。' },
-      { char: 'player', text: '嗯？' },
-      { char: 'ginro', text: '我记住了。你的名字。你的气味。你的脚步声。全部都——记住了。' },
-      { char: 'narrator', text: '然后，他化为银色的光，消失在月色中。' },
+      { char: 'ginro', text: '你如果想回来的话。在任何一个月圆之夜，到最初迷路的地方。' },
+      { char: 'ginro', text: '我会在那里。每一个月圆。' },
+      { char: 'narrator', text: '他转过身，化为银色的光消失在月色中。' },
       { char: 'narrator', text: '只有一声悠长的狼嚎，回荡在整座山谷。' },
     ],
-    ending: { title: '月下之约', subtitle: '「此后每一个月圆之夜，你都会来到那条山路的起点。\n每一次，都能在月光中看到一头银狼的身影。\n他不说话，只是安静地走到你身边，\n用温热的鼻尖碰了碰你的手心。」\n\n—— 银朗线 · 完 ——' },
+    ending: { title: '月下之约', subtitle: '此后每一个月圆之夜，你都会来到那条山路的起点。\n月光中总有一头银狼安静地等在那里。\n他不说话，只是用温热的鼻尖碰了碰你的手心。\n\n—— 银朗线 · 完 ——' },
   },
 
   'ending_deer': {
-    scene: 'spring',
-    particles: 'sakura',
+    scene: 'spring', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
-      { char: 'narrator', text: '白露抓着你的袖子，不肯松手。' },
-      { char: 'shiro', text: '不要走嘛……再住几天不行吗？' },
-      { char: 'kohaku', text: '白露，不能任性。', note: 'offscreen' },
-      { char: 'shiro', text: '可是……可是我还有好多地方想带你去看……' },
-      { char: 'narrator', text: '他低着头，你看到有水滴落在了石板上。' },
-      { char: 'player', text: '白露。你看着我。' },
-      { char: 'shiro', text: '………………' },
-      { char: 'player', text: '你不是说想看看外面的世界吗？' },
-      { char: 'shiro', text: '嗯……' },
-      { char: 'player', text: '那我在山下等你。等你学会完全变成人类的样子，就来找我。我带你去看海。' },
-      { char: 'shiro', text: '海？' },
-      { char: 'player', text: '嗯。很大很大的水，比你见过的任何溪流都大。' },
+      { char: 'shiro', text: '不要走嘛……' },
+      { char: 'player', text: '白露。你不是说想看外面的世界吗？' },
+      { char: 'player', text: '等你学会完全变成人类的样子，就来找我。我带你去看海。' },
       { char: 'shiro', text: '……你约定了哦？不许骗我！' },
-      { char: 'player', text: '约定。' },
-      { char: 'narrator', text: '白露终于松开了手。但他的头上冒出了一朵小小的、发光的花。' },
-      { char: 'shiro', text: '这个……是给你的信物。只要花还亮着，就说明我在想你。' },
-      { char: 'narrator', text: '你接过那朵花。它在你掌心温暖地发着光。' },
-      { char: 'shiro', text: '所以……它会一直亮着的！' },
+      { char: 'narrator', text: '白露的头上冒出了一朵发光的花。' },
+      { char: 'shiro', text: '这个是给你的信物。只要花还亮着，就说明我在想你。' },
+      { char: 'shiro', text: '所以——它会一直亮着的！' },
     ],
-    ending: { title: '花之约定', subtitle: '「掌心的花从未熄灭过。\n直到一个春天的早晨，有人敲响了你的门。\n门外站着一个翠发的少年，笑得像阳光一样灿烂。\n——头上的角终于完全藏好了。\n『我来了！带我去看海吧！』」\n\n—— 白露线 · 完 ——' },
+    ending: { title: '花之约定', subtitle: '掌心的花从未熄灭过。\n直到一个春天的早晨，有人敲响了你的门。\n门外站着一个翠发的少年，笑得像阳光一样灿烂。\n——头上的角终于完全藏好了。\n「我来了！带我去看海吧！」\n\n—— 白露线 · 完 ——' },
+  },
+
+  'ending_whitewolf': {
+    scene: 'snowfield', particles: 'snowflakes',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '其他人都说完了再见。雪丸大大咧咧地走了过来。' },
+      { char: 'yukimaru', text: '嘿。走了？' },
+      { char: 'player', text: '嗯。' },
+      { char: 'yukimaru', text: '那——我也走。' },
+      { char: 'player', text: '诶？' },
+      { char: 'yukimaru', text: '我说了嘛，我是到处跑的那种。在这里也待够了。' },
+      { char: 'yukimaru', text: '正好你也是个有趣的家伙。一起走呗。' },
+      { char: 'narrator', text: '他伸出手。手心有些粗糙，但很温暖。' },
+      { char: 'yukimaru', text: '我这辈子第一次想跟着一个人走。你可别嫌我。' },
+      { char: 'player', text: '……那你的人类伪装练好了吗？' },
+      { char: 'yukimaru', text: '嘿嘿，除了尾巴偶尔会跑出来，其他都没问题！' },
+    ],
+    ending: { title: '并肩之约', subtitle: '你们一起走出了森林。\n雪丸第一次看到便利店的时候兴奋得差点变回狼形。\n从那以后，不管去哪里都是两个人。\n他说——「这是我第一次觉得，不用一个人跑了。」\n\n—— 雪丸线 · 完 ——' },
+  },
+
+  'ending_hawk': {
+    scene: 'sky', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '你抬头看向天空。苍羽站在鸟居的横梁上，风吹动着长发。' },
+      { char: 'sou', text: '……你要走了。' },
+      { char: 'player', text: '嗯。谢谢你这几天的照顾。还有那根羽毛。' },
+      { char: 'sou', text: '那不是照顾。只是——' },
+      { char: 'narrator', text: '他罕见地犹豫了。' },
+      { char: 'sou', text: '……你走之后，天空会变大。' },
+      { char: 'player', text: '变大？' },
+      { char: 'sou', text: '因为没有要看的人了。只剩下空的蓝色。那种蓝色——我不喜欢。' },
+      { char: 'narrator', text: '他从横梁上飘落下来，将一根蓝色的羽毛放到了你手中。' },
+      { char: 'sou', text: '带着它。当风吹动它的时候——那是我在看着你。' },
+    ],
+    ending: { title: '青空之约', subtitle: '此后每当起风的时候，你都会看向天空。\n偶尔能看到一只蓝色的鹰在很高很高的地方盘旋。\n某天黄昏，它突然落在了你的窗台上。\n化为人形后，它说——「天空太大了。我想落在你身边。」\n\n—— 苍羽线 · 完 ——' },
+  },
+
+  'ending_snake': {
+    scene: 'cave', particles: 'spirits',
+    chars: [{ id: 'genya', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '所有人都来送行了——除了玄夜。' },
+      { char: 'narrator', text: '但当你穿过鸟居，走下石阶时——' },
+      { char: 'narrator', text: '最后一棵树的阴影里，有一双紫色的眼睛。' },
+      { char: 'genya', text: '呵。以为我不会来？' },
+      { char: 'player', text: '你来了。' },
+      { char: 'genya', text: '……别误会。我只是来确认你真的会离开。' },
+      { char: 'narrator', text: '他从阴影中走出来。月光下，他比平时更加苍白，也更加美丽。' },
+      { char: 'genya', text: '人类……不，我该记住你的名字。' },
+      { char: 'genya', text: '你身上的纹路改变了。七天前和现在——完全不一样了。' },
+      { char: 'player', text: '变好了？' },
+      { char: 'genya', text: '变得更有趣了。我很少对事物产生兴趣。这让我……有些困扰。' },
+      { char: 'narrator', text: '他把什么东西塞进了你的口袋。是一枚小小的、黑色的蛇鳞。' },
+      { char: 'genya', text: '如果你遇到了什么危险，捏碎它。我会知道的。' },
+      { char: 'genya', text: '……不是因为关心你。只是那些堕兽还没清理干净而已。' },
+    ],
+    ending: { title: '暗夜之约', subtitle: '口袋里那枚蛇鳞一直带在身上。\n有时候深夜醒来，它会泛着淡淡的紫光。\n你知道那意味着——他正在远处某个阴影里，看着你这边。\n某天凌晨三点，门铃响了。\n门外站着一个黑发紫瞳的青年，嘴角挂着那个让人又爱又恨的笑。\n「我来收回我的鳞片——找不到你太麻烦了。不如留在你身边好了。」\n\n—— 玄夜线 · 完 ——' },
   },
 };
 
-// === ENGINE FUNCTIONS ===
-
-function initTitleScreen() {
-  const container = $('#title-particles');
-  for (let i = 0; i < 20; i++) {
-    const fly = document.createElement('div');
-    fly.className = 'title-firefly';
-    fly.style.left = Math.random() * 100 + '%';
-    fly.style.top = Math.random() * 100 + '%';
-    fly.style.setProperty('--dx', (Math.random() * 60 - 30) + 'px');
-    fly.style.setProperty('--dy', (Math.random() * 60 - 30) + 'px');
-    fly.style.animationDuration = (6 + Math.random() * 8) + 's';
-    fly.style.animationDelay = Math.random() * 6 + 's';
-    container.appendChild(fly);
-  }
-
-  $('#start-btn').addEventListener('click', startGame);
-}
-
-function startGame() {
-  $('#title-screen').classList.add('hidden');
-  setTimeout(() => {
-    $('#title-screen').style.display = 'none';
-    playNode('start');
-  }, 1500);
-}
-
-function playNode(nodeId) {
-  const node = SCRIPT[nodeId];
-  if (!node) return;
-  state.currentNode = nodeId;
-
-  if (node.scene) setScene(node.scene);
-  if (node.particles) setParticles(node.particles);
-  if (node.chars) setCharacters(node.chars);
-  else clearCharacters();
-
-  if (node.transform_immediate) {
-    showTransform(node.transform_immediate.char, node.transform_immediate.text);
-  }
-
-  if (node.chapter) {
-    showChapter(node.chapter.num, node.chapter.title, () => {
-      if (node.lines && node.lines.length > 0) {
-        playLines(node, 0);
-      }
-    });
-  } else {
-    if (node.lines && node.lines.length > 0) {
-      playLines(node, 0);
-    }
-  }
-
-  $('#affection-display').classList.add('show');
-}
-
+// ============================================================
+//  ENGINE
+// ============================================================
 let currentLineCallback = null;
 
-function playLines(node, index) {
-  if (index >= node.lines.length) {
-    if (node.transform) {
-      doTransform(node, () => afterLines(node));
-    } else {
-      afterLines(node);
-    }
-    return;
+function initTitle() {
+  const c = $('#title-particles');
+  for (let i = 0; i < 20; i++) {
+    const f = document.createElement('div');
+    f.className = 'title-firefly';
+    f.style.left = Math.random() * 100 + '%';
+    f.style.top = Math.random() * 100 + '%';
+    f.style.setProperty('--dx', (Math.random() * 60 - 30) + 'px');
+    f.style.setProperty('--dy', (Math.random() * 60 - 30) + 'px');
+    f.style.animationDuration = (6 + Math.random() * 8) + 's';
+    f.style.animationDelay = Math.random() * 6 + 's';
+    c.appendChild(f);
   }
-
-  const line = node.lines[index];
-  showDialogue(line, () => {
-    playLines(node, index + 1);
+  $('#start-btn').addEventListener('click', () => {
+    $('#title-screen').classList.add('hidden');
+    setTimeout(() => { $('#title-screen').style.display = 'none'; playNode('start'); }, 1500);
   });
 }
 
-function afterLines(node) {
-  if (node.choices) {
-    showChoices(node.choices);
-  } else if (node.next_by_affection) {
-    routeByAffection();
-  } else if (node.next_by_affection_ending) {
-    routeToEnding();
-  } else if (node.ending) {
-    showEnding(node.ending);
-  } else if (node.next) {
-    playNode(node.next);
+function playNode(id) {
+  const node = S[id];
+  if (!node) return;
+  state.currentNode = id;
+  if (node.day) { state.day = node.day; updateDay(); }
+  if (node.scene) setScene(node.scene);
+  if (node.particles) setParticles(node.particles);
+  if (node.chars) setChars(node.chars); else clearChars();
+  if (node.transform_immediate) showTransform(node.transform_immediate.char, node.transform_immediate.text);
+  $('#affection-display').classList.add('show');
+
+  if (node.chapter) {
+    showChapter(node.chapter.num, node.chapter.title, () => startLines(node, 0));
+  } else {
+    startLines(node, 0);
   }
 }
 
-function showDialogue(line, callback) {
-  const charDef = CHARS[line.char];
+function startLines(node, i) {
+  if (!node.lines || i >= node.lines.length) { afterLines(node); return; }
+  showDialogue(node.lines[i], () => startLines(node, i + 1));
+}
+
+function afterLines(node) {
+  if (node.choices) showChoices(node.choices);
+  else if (node.next_by_affection) routeByAff();
+  else if (node.next_by_affection_ending) routeToEnding();
+  else if (node.ending) showEnding(node.ending);
+  else if (node.next) playNode(node.next);
+}
+
+function showDialogue(line, cb) {
+  const ch = CHARS[line.char];
   const nameEl = $('#speaker-name');
   const textEl = $('#dialogue-text');
-  const indicator = $('#text-indicator');
+  const ind = $('#text-indicator');
 
-  nameEl.textContent = charDef.name;
-  nameEl.style.color = charDef.color;
-
+  nameEl.textContent = ch.name;
+  nameEl.style.color = ch.color;
   textEl.innerHTML = '';
-  indicator.classList.remove('show');
+  ind.classList.remove('show');
   state.textComplete = false;
-
   state.charTimers.forEach(t => clearTimeout(t));
   state.charTimers = [];
 
   const chars = line.text.split('');
-  const spans = chars.map((c, i) => {
-    const span = document.createElement('span');
-    span.className = 'char';
-    span.textContent = c;
-    textEl.appendChild(span);
-    return span;
+  const spans = chars.map(c => {
+    const s = document.createElement('span');
+    s.className = 'char';
+    s.textContent = c;
+    textEl.appendChild(s);
+    return s;
   });
 
-  let revealed = 0;
-  const speed = 40;
-
-  function revealNext() {
-    if (revealed < spans.length) {
-      spans[revealed].classList.add('visible');
-      revealed++;
-      state.charTimers.push(setTimeout(revealNext, speed));
-    } else {
-      state.textComplete = true;
-      indicator.classList.add('show');
-    }
+  let r = 0;
+  const speed = 38;
+  function reveal() {
+    if (r < spans.length) { spans[r].classList.add('visible'); r++; state.charTimers.push(setTimeout(reveal, speed)); }
+    else { state.textComplete = true; ind.classList.add('show'); }
   }
+  reveal();
+  currentLineCallback = cb;
 
-  revealNext();
-
-  currentLineCallback = callback;
-
-  function onAdvance(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
+  function advance(e) {
+    e.preventDefault(); e.stopPropagation();
     if (!state.textComplete) {
-      state.charTimers.forEach(t => clearTimeout(t));
-      state.charTimers = [];
+      state.charTimers.forEach(t => clearTimeout(t)); state.charTimers = [];
       spans.forEach(s => s.classList.add('visible'));
-      state.textComplete = true;
-      indicator.classList.add('show');
+      state.textComplete = true; ind.classList.add('show');
     } else {
-      $('#dialogue-box').removeEventListener('click', onAdvance);
-      document.removeEventListener('keydown', onKeyAdvance);
-      currentLineCallback = null;
-      callback();
+      $('#dialogue-box').removeEventListener('click', advance);
+      document.removeEventListener('keydown', keyAdv);
+      currentLineCallback = null; cb();
     }
   }
-
-  function onKeyAdvance(e) {
-    if (e.key === ' ' || e.key === 'Enter') {
-      onAdvance(e);
-    }
-  }
-
-  $('#dialogue-box').addEventListener('click', onAdvance);
-  document.addEventListener('keydown', onKeyAdvance);
+  function keyAdv(e) { if (e.key === ' ' || e.key === 'Enter') advance(e); }
+  $('#dialogue-box').addEventListener('click', advance);
+  document.addEventListener('keydown', keyAdv);
 }
 
 function showChoices(choices) {
   const layer = $('#choice-layer');
-  const container = $('#choice-container');
-  container.innerHTML = '';
-
-  choices.forEach(choice => {
-    const btn = document.createElement('button');
-    btn.className = 'choice-btn';
-    btn.textContent = choice.text;
-    btn.addEventListener('click', () => {
+  const c = $('#choice-container');
+  c.innerHTML = '';
+  choices.forEach(ch => {
+    const b = document.createElement('button');
+    b.className = 'choice-btn'; b.textContent = ch.text;
+    b.addEventListener('click', () => {
       layer.classList.remove('active');
-      if (choice.affection) {
-        for (const [key, val] of Object.entries(choice.affection)) {
-          addAffection(key, val);
-        }
-      }
-      if (choice.flag) {
-        state.flags[choice.flag] = true;
-      }
-      playNode(choice.next);
+      if (ch.affection) for (const [k, v] of Object.entries(ch.affection)) addAff(k, v);
+      if (ch.flag) state.flags[ch.flag] = true;
+      playNode(ch.next);
     });
-    container.appendChild(btn);
+    c.appendChild(b);
   });
-
   layer.classList.add('active');
 }
 
-function addAffection(who, amount) {
-  state.affection[who] = Math.min(100, state.affection[who] + amount * 5);
-  updateAffectionBars();
-  showAffectionChange(who, amount);
+function addAff(who, amt) {
+  state.affection[who] = Math.min(100, state.affection[who] + amt * 4);
+  updateAffBars();
+  showAffChange(who, amt);
 }
 
-function updateAffectionBars() {
-  $('#fox-fill').style.width = state.affection.fox + '%';
-  $('#wolf-fill').style.width = state.affection.wolf + '%';
-  $('#deer-fill').style.width = state.affection.deer + '%';
+function updateAffBars() {
+  for (const [k, v] of Object.entries(state.affection)) {
+    const el = $(`#${k === 'whitewolf' ? 'whitewolf' : k}-fill`);
+    if (el) el.style.width = v + '%';
+  }
 }
 
-function showAffectionChange(who, amount) {
-  const colors = { fox: '#ff6b4a', wolf: '#7eb8da', deer: '#8fd4a0' };
-  const names = { fox: '琥珀', wolf: '银朗', deer: '白露' };
+function showAffChange(who, amt) {
+  const colors = { fox:'#ff6b4a', wolf:'#7eb8da', deer:'#8fd4a0', whitewolf:'#e8e0d0', hawk:'#4a7eb8', snake:'#9a5abf' };
+  const names = { fox:'琥珀', wolf:'银朗', deer:'白露', whitewolf:'雪丸', hawk:'苍羽', snake:'玄夜' };
   const el = document.createElement('div');
   el.className = 'aff-change';
-  el.textContent = `${names[who]} +${amount}`;
+  el.textContent = `${names[who]} +${amt}`;
   el.style.color = colors[who];
-  el.style.top = '50%';
-  el.style.left = '50%';
+  el.style.top = '50%'; el.style.left = '50%';
   el.style.transform = 'translate(-50%, -50%)';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1500);
 }
 
-function routeByAffection() {
-  const { fox, wolf, deer } = state.affection;
-  if (fox >= wolf && fox >= deer) playNode('rescue_fox');
-  else if (wolf >= fox && wolf >= deer) playNode('rescue_wolf');
-  else playNode('rescue_deer');
+function getMaxAff() {
+  const a = state.affection;
+  const entries = Object.entries(a);
+  entries.sort((x, y) => y[1] - x[1]);
+  return entries[0][0];
+}
+
+function routeByAff() {
+  const map = { fox:'rescue_fox', wolf:'rescue_wolf', deer:'rescue_deer', whitewolf:'rescue_whitewolf', hawk:'rescue_hawk', snake:'rescue_snake' };
+  playNode(map[getMaxAff()]);
 }
 
 function routeToEnding() {
-  const { fox, wolf, deer } = state.affection;
-  if (fox >= wolf && fox >= deer) playNode('ending_fox');
-  else if (wolf >= fox && wolf >= deer) playNode('ending_wolf');
-  else playNode('ending_deer');
+  const map = { fox:'ending_fox', wolf:'ending_wolf', deer:'ending_deer', whitewolf:'ending_whitewolf', hawk:'ending_hawk', snake:'ending_snake' };
+  playNode(map[getMaxAff()]);
 }
 
-// === SCENE MANAGEMENT ===
-
-function setScene(sceneName) {
+function setScene(name) {
   const bg = $('#scene-bg');
   bg.innerHTML = '';
-  const layer = document.createElement('div');
-  layer.className = `scene-layer bg-${sceneName}`;
-  bg.appendChild(layer);
+  const l = document.createElement('div');
+  l.className = `scene-layer bg-${name}`;
+  bg.appendChild(l);
 }
 
 function setParticles(type) {
-  const container = $('#particles');
-  container.innerHTML = '';
+  const c = $('#particles'); c.innerHTML = '';
   if (state.particleInterval) clearInterval(state.particleInterval);
-
-  const configs = {
-    fireflies: { class: 'firefly', count: 15, interval: 3000 },
-    sakura: { class: 'sakura-petal', count: 12, interval: 2000 },
-    spirits: { class: 'spirit-orb', count: 10, interval: 4000 },
-  };
-
-  const cfg = configs[type];
-  if (!cfg) return;
-
-  function spawnParticle() {
+  const cfg = { fireflies:{cls:'firefly',n:12,iv:3000}, sakura:{cls:'sakura-petal',n:10,iv:2000}, spirits:{cls:'spirit-orb',n:8,iv:4000}, snowflakes:{cls:'snowflake',n:15,iv:1500}, feathers:{cls:'feather',n:6,iv:4000} };
+  const cf = cfg[type]; if (!cf) return;
+  function spawn() {
     const p = document.createElement('div');
-    p.className = `particle ${cfg.class}`;
-    p.style.left = Math.random() * 100 + '%';
-    p.style.top = Math.random() * 80 + '%';
-    p.style.animationDuration = (5 + Math.random() * 8) + 's';
-    p.style.animationDelay = Math.random() * 2 + 's';
-    container.appendChild(p);
+    p.className = `particle ${cf.cls}`;
+    p.style.left = Math.random()*100+'%'; p.style.top = Math.random()*80+'%';
+    p.style.animationDuration = (5+Math.random()*8)+'s';
+    p.style.animationDelay = Math.random()*2+'s';
+    c.appendChild(p);
     setTimeout(() => p.remove(), 15000);
   }
-
-  for (let i = 0; i < cfg.count; i++) {
-    setTimeout(() => spawnParticle(), Math.random() * 3000);
-  }
-
-  state.particleInterval = setInterval(spawnParticle, cfg.interval);
+  for (let i=0;i<cf.n;i++) setTimeout(spawn, Math.random()*3000);
+  state.particleInterval = setInterval(spawn, cf.iv);
 }
 
-function setCharacters(chars) {
-  const layer = $('#character-layer');
-  layer.innerHTML = '';
-
+function setChars(chars) {
+  const l = $('#character-layer'); l.innerHTML = '';
   chars.forEach(c => {
-    const wrapper = document.createElement('div');
-    wrapper.className = `character-sprite char-${c.pos} entering`;
-    wrapper.id = `char-${c.id}`;
-    wrapper.innerHTML = getCharSVG(c.id, CHARS[c.id][c.form]);
-    layer.appendChild(wrapper);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        wrapper.classList.remove('entering');
-        wrapper.classList.add('visible');
-      });
-    });
+    const w = document.createElement('div');
+    w.className = `character-sprite char-${c.pos} entering`;
+    w.id = `char-${c.id}`;
+    const formKey = CHARS[c.id][c.form];
+    w.innerHTML = getPortrait(c.id, formKey);
+    l.appendChild(w);
+    requestAnimationFrame(() => requestAnimationFrame(() => { w.classList.remove('entering'); w.classList.add('visible'); }));
   });
 }
 
-function clearCharacters() {
-  $('#character-layer').innerHTML = '';
-}
-
-function doTransform(node, callback) {
-  const t = node.transform;
-  const charEl = $(`#char-${t.char}`);
-  if (charEl) charEl.classList.add('beast-transform');
-
-  showTransform(t.char, t.text);
-
-  setTimeout(() => {
-    if (charEl) {
-      charEl.innerHTML = getCharSVG(t.char, CHARS[t.char].beast);
-      charEl.classList.remove('beast-transform');
-    }
-    callback();
-  }, 2500);
-}
+function clearChars() { $('#character-layer').innerHTML = ''; }
 
 function showTransform(charId, text) {
-  const overlay = $('#transform-overlay');
-  const textEl = $('#transform-text');
-  textEl.textContent = text;
-  overlay.classList.add('active');
-  setTimeout(() => overlay.classList.remove('active'), 2600);
+  const o = $('#transform-overlay');
+  $('#transform-text').textContent = text;
+  o.classList.add('active');
+  const charEl = $(`#char-${charId}`);
+  if (charEl) {
+    charEl.classList.add('beast-transform');
+    setTimeout(() => {
+      charEl.innerHTML = getPortrait(charId, CHARS[charId].beast);
+      charEl.classList.remove('beast-transform');
+    }, 1200);
+  }
+  setTimeout(() => o.classList.remove('active'), 2600);
 }
 
-function showChapter(num, title, callback) {
-  const overlay = $('#chapter-overlay');
+function showChapter(num, title, cb) {
+  const o = $('#chapter-overlay');
   $('#chapter-num').textContent = num;
   $('#chapter-title').textContent = title;
-  overlay.classList.add('active');
-  setTimeout(() => {
-    overlay.classList.remove('active');
-    if (callback) callback();
-  }, 3000);
+  o.classList.add('active');
+  setTimeout(() => { o.classList.remove('active'); if (cb) cb(); }, 3000);
 }
 
-function showEnding(ending) {
-  const screen = $('#ending-screen');
-  $('#ending-title').textContent = ending.title;
-  $('#ending-subtitle').textContent = ending.subtitle;
-  screen.classList.add('active');
+function showEnding(e) {
+  $('#ending-screen').classList.add('active');
+  $('#ending-title').textContent = e.title;
+  $('#ending-subtitle').textContent = e.subtitle;
   $('#dialogue-layer').style.display = 'none';
 }
 
-// === MENU ===
+function updateDay() {
+  const d = $('#day-indicator');
+  d.textContent = state.day > 0 ? `第 ${state.day} 天 / 7` : '';
+  d.classList.toggle('show', state.day > 0);
+}
+
+// Menu
 $('#menu-btn').addEventListener('click', () => {
-  try {
-    localStorage.setItem('shrine-forest-save', JSON.stringify({
-      affection: state.affection,
-      flags: state.flags,
-      node: state.currentNode,
-    }));
-  } catch(e) {}
-  const toast = document.createElement('div');
-  toast.className = 'save-toast';
-  toast.textContent = '已保存进度';
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2100);
+  try { localStorage.setItem('shrine-save', JSON.stringify({ aff: state.affection, flags: state.flags, node: state.currentNode, day: state.day })); } catch(e){}
+  const t = document.createElement('div'); t.className = 'save-toast'; t.textContent = '已保存进度';
+  document.body.appendChild(t); setTimeout(() => t.remove(), 2100);
 });
 
-// === RESTART ===
+// Restart
 $('#ending-restart').addEventListener('click', () => {
-  state.affection = { fox: 0, wolf: 0, deer: 0 };
-  state.flags = {};
-  state.currentNode = null;
-  updateAffectionBars();
+  state.affection = { fox:0, wolf:0, deer:0, whitewolf:0, hawk:0, snake:0 };
+  state.flags = {}; state.currentNode = null; state.day = 0;
+  updateAffBars(); updateDay();
   $('#ending-screen').classList.remove('active');
   $('#dialogue-layer').style.display = '';
   $('#affection-display').classList.remove('show');
@@ -2176,8 +1695,7 @@ $('#ending-restart').addEventListener('click', () => {
   $('#title-screen').classList.remove('hidden');
 });
 
-// === INIT ===
-initTitleScreen();
+initTitle();
 </script>
 </body>
 </html>
