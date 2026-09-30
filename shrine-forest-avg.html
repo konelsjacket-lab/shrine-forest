@@ -336,13 +336,16 @@ html, body {
 #title-sub { font-size: 14px; color: var(--text-dim); letter-spacing: 4px; margin-bottom: 48px; opacity: 0; animation: title-fade 2s ease 1.5s forwards; font-family: var(--font); }
 @keyframes title-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-#start-btn {
+#title-buttons { display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: 0; animation: title-fade 2s ease 2s forwards; }
+.title-btn {
   background: transparent; border: 1px solid var(--accent-gold);
   color: var(--accent-gold); font-family: var(--font); font-size: 16px;
-  padding: 12px 40px; border-radius: 4px; cursor: pointer; letter-spacing: 4px;
-  transition: all 0.4s ease; opacity: 0; animation: title-fade 2s ease 2s forwards;
+  width: 200px; padding: 12px 0; border-radius: 4px; cursor: pointer; letter-spacing: 4px;
+  transition: all 0.4s ease;
 }
-#start-btn:hover { background: rgba(212, 168, 84, 0.15); box-shadow: 0 0 20px rgba(212, 168, 84, 0.2); }
+.title-btn.secondary { border-color: rgba(212,168,84,0.4); color: var(--text-dim); font-size: 14px; padding: 10px 0; }
+.title-btn:hover { background: rgba(212, 168, 84, 0.15); box-shadow: 0 0 20px rgba(212, 168, 84, 0.2); color: var(--accent-gold); }
+.title-btn[hidden] { display: none; }
 
 /* === Transform Overlay === */
 #transform-overlay { position: absolute; inset: 0; display: none; justify-content: center; align-items: center; z-index: 30; pointer-events: none; }
@@ -367,11 +370,68 @@ html, body {
 #ending-restart:hover { background: rgba(212,168,84,0.15); }
 
 /* === Menu === */
-#menu-btn { position: absolute; top: 16px; left: 16px; z-index: 10; width: 36px; height: 36px; background: rgba(10,10,20,0.7); border: 1px solid rgba(212,168,84,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-dim); font-size: 14px; backdrop-filter: blur(8px); transition: all 0.3s; }
+#menu-btn { position: absolute; top: 16px; left: 16px; z-index: 22; width: 36px; height: 36px; background: rgba(10,10,20,0.7); border: 1px solid rgba(212,168,84,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-dim); font-size: 14px; backdrop-filter: blur(8px); transition: all 0.3s; }
 #menu-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
 
 .save-toast { position: fixed; top: 60px; left: 50%; transform: translateX(-50%); background: rgba(10,10,20,0.9); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 8px 20px; font-family: var(--font-ui); font-size: 13px; color: var(--accent-gold); z-index: 100; opacity: 0; animation: toast-show 2s ease forwards; }
 @keyframes toast-show { 0% { opacity: 0; transform: translateX(-50%) translateY(-10px); } 15% { opacity: 1; transform: translateX(-50%) translateY(0); } 75% { opacity: 1; } 100% { opacity: 0; } }
+
+/* === System menu / save & load === */
+#sys-layer, #confirm-layer {
+  position: absolute; inset: 0; display: none; z-index: 60;
+  background: rgba(4,4,10,0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  justify-content: center; align-items: center; font-family: var(--font-ui);
+}
+#sys-layer.active, #confirm-layer.active { display: flex; }
+#confirm-layer { z-index: 70; }
+
+.sys-card {
+  width: min(92vw, 420px); max-height: 88vh; display: flex; flex-direction: column;
+  background: var(--ui-bg); border: 1px solid var(--ui-border); border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden;
+}
+.sys-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid rgba(212,168,84,0.15); }
+.sys-title { font-family: var(--font); font-size: 16px; color: var(--accent-gold); letter-spacing: 3px; }
+.sys-close { background: none; border: none; color: var(--text-dim); font-size: 22px; line-height: 1; cursor: pointer; padding: 2px 6px; }
+.sys-close:hover { color: var(--accent-gold); }
+
+.menu-list { display: flex; flex-direction: column; gap: 10px; padding: 16px; }
+.menu-item {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--ui-border); border-radius: 8px;
+  color: var(--text); font-family: var(--font); font-size: 15px; letter-spacing: 2px;
+  padding: 13px 16px; cursor: pointer; text-align: left; transition: all 0.2s;
+}
+.menu-item:hover, .menu-item:active { border-color: var(--accent-gold); background: rgba(212,168,84,0.12); }
+.menu-item small { display: block; margin-top: 3px; font-family: var(--font-ui); font-size: 11px; color: var(--text-dim); letter-spacing: 0; }
+
+.slot-list { overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.slot-note { padding: 0 16px 12px; font-size: 11px; color: var(--text-dim); line-height: 1.5; }
+.slot {
+  position: relative; display: flex; gap: 12px; align-items: stretch;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--ui-border); border-radius: 8px;
+  padding: 8px; cursor: pointer; text-align: left; color: var(--text); transition: all 0.2s;
+  font-family: var(--font-ui); width: 100%;
+}
+.slot:hover, .slot:active { border-color: var(--accent-gold); background: rgba(212,168,84,0.10); }
+.slot.disabled { cursor: default; opacity: 0.45; }
+.slot.disabled:hover { border-color: var(--ui-border); background: rgba(255,255,255,0.03); }
+.slot-thumb { flex: 0 0 52px; height: 68px; border-radius: 6px; overflow: hidden; background: #1a1428; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.slot-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.slot-body { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding-right: 22px; }
+.slot-top { display: flex; gap: 8px; align-items: baseline; }
+.slot-name { font-size: 13px; color: var(--accent-gold); font-weight: 600; white-space: nowrap; }
+.slot-time { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+.slot-chap { font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: var(--font); }
+.slot-line { font-size: 11px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.slot-empty { font-size: 13px; color: var(--text-dim); align-self: center; letter-spacing: 2px; }
+.slot-del { position: absolute; top: 4px; right: 4px; background: none; border: none; color: var(--text-dim); font-size: 16px; cursor: pointer; padding: 4px 8px; line-height: 1; }
+.slot-del:hover { color: #ff6b6b; }
+
+.confirm-text { padding: 20px 18px 8px; font-size: 14px; color: var(--text); line-height: 1.7; white-space: pre-line; font-family: var(--font); }
+.confirm-actions { display: flex; gap: 10px; padding: 14px 16px 16px; justify-content: flex-end; }
+.confirm-actions button { font-family: var(--font); font-size: 14px; padding: 9px 22px; border-radius: 6px; cursor: pointer; letter-spacing: 2px; }
+.btn-ghost { background: transparent; border: 1px solid var(--ui-border); color: var(--text-dim); }
+.btn-gold { background: rgba(212,168,84,0.18); border: 1px solid var(--accent-gold); color: var(--accent-gold); }
 
 /* === Day indicator === */
 #day-indicator {
@@ -401,7 +461,11 @@ html, body {
       <div id="title-jp">社と森のものがたり</div>
       <div id="title-main">杜鹃森</div>
       <div id="title-sub">神社与森林的恋爱物语</div>
-      <button id="start-btn">开始物语</button>
+      <div id="title-buttons">
+        <button id="continue-btn" class="title-btn" hidden>继续物语</button>
+        <button id="start-btn" class="title-btn">开始物语</button>
+        <button id="title-load-btn" class="title-btn secondary" hidden>读取存档</button>
+      </div>
     </div>
   </div>
 
@@ -439,6 +503,17 @@ html, body {
     <div id="ending-title"></div>
     <div id="ending-subtitle"></div>
     <button id="ending-restart">从头开始</button>
+  </div>
+
+  <div id="sys-layer"><div class="sys-card" id="sys-card"></div></div>
+  <div id="confirm-layer">
+    <div class="sys-card">
+      <div class="confirm-text" id="confirm-text"></div>
+      <div class="confirm-actions">
+        <button class="btn-ghost" id="confirm-no">取消</button>
+        <button class="btn-gold" id="confirm-yes">确定</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -534,6 +609,13 @@ const state = {
   charTimers: [],
   particleInterval: null,
   day: 0,
+  line: 0,
+  scene: null,
+  particles: null,
+  chars: [],
+  chapter: null,
+  gen: 0,       // bumped on load/reset so stale timers from the old run do nothing
+  dlg: null,
 };
 
 function getPortrait(charId, formKey) {
@@ -1453,8 +1535,6 @@ const S = {
 // ============================================================
 //  ENGINE
 // ============================================================
-let currentLineCallback = null;
-
 function initTitle() {
   const c = $('#title-particles');
   for (let i = 0; i < 20; i++) {
@@ -1469,30 +1549,53 @@ function initTitle() {
     c.appendChild(f);
   }
   $('#start-btn').addEventListener('click', () => {
-    $('#title-screen').classList.add('hidden');
-    setTimeout(() => { $('#title-screen').style.display = 'none'; playNode('start'); }, 1500);
+    const go = () => {
+      resetGame();
+      const gen = state.gen;
+      hideTitle(() => { if (gen === state.gen) playNode('start'); });
+    };
+    if (hasAnySave()) confirmBox('开始新的物语？\n已有的存档不会被删除。', go); else go();
   });
+  $('#continue-btn').addEventListener('click', () => {
+    const latest = latestSave();
+    if (latest) applySave(latest);
+  });
+  $('#title-load-btn').addEventListener('click', () => openSlots('load'));
+  refreshTitleButtons();
+}
+
+function hideTitle(cb) {
+  const t = $('#title-screen');
+  t.classList.add('hidden');
+  const gen = state.gen;
+  setTimeout(() => { if (gen === state.gen) t.style.display = 'none'; if (cb) cb(); }, 1500);
 }
 
 function playNode(id) {
   const node = S[id];
   if (!node) return;
+  const gen = ++state.gen;
   state.currentNode = id;
+  state.line = 0;
   if (node.day) { state.day = node.day; updateDay(); }
-  if (node.scene) setScene(node.scene);
-  if (node.particles) setParticles(node.particles);
+  if (node.scene) { state.scene = node.scene; setScene(node.scene); }
+  if (node.particles) { state.particles = node.particles; setParticles(node.particles); }
+  state.chars = (node.chars || []).map(c => ({ ...c }));
   if (node.chars) setChars(node.chars); else clearChars();
   if (node.transform_immediate) showTransform(node.transform_immediate.char, node.transform_immediate.text);
+  if (node.chapter) state.chapter = node.chapter;
   $('#affection-display').classList.add('show');
+  autoSave();
 
   if (node.chapter) {
-    showChapter(node.chapter.num, node.chapter.title, () => startLines(node, 0));
+    showChapter(node.chapter.num, node.chapter.title, () => { if (gen === state.gen) startLines(node, 0); });
   } else {
     startLines(node, 0);
   }
 }
 
 function startLines(node, i) {
+  state.line = i;
   if (!node.lines || i >= node.lines.length) { afterLines(node); return; }
   showDialogue(node.lines[i], () => startLines(node, i + 1));
 }
@@ -1535,8 +1638,8 @@ function showDialogue(line, cb) {
     else { state.textComplete = true; ind.classList.add('show'); }
   }
   reveal();
-  currentLineCallback = cb;
 
+  detachDialogue();
   function advance(e) {
     e.preventDefault(); e.stopPropagation();
     if (!state.textComplete) {
@@ -1544,14 +1647,21 @@ function showDialogue(line, cb) {
       spans.forEach(s => s.classList.add('visible'));
       state.textComplete = true; ind.classList.add('show');
     } else {
-      $('#dialogue-box').removeEventListener('click', advance);
-      document.removeEventListener('keydown', keyAdv);
-      currentLineCallback = null; cb();
+      detachDialogue();
+      cb();
     }
   }
-  function keyAdv(e) { if (e.key === ' ' || e.key === 'Enter') advance(e); }
+  function keyAdv(e) { if (overlayOpen()) return; if (e.key === ' ' || e.key === 'Enter') advance(e); }
+  state.dlg = { advance, keyAdv };
   $('#dialogue-box').addEventListener('click', advance);
   document.addEventListener('keydown', keyAdv);
+}
+
+function detachDialogue() {
+  if (!state.dlg) return;
+  $('#dialogue-box').removeEventListener('click', state.dlg.advance);
+  document.removeEventListener('keydown', state.dlg.keyAdv);
+  state.dlg = null;
 }
 
 function showChoices(choices) {
@@ -1660,6 +1770,8 @@ function showTransform(charId, text) {
   const o = $('#transform-overlay');
   $('#transform-text').textContent = text;
   o.classList.add('active');
+  const sc = state.chars.find(c => c.id === charId);
+  if (sc) sc.form = 'beast';
   const charEl = $(`#char-${charId}`);
   if (charEl) {
     charEl.classList.add('beast-transform');
@@ -1692,24 +1804,265 @@ function updateDay() {
   d.classList.toggle('show', state.day > 0);
 }
 
-// Menu
-$('#menu-btn').addEventListener('click', () => {
-  try { localStorage.setItem('shrine-save', JSON.stringify({ aff: state.affection, flags: state.flags, node: state.currentNode, day: state.day })); } catch(e){}
-  const t = document.createElement('div'); t.className = 'save-toast'; t.textContent = '已保存进度';
-  document.body.appendChild(t); setTimeout(() => t.remove(), 2100);
-});
+// ============================================================
+//  SAVE / LOAD
+// ============================================================
+const SAVE_KEY = 'dujuansen-saves-v1';
+const MANUAL_SLOTS = ['1','2','3','4','5','6','7','8'];
+const storageOK = (() => {
+  try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; }
+})();
+let memSaves = {};
 
-// Restart
-$('#ending-restart').addEventListener('click', () => {
-  state.affection = { fox:0, wolf:0, deer:0, whitewolf:0, hawk:0, snake:0 };
-  state.flags = {}; state.currentNode = null; state.day = 0;
+function readSaves() {
+  if (!storageOK) return memSaves;
+  try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '{}') || {}; } catch (e) { return {}; }
+}
+function writeSaves(all) {
+  memSaves = all;
+  if (!storageOK) return true;
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(all)); return true; } catch (e) { return false; }
+}
+function hasAnySave() { return Object.keys(readSaves()).length > 0; }
+function latestSave() {
+  return Object.values(readSaves()).sort((a, b) => b.time - a.time)[0] || null;
+}
+
+function snapshot() {
+  const node = S[state.currentNode];
+  const lines = node.lines || [];
+  const atChoice = state.line >= lines.length && !!node.choices;
+  const ln = lines[Math.min(state.line, lines.length - 1)];
+  return {
+    v: 1, time: Date.now(),
+    node: state.currentNode, line: state.line,
+    aff: { ...state.affection }, flags: { ...state.flags }, day: state.day,
+    scene: state.scene, particles: state.particles,
+    chars: state.chars.map(c => ({ ...c })), chapter: state.chapter,
+    preview: ln ? { char: ln.char, text: ln.text, atChoice } : null,
+  };
+}
+
+function autoSave() {
+  const node = S[state.currentNode];
+  if (!node || node.ending) return;
+  const all = readSaves();
+  all.auto = snapshot();
+  writeSaves(all);
+}
+
+function saveToSlot(slot) {
+  const all = readSaves();
+  all[slot] = snapshot();
+  if (writeSaves(all)) toast(`已保存到 存档 ${slot}`);
+  else toast('保存失败：浏览器存储空间不可用');
+  renderSlots('save');
+}
+
+function deleteSlot(slot, mode) {
+  const all = readSaves();
+  delete all[slot];
+  writeSaves(all);
+  renderSlots(mode);
+  refreshTitleButtons();
+}
+
+function inGame() {
+  return state.currentNode && $('#title-screen').style.display === 'none';
+}
+
+function applySave(d) {
+  if (!d || !S[d.node]) { toast('这份存档对应的剧情已不存在'); return; }
+  closeSys();
+  resetGame();
+  const t = $('#title-screen');
+  if (t.style.display !== 'none') { t.classList.add('hidden'); t.style.display = 'none'; }
+
+  state.affection = { fox: 0, wolf: 0, deer: 0, whitewolf: 0, hawk: 0, snake: 0, ...d.aff };
+  state.flags = { ...d.flags };
+  state.day = d.day || 0;
+  state.scene = d.scene; state.particles = d.particles;
+  state.chars = (d.chars || []).map(c => ({ ...c }));
+  state.chapter = d.chapter || null;
+  state.currentNode = d.node;
+
   updateAffBars(); updateDay();
-  $('#ending-screen').classList.remove('active');
+  if (state.scene) setScene(state.scene);
+  setParticles(state.particles);
+  setChars(state.chars);
+  $('#affection-display').classList.add('show');
+
+  const node = S[d.node], lines = node.lines || [], i = d.line || 0;
+  if (i >= lines.length && lines.length) {
+    const last = lines[lines.length - 1], ch = CHARS[last.char];
+    $('#speaker-name').textContent = ch.name; $('#speaker-name').style.color = ch.color;
+    $('#dialogue-text').innerHTML = '';
+    last.text.split('').forEach(c => { const s = document.createElement('span'); s.className = 'char visible'; s.textContent = c; $('#dialogue-text').appendChild(s); });
+  }
+  startLines(node, i);
+}
+
+function resetGame() {
+  state.gen++;
+  detachDialogue();
+  state.charTimers.forEach(t => clearTimeout(t)); state.charTimers = [];
+  state.affection = { fox: 0, wolf: 0, deer: 0, whitewolf: 0, hawk: 0, snake: 0 };
+  state.flags = {}; state.currentNode = null; state.day = 0; state.line = 0;
+  state.scene = null; state.particles = null; state.chars = []; state.chapter = null;
+  updateAffBars(); updateDay();
+  setParticles(null); clearChars();
+  $('#scene-bg').innerHTML = '';
+  $('#speaker-name').textContent = ''; $('#dialogue-text').innerHTML = '';
+  $('#text-indicator').classList.remove('show');
+  ['#chapter-overlay', '#choice-layer', '#ending-screen', '#transform-overlay'].forEach(s => $(s).classList.remove('active'));
   $('#dialogue-layer').style.display = '';
   $('#affection-display').classList.remove('show');
-  $('#title-screen').style.display = '';
-  $('#title-screen').classList.remove('hidden');
+}
+
+function backToTitle() {
+  closeSys();
+  resetGame();
+  const t = $('#title-screen');
+  t.style.display = '';
+  t.classList.remove('hidden');
+  refreshTitleButtons();
+}
+
+function refreshTitleButtons() {
+  const any = hasAnySave();
+  $('#continue-btn').hidden = !any;
+  $('#title-load-btn').hidden = !any;
+}
+
+// ---- UI ----
+function overlayOpen() {
+  return $('#sys-layer').classList.contains('active') || $('#confirm-layer').classList.contains('active');
+}
+
+function toast(msg) {
+  const t = document.createElement('div'); t.className = 'save-toast'; t.textContent = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), 2100);
+}
+
+function confirmBox(text, onYes) {
+  $('#confirm-text').textContent = text;
+  const layer = $('#confirm-layer');
+  layer.classList.add('active');
+  const close = () => { layer.classList.remove('active'); $('#confirm-yes').onclick = null; $('#confirm-no').onclick = null; };
+  $('#confirm-yes').onclick = () => { close(); onYes(); };
+  $('#confirm-no').onclick = close;
+}
+
+function closeSys() { $('#sys-layer').classList.remove('active'); }
+
+function openMenu() {
+  const card = $('#sys-card');
+  card.innerHTML = `
+    <div class="sys-head"><div class="sys-title">菜 单</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
+    <div class="menu-list">
+      <button class="menu-item" data-act="save">保存进度<small>存到 8 个存档栏中的任意一个</small></button>
+      <button class="menu-item" data-act="load">读取进度<small>回到之前保存的某一刻</small></button>
+      <button class="menu-item" data-act="title">回到标题<small>自动存档会记住当前场景的开头</small></button>
+      <button class="menu-item" data-act="close">继续游戏</button>
+    </div>`;
+  card.onclick = e => {
+    const act = e.target.closest('[data-act]')?.dataset.act;
+    if (act === 'close') closeSys();
+    else if (act === 'save') openSlots('save');
+    else if (act === 'load') openSlots('load');
+    else if (act === 'title') confirmBox('回到标题画面？', backToTitle);
+  };
+  $('#sys-layer').classList.add('active');
+}
+
+function openSlots(mode) {
+  renderSlots(mode);
+  $('#sys-layer').classList.add('active');
+}
+
+function fmtTime(ms) {
+  const d = new Date(ms), p = n => String(n).padStart(2, '0');
+  return `${d.getMonth() + 1}月${d.getDate()}日 ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function slotThumb(d) {
+  const c = (d.chars || [])[0];
+  if (c && CHARS[c.id]) {
+    const key = CHARS[c.id][c.form] || CHARS[c.id].human;
+    const x = (PORTRAIT_POS[key] || {}).x ?? 50;
+    if (PORTRAITS[key]) return `<img src="${PORTRAITS[key]}" alt="" style="object-position:${x}% 0;transform:scale(1.8);transform-origin:${x}% 12%">`;
+    return CHARS[c.id].icon;
+  }
+  return '⛩️';
+}
+
+function slotHTML(slot, d, mode) {
+  const label = slot === 'auto' ? '自动存档' : `存档 ${slot}`;
+  if (!d) {
+    return `<button class="slot${mode === 'load' ? ' disabled' : ''}" data-slot="${slot}">
+      <div class="slot-thumb" style="opacity:.35">＋</div>
+      <div class="slot-body"><div class="slot-name">${label}</div><div class="slot-empty">— 空 —</div></div></button>`;
+  }
+  const chap = d.chapter ? `${d.chapter.num} · ${d.chapter.title}` : '';
+  const who = d.preview ? (CHARS[d.preview.char]?.name || '') : '';
+  const line = d.preview ? (d.preview.atChoice ? '（正在做出选择）' : `${who ? who + '：' : ''}${d.preview.text}`) : '';
+  const del = slot !== 'auto' ? `<span class="slot-del" data-del="${slot}" role="button" aria-label="删除">×</span>` : '';
+  return `<button class="slot" data-slot="${slot}">
+    <div class="slot-thumb">${slotThumb(d)}</div>
+    <div class="slot-body">
+      <div class="slot-top"><span class="slot-name">${label}</span><span class="slot-time">${fmtTime(d.time)}</span></div>
+      <div class="slot-chap">${escapeHTML(chap)}</div>
+      <div class="slot-line">${escapeHTML(line)}</div>
+    </div>${del}</button>`;
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+}
+
+function renderSlots(mode) {
+  const all = readSaves();
+  const card = $('#sys-card');
+  const slots = mode === 'load' ? ['auto', ...MANUAL_SLOTS] : MANUAL_SLOTS;
+  const back = inGame() ? `<button class="sys-close" data-act="back" aria-label="返回">‹</button>` : '<span></span>';
+  const note = storageOK ? '' : '<div class="slot-note">当前浏览器不允许保存数据，存档只在这次打开期间有效，关掉页面就会消失。</div>';
+  card.innerHTML = `
+    <div class="sys-head">${back}<div class="sys-title">${mode === 'save' ? '保存进度' : '读取进度'}</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
+    ${note}
+    <div class="slot-list">${slots.map(s => slotHTML(s, all[s], mode)).join('')}</div>`;
+  card.onclick = e => {
+    const act = e.target.closest('[data-act]')?.dataset.act;
+    if (act === 'close') return closeSys();
+    if (act === 'back') return openMenu();
+    const delBtn = e.target.closest('[data-del]');
+    if (delBtn) {
+      e.stopPropagation();
+      const s = delBtn.dataset.del;
+      return confirmBox(`删除 存档 ${s}？\n删除后无法恢复。`, () => deleteSlot(s, mode));
+    }
+    const slotEl = e.target.closest('[data-slot]');
+    if (!slotEl) return;
+    const s = slotEl.dataset.slot, d = readSaves()[s];
+    if (mode === 'save') {
+      if (d) confirmBox(`覆盖 存档 ${s}？\n原来的进度会被替换。`, () => saveToSlot(s));
+      else saveToSlot(s);
+    } else if (d) {
+      if (inGame()) confirmBox('读取这份存档？\n当前没有手动保存的进度会丢失。', () => applySave(d));
+      else applySave(d);
+    }
+  };
+}
+
+$('#menu-btn').addEventListener('click', e => { e.stopPropagation(); openMenu(); });
+$('#sys-layer').addEventListener('click', e => { if (e.target.id === 'sys-layer') closeSys(); });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if ($('#confirm-layer').classList.contains('active')) $('#confirm-no').click();
+  else if ($('#sys-layer').classList.contains('active')) closeSys();
+  else if (inGame()) openMenu();
 });
+
+$('#ending-restart').addEventListener('click', backToTitle);
 
 initTitle();
 </script>
