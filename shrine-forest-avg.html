@@ -541,6 +541,11 @@ const BACKGROUNDS = {
   'forest':       'assets/bg-forest.webp',
   'shrine':       'assets/bg-shrine.webp',
   'night-shrine': 'assets/bg-night-shrine.webp',
+  'spring':       'assets/bg-spring.webp',
+  'garden':       'assets/bg-garden.webp',
+  'moonlit':      'assets/bg-moonlit.webp',
+  'sky':          'assets/bg-sky.webp',
+  'cave':         'assets/bg-cave.webp',
 };
 Object.values(BACKGROUNDS).forEach(src => { new Image().src = src; });
 
@@ -1350,7 +1355,7 @@ const S = {
   },
 
   'day4_shiro': {
-    scene: 'spring', particles: 'sakura',
+    scene: 'garden', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'shiro', text: '这边这边！小心那根藤，会绊脚！' },
@@ -1649,7 +1654,7 @@ const S = {
   },
 
   'rescue_deer': {
-    scene: 'spring', particles: 'sakura',
+    scene: 'garden', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'beast' }],
     lines: [
       { char: 'narrator', text: '撞在石灯笼上的白鹿，站起来了。' },
@@ -1853,7 +1858,7 @@ const S = {
   },
 
   'day6_shiro': {
-    scene: 'spring', particles: 'sakura',
+    scene: 'garden', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '花谷的白樱被烧焦了一半。可是焦黑的树枝上，已经冒出了新芽。' },
@@ -2072,7 +2077,7 @@ const S = {
   },
 
   'ending_snake': {
-    scene: 'cave', particles: 'spirits',
+    scene: 'forest', particles: 'spirits',
     chars: [{ id: 'genya', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '所有人都来送行了——除了玄夜。' },
