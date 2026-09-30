@@ -3300,6 +3300,15 @@ function playBgm(track) {
   if (music.on) el.play().then(() => fadeTo(el, 0.55, 1500)).catch(() => {});
 }
 
+const bellSrc = 'assets/sfx-bell.wav';
+new Audio(bellSrc).preload = 'auto';
+function playBell() {
+  if (!music.on) return;
+  const el = new Audio(bellSrc);
+  el.volume = 0.8;
+  el.play().catch(() => {});
+}
+
 function setMusicOn(on) {
   music.on = on;
   try { localStorage.setItem('dujuansen-music', on ? 'on' : 'off'); } catch (e) {}
@@ -3387,6 +3396,7 @@ function startLines(node, i) {
   if (line.chars) { state.chars = line.chars.map(c => ({ ...c })); setChars(state.chars); }
   if (line.transform) showTransform(line.transform.char, line.transform.text);
   if (line.flag) setFlag(line.flag);
+  if (line.text.startsWith('叮')) playBell();
   showDialogue(line, () => startLines(node, i + 1));
 }
 
