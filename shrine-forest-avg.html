@@ -6,6 +6,8 @@
 <title>杜鹃森 — 神社与森林的恋爱物语</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Ma+Shan+Zheng&display=swap');
+/* LXGW WenKai (SIL OFL), subset to the characters this game uses. Re-subset if new text adds characters. */
+@font-face { font-family: 'Dujuan WenKai'; src: url('assets/font-wenkai.woff2') format('woff2'); font-display: swap; }
 
 :root {
   --bg: #1a1a2e;
@@ -29,7 +31,7 @@
   --accent-sakura: #e8a0b4;
   --ui-bg: rgba(20, 16, 30, 0.92);
   --ui-border: rgba(212, 168, 84, 0.3);
-  --font: 'Noto Serif SC', 'Songti SC', Georgia, serif;
+  --font: 'Dujuan WenKai', 'Noto Serif SC', 'Kaiti SC', 'STKaiti', serif;
   --font-ui: -apple-system, 'PingFang SC', sans-serif;
   --font-deco: 'Noto Serif SC', 'Songti SC', serif;
   --font-brush: 'Ma Shan Zheng', 'Noto Serif SC', serif;
@@ -284,7 +286,7 @@ html, body {
   text-shadow: 0 1px 0 rgba(255,240,210,0.6);
 }
 #speaker-name:empty { display: none; }
-#dialogue-text { font-size: 16px; line-height: 1.9; letter-spacing: 0.04em; font-weight: 500; color: #f4ecdc; font-family: var(--font); min-height: 60px; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
+#dialogue-text { font-size: 17px; line-height: 1.85; letter-spacing: 0.05em; font-weight: 400; color: #f4ecdc; font-family: var(--font); min-height: 60px; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
 #dialogue-text .char { opacity: 0; display: inline; transition: opacity 0.05s; }
 #dialogue-text .char.visible { opacity: 1; }
 
@@ -350,7 +352,6 @@ html, body {
 
 #title-buttons { position: absolute; left: 0; right: 0; bottom: 9vh; display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0; animation: title-fade 2s ease 2s forwards; }
 .title-btn { width: 230px; text-align: center; padding: 10px 34px 20px 56px; font-family: var(--font-brush); font-size: 21px; letter-spacing: 6px; }
-.title-btn.secondary { font-size: 15px; min-height: 48px; opacity: 0.92; }
 .title-btn:hover { filter: drop-shadow(0 0 12px rgba(255,200,110,0.7)) brightness(1.06); transform: scale(1.03); }
 .title-btn[hidden] { display: none; }
 
@@ -371,7 +372,7 @@ html, body {
 @keyframes chap-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 /* === Ending === */
-#ending-screen { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 40; padding: 0 20px; background: linear-gradient(rgba(6,8,20,0.35), rgba(6,8,20,0.55)), #0a0c1c url('assets/ui-chapter.webp') center / cover no-repeat; animation: title-fade 2s ease; }
+#ending-screen { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 40; padding: 0 20px; background: linear-gradient(rgba(6,8,20,0.35), rgba(6,8,20,0.55)), #0a0c1c url('assets/ui-ending.webp') center / cover no-repeat; animation: title-fade 2s ease; }
 #ending-screen.active { display: flex; }
 #ending-title { font-size: clamp(44px, 12vw, 68px); font-weight: 400; letter-spacing: 6px; color: #fff4dc; font-family: var(--font-brush); margin-bottom: 18px; text-shadow: 0 0 24px rgba(255,190,90,0.55), 0 3px 0 rgba(120,20,10,0.7); }
 #ending-subtitle { position: relative; isolation: isolate; max-width: 460px; font-size: 15px; color: #f1e8d8; font-family: var(--font); margin-bottom: 28px; text-align: center; line-height: 1.95; padding: 30px 34px; white-space: pre-line; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
@@ -486,7 +487,7 @@ html, body {
 @media (max-width: 600px) {
   #dialogue-layer { padding: 0 6px env(safe-area-inset-bottom, 8px); }
   #dialogue-box { margin: 34px 0 8px; padding: 30px 36px 30px; min-height: 140px; }
-  #dialogue-text { font-size: 15px; line-height: 1.75; }
+  #dialogue-text { font-size: 16.5px; line-height: 1.8; }
   .choice-btn { font-size: 14px; }
   #choice-container { width: 97%; }
 }
