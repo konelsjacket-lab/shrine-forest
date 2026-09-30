@@ -465,6 +465,11 @@ const PORTRAITS = {
   'genya-beast':    'assets/genya-beast.webp',
 };
 
+// Percent of screen height to push a portrait down.
+const PORTRAIT_SHIFT_DOWN = {
+  'kohaku-human': 15,
+};
+
 // ============================================================
 //  CHARACTER DEFINITIONS
 // ============================================================
@@ -523,7 +528,8 @@ function getPortrait(charId, formKey) {
   const key = formKey;
   const imgPath = PORTRAITS[key];
   if (imgPath) {
-    return `<img class="char-portrait-img" src="${imgPath}" alt="${CHARS[charId].name}">`;
+    const shift = PORTRAIT_SHIFT_DOWN[key] || 0;
+    return `<img class="char-portrait-img" src="${imgPath}" alt="${CHARS[charId].name}" style="transform:translateY(${shift}%)">`;
   }
   const c = CHARS[charId];
   return `<div class="char-placeholder" style="background:${c.placeholderBg}">
