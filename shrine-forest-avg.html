@@ -364,6 +364,8 @@ html, body {
 
 /* === Menu === */
 #menu-btn { position: absolute; top: 16px; left: 16px; z-index: 22; width: 36px; height: 36px; background: rgba(10,10,20,0.7); border: 1px solid rgba(212,168,84,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-dim); font-size: 14px; backdrop-filter: blur(8px); transition: all 0.3s; }
+#music-btn { position: absolute; top: 16px; right: 16px; z-index: 55; width: 36px; height: 36px; background: rgba(10,10,20,0.7); border: 1px solid rgba(212,168,84,0.3); border-radius: 50%; color: var(--accent-gold); font-size: 16px; cursor: pointer; backdrop-filter: blur(8px); transition: all 0.3s; padding: 0; }
+#music-btn.off { color: var(--text-dim); border-color: rgba(212,168,84,0.15); text-decoration: line-through; opacity: 0.7; }
 #menu-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
 
 .save-toast { position: fixed; top: 60px; left: 50%; transform: translateX(-50%); background: rgba(10,10,20,0.9); border: 1px solid var(--accent-gold); border-radius: 6px; padding: 8px 20px; font-family: var(--font-ui); font-size: 13px; color: var(--accent-gold); z-index: 100; opacity: 0; animation: toast-show 2s ease forwards; }
@@ -491,6 +493,7 @@ html, body {
 
 
   <div id="menu-btn">☰</div>
+  <button id="music-btn" aria-label="音乐开关">♪</button>
 
   <div id="dialogue-layer">
     <div id="dialogue-box">
@@ -558,6 +561,27 @@ const BACKGROUNDS = {
   'snowfield':    'assets/bg-snowfield.webp',
 };
 Object.values(BACKGROUNDS).forEach(src => { new Image().src = src; });
+
+// Music. A track set to null falls back to the title theme until its file exists.
+const BGM = {
+  title:  'assets/bgm-title.mp3',
+  grief:  null,
+  daily:  null,
+  night:  null,
+  wind:   null,
+  depths: null,
+  crisis: null,
+  moon:   null,
+};
+const SCENE_BGM = { town: 'grief', room: 'grief', shrine: 'daily', spring: 'daily', garden: 'daily',
+  'night-shrine': 'night', moonlit: 'night', forest: 'night', sky: 'wind', snowfield: 'wind', cave: 'depths' };
+const NODE_BGM = { crisis_gather: 'crisis', crisis_battle: 'crisis', day5_evening: 'crisis', day7_ceremony: 'moon' };
+function bgmFor(id) {
+  if (!id) return 'title';
+  if (NODE_BGM[id]) return NODE_BGM[id];
+  if (/^(rescue|ending)_/.test(id)) return id.startsWith('rescue') ? 'crisis' : 'moon';
+  return SCENE_BGM[S[id].scene || state.scene] || 'daily';
+}
 
 // ex/ey: where the eyes are in the source image (% of its width/height); bx: body centre x (defaults to ex).
 // h: displayed image height as % of screen height (the character's on-screen scale).
@@ -3249,6 +3273,48 @@ const S = {
 // ============================================================
 //  ENGINE
 // ============================================================
+const music = { on: true, cur: null, el: null, unlocked: false };
+try { music.on = localStorage.getItem('dujuansen-music') !== 'off'; } catch (e) {}
+
+function fadeTo(el, target, ms, done) {
+  const start = el.volume, t0 = performance.now();
+  (function step(t) {
+    const k = Math.min(1, (t - t0) / ms);
+    el.volume = start + (target - start) * k;
+    if (k < 1) requestAnimationFrame(step); else if (done) done();
+  })(t0);
+}
+
+function playBgm(track) {
+  const src = BGM[track] || BGM.title;
+  if (music.el && music.el.dataset.src === src) return;
+  const old = music.el;
+  if (old) fadeTo(old, 0, 1200, () => { old.pause(); old.src = ''; });
+  music.el = null; music.cur = track;
+  if (!src) return;
+  const el = new Audio(src);
+  el.dataset.src = src; el.loop = true; el.volume = 0;
+  music.el = el;
+  if (music.on) el.play().then(() => fadeTo(el, 0.55, 1500)).catch(() => {});
+}
+
+function setMusicOn(on) {
+  music.on = on;
+  try { localStorage.setItem('dujuansen-music', on ? 'on' : 'off'); } catch (e) {}
+  $('#music-btn').classList.toggle('off', !on);
+  if (!music.el) return;
+  if (on) music.el.play().then(() => fadeTo(music.el, 0.55, 800)).catch(() => {});
+  else fadeTo(music.el, 0, 400, () => music.el && music.el.pause());
+}
+
+$('#music-btn').addEventListener('click', e => { e.stopPropagation(); setMusicOn(!music.on); });
+$('#music-btn').classList.toggle('off', !music.on);
+// Browsers block audio until the first tap; start the current track then.
+['pointerdown', 'keydown'].forEach(ev => document.addEventListener(ev, () => {
+  if (music.unlocked) return; music.unlocked = true;
+  if (music.on && music.el && music.el.paused) music.el.play().then(() => fadeTo(music.el, 0.55, 1500)).catch(() => {});
+}, { once: false }));
+
 function initTitle() {
   const c = $('#title-particles');
   for (let i = 0; i < 20; i++) {
@@ -3276,6 +3342,7 @@ function initTitle() {
   });
   $('#title-load-btn').addEventListener('click', () => openSlots('load'));
   refreshTitleButtons();
+  playBgm('title');
 }
 
 function hideTitle(cb) {
@@ -3299,6 +3366,7 @@ function playNode(id) {
   if (node.transform_immediate) showTransform(node.transform_immediate.char, node.transform_immediate.text);
   if (node.chapter) state.chapter = node.chapter;
   (node.flags || []).forEach(setFlag);
+  playBgm(bgmFor(id));
   setFlashback(!!node.flashback);
   autoSave();
 
@@ -3651,6 +3719,7 @@ function applySave(d) {
   setParticles(state.particles);
   setChars(state.chars);
   setFlashback(!!S[d.node].flashback);
+  playBgm(bgmFor(d.node));
 
   const node = S[d.node], lines = node.lines || [], i = d.line || 0;
   if (i >= lines.length && lines.length) {
@@ -3686,6 +3755,7 @@ function backToTitle() {
   t.style.display = '';
   t.classList.remove('hidden');
   refreshTitleButtons();
+  playBgm('title');
 }
 
 function refreshTitleButtons() {
