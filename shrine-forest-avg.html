@@ -466,17 +466,17 @@ const PORTRAITS = {
 };
 
 // Framing so each head sits ~25% from the top.
-// y: % of screen height to push down (negative = up); zoom scales from the bottom edge; x: horizontal focus %.
+// y: % of screen height to push down (negative = up); zoom scales from the bottom edge at x; x: horizontal focus %.
 const PORTRAIT_POS = {
   'kohaku-human':   { y: 15 },
   'ginro-human':    { y: 7 },
   'shiro-human':    { y: 5 },
   'yukimaru-human': { y: 8 },
-  'sou-human':      { y: 9 },
+  'sou-human':      { y: 16 },
   'genya-human':    { y: 13 },
   'ginro-beast':    { x: 100 },
   'yukimaru-beast': { y: -5, zoom: 1.7 },
-  'sou-beast':      { y: -12 },
+  'sou-beast':      { y: 8, zoom: 1.4, x: 100 },
   'genya-beast':    { y: 11 },
 };
 
@@ -539,7 +539,7 @@ function getPortrait(charId, formKey) {
   const imgPath = PORTRAITS[key];
   if (imgPath) {
     const { y = 0, zoom = 1, x = 50 } = PORTRAIT_POS[key] || {};
-    return `<img class="char-portrait-img" src="${imgPath}" alt="${CHARS[charId].name}" style="transform:translateY(${y}%) scale(${zoom});transform-origin:center bottom;object-position:${x}% top">`;
+    return `<img class="char-portrait-img" src="${imgPath}" alt="${CHARS[charId].name}" style="transform:translateY(${y}%) scale(${zoom});transform-origin:${x}% bottom;object-position:${x}% top">`;
   }
   const c = CHARS[charId];
   return `<div class="char-placeholder" style="background:${c.placeholderBg}">
