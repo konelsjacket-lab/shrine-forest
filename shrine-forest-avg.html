@@ -562,7 +562,7 @@ const BACKGROUNDS = {
 };
 Object.values(BACKGROUNDS).forEach(src => { new Image().src = src; });
 
-// Music. A track set to null falls back to the title theme until its file exists.
+// Music. A track set to null falls back to the title theme.
 const BGM = {
   title:  'assets/bgm-title.mp3',
   grief:  'assets/bgm-grief.mp3',
@@ -571,7 +571,7 @@ const BGM = {
   wind:   'assets/bgm-wind.mp3',
   depths: 'assets/bgm-depths.mp3',
   crisis: 'assets/bgm-crisis.mp3',
-  moon:   null,
+  moon:   'assets/bgm-moon.mp3',
 };
 const SCENE_BGM = { town: 'grief', room: 'grief', shrine: 'daily', spring: 'daily', garden: 'daily',
   'night-shrine': 'night', moonlit: 'night', forest: 'night', sky: 'wind', snowfield: 'wind', cave: 'depths' };
@@ -3367,6 +3367,7 @@ function playNode(id) {
   const node = S[id];
   if (!node) return;
   const gen = ++state.gen;
+  detachDialogue();
   state.currentNode = id;
   state.line = 0;
   if (node.day) { state.day = node.day; updateDay(); }
