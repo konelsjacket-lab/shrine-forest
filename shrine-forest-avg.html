@@ -565,11 +565,11 @@ Object.values(BACKGROUNDS).forEach(src => { new Image().src = src; });
 // Music. A track set to null falls back to the title theme until its file exists.
 const BGM = {
   title:  'assets/bgm-title.mp3',
-  grief:  null,
+  grief:  'assets/bgm-grief.mp3',
   daily:  null,
   night:  null,
-  wind:   null,
-  depths: null,
+  wind:   'assets/bgm-wind.mp3',
+  depths: 'assets/bgm-depths.mp3',
   crisis: null,
   moon:   null,
 };
@@ -3277,10 +3277,12 @@ const music = { on: true, cur: null, el: null, unlocked: false };
 try { music.on = localStorage.getItem('dujuansen-music') !== 'off'; } catch (e) {}
 
 function fadeTo(el, target, ms, done) {
+  const token = el._fade = {}; // a newer fade on the same element cancels this one
   const start = el.volume, t0 = performance.now();
   (function step(t) {
-    const k = Math.min(1, (t - t0) / ms);
-    el.volume = start + (target - start) * k;
+    if (el._fade !== token) return;
+    const k = Math.min(1, Math.max(0, (t - t0) / ms));
+    el.volume = Math.min(1, Math.max(0, start + (target - start) * k));
     if (k < 1) requestAnimationFrame(step); else if (done) done();
   })(t0);
 }
