@@ -1,7 +1,7 @@
 # 杜鹃森 — 扩写设计备忘（给接手的 Claude 看）
 
 游戏：`index.html`（单文件）+ `assets/`。发布为 Artifact：https://claude.ai/artifact/3X2sSDKqxwwwkzaddhscDQ
-仓库：`konelsjacket-lab/shrine-forest`（私有）。从 `konelsjacket-lab/Chorus-now-` 的 `claude/serene-goodall-fv4qkj` 分支搬过来，更早的提交历史留在那边。用户直接玩，不看大纲；每步做完就发布 + 提交 + 推送。
+仓库：`konelsjacket-lab/shrine-forest`（公开）。公开游玩网址（GitHub Pages，main 分支根目录）：https://konelsjacket-lab.github.io/shrine-forest/ ——推到 main 就会更新线上游戏，玩家正在玩，推之前务必跑完测试。本备忘有全剧透，用户知情。从 `konelsjacket-lab/Chorus-now-` 的 `claude/serene-goodall-fv4qkj` 分支搬过来，更早的提交历史留在那边。用户直接玩，不看大纲；每步做完就发布 + 提交 + 推送。
 
 ## 进度
 
