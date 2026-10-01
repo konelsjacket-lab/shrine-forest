@@ -6030,7 +6030,7 @@ function openBonds() {
   const me = state.flags.a_photo
     ? '六岁以前，穿着黄雨靴在这座山上跑来跑去。外婆忘了你小时候的样子——可整座山都替她记着。'
     : '千代的外孙女。六岁以前住在山脚下，那时候的事，已经不太记得了。';
-  const you = `<div class="bond you"><div class="slot-thumb"><img src="assets/protagonist-child.webp" alt="" style="position:absolute;width:auto;height:190px;top:-2px;left:50%;transform:translateX(-46%)"></div>
+  const you = `<div class="bond you"><div class="slot-thumb"><img src="assets/protagonist-child.webp" alt="" style="position:absolute;width:auto;height:205px;max-width:none;left:-55px;top:4px"></div>
       <div class="bond-body"><div class="bond-top"><span class="bond-name" style="color:#f3cf7a">你</span></div><div class="bond-desc">${me}</div></div></div>`;
   const card = $('#sys-card');
   card.innerHTML = `
