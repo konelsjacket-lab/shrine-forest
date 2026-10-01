@@ -89,7 +89,7 @@
 ## 还可以继续做的（如果用户想要）
 
 - 9 张 CG 的生成提示词在仓库根目录 `CG-PROMPTS.txt`（含角色设定卡、构图要求、文件名）。用户实际用的是简版 `CG-PROMPTS-简版.txt`（每张一段中文，直接粘给 ChatGPT）。
-- 还没画的 CG（`CG_IMAGES` 里为 null 的）：只剩 cg_shiro_bloom。图到了只改 `CG_IMAGES` 一行。
+- ~~补 CG~~ ✅ 全部 15 张 CG 都有图了（`CG_IMAGES` 里没有 null）。占位框代码保留，以后加新 CG 时先写 null 也能跑。
 - `cg_sou_flight` 是金色午后，只用在第 4 天；第 6 天夜里那次飞行不再复用它（时间对不上）。
 - 字体全部自托管：正文 `assets/font-wenkai.woff2`（霞鹜文楷子集），标题/按钮 `assets/font-brush.woff2`（马善政子集）。不再从 Google Fonts 加载毛笔字体（国内打不开）。**加了新台词要重新子集化两个字体**，否则新字会掉成系统字体。
 - ~~六个结局各扩成一整场~~ ✅ 已做：每个结局 = `ending_X`（满月夜告别）→ `ending_X2`（后日谈，一个小选择，不加好感）→ `ending_X3`（带 `ending` 卡）。后日谈节点 `day: -1` 隐藏天数指示。`routeToEnding` 仍然只认 `ending_X`。
