@@ -39,6 +39,23 @@ body { background: #333; font-family: 'WK', serif; color: var(--ink); padding: 2
 /* CG strip */
 .cgs { width: 600px; background: var(--bg); padding: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .cgs div { height: 200px; border-radius: 6px; background-size: cover; background-position: center 30%; border: 1px solid rgba(243,207,122,0.3); }
+
+/* full sections: heading + content in one image, 600 wide */
+.sec { width: 600px; background: var(--bg); padding: 6px 0 26px; }
+.sec .head { margin-bottom: 6px; }
+.prose { padding: 4px 56px 0; font-size: 16px; line-height: 2.05; color: var(--ink); text-align: center; }
+.prose p { margin: 0 0 14px; }
+.prose .letter { margin: 18px 0 20px; padding: 14px 18px; font-size: 15px; line-height: 1.95; color: #fff4dc; border-top: 1px solid rgba(243,207,122,0.4); border-bottom: 1px solid rgba(243,207,122,0.4); background: rgba(243,207,122,0.05); }
+.prose .last { font-family: 'Brush'; font-size: 26px; color: var(--gold); letter-spacing: 4px; margin-top: 18px; text-shadow: 0 0 14px rgba(243,207,122,0.35); }
+.lead { text-align: center; font-family: 'Brush'; font-size: 24px; letter-spacing: 3px; color: #fff4dc; margin: 6px 0 16px; }
+.feats { padding: 0 34px; display: flex; flex-direction: column; gap: 10px; }
+.feat { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-radius: 8px; background: rgba(255,255,255,0.035); border: 1px solid rgba(243,207,122,0.22); }
+.feat b { flex: 0 0 auto; width: 9px; height: 9px; margin-top: 8px; background: var(--red); transform: rotate(45deg); box-shadow: 0 0 8px var(--red); }
+.feat div { font-size: 14px; line-height: 1.75; color: var(--dim); }
+.feat strong { display: block; font-size: 16px; color: #fff4dc; font-weight: normal; letter-spacing: 1px; }
+.sec .cards, .sec .cgs { padding-top: 6px; padding-bottom: 0; }
+.quote { text-align: center; font-family: 'Brush'; font-size: 26px; letter-spacing: 4px; color: var(--gold); margin-top: 22px; text-shadow: 0 0 14px rgba(243,207,122,0.35); }
+.foot { text-align: center; font-size: 11.5px; color: #7f7a8e; margin-top: 14px; letter-spacing: 1px; }
 </style>
 </head>
 <body>
@@ -63,6 +80,41 @@ body { background: #333; font-family: 'WK', serif; color: var(--ink); padding: 2
   <div style="background-image:url('../assets/cg-sou-flight.webp')"></div>
 </div>
 
+<div class="sec" data-shot="sec1-story"><div class="head"><i></i><b></b><span>故事</span><small>STORY</small><b></b><i></i></div>
+  <div class="prose">
+    <p>外婆去世了。</p>
+    <p>整理遗物的时候，你在她的抽屉里<br>找到一枚系着褪色红绳的旧铜铃，和一封信——</p>
+    <div class="letter">「替外婆去山上的神社看看。<br>那里有一群很笨、不太会说话的好孩子。<br>七天，刚好够你认识他们每一个。」</div>
+    <p>于是你回到了六岁以前住过的山脚小镇，<br>走上了那条开满杜鹃的石阶。</p>
+    <p>鸟居下面，一只红发的九尾狐提着灯笼在等你。</p>
+    <div class="last">她说，等了你二十年。</div>
+  </div>
+</div>
+
+<div class="sec" data-shot="sec2-cast"><div class="head"><i></i><b></b><span>六个人</span><small>CAST</small><b></b><i></i></div><div class="cards" id="cast2"></div></div>
+
+<div class="sec" data-shot="sec3-features"><div class="head"><i></i><b></b><span>特色</span><small>FEATURES</small><b></b><i></i></div>
+  <div class="lead">一部关于「被记住」的和风恋爱视觉小说</div>
+  <div class="feats">
+    <div class="feat"><b></b><div><strong>七天，一个满月</strong>六个完整结局，外加一个只有谁都不冷落才能看到的隐藏结局</div></div>
+    <div class="feat"><b></b><div><strong>一段只属于你们的心动</strong>第三晚的心跳，第五天黄昏差一点说出口的话，满月夜的告白</div></div>
+    <div class="feat"><b></b><div><strong>章节选择</strong>玩过的选择会被记住，从任意一章重新开始，在流程图里改掉当年的决定</div></div>
+    <div class="feat"><b></b><div><strong>十五张 CG · 八首配乐</strong>跳过已读、八个存档栏、羁绊与记事系统</div></div>
+    <div class="feat"><b></b><div><strong>打开就能玩</strong>手机、电脑浏览器都可以，无需下载 · 全中文</div></div>
+  </div>
+</div>
+
+<div class="sec" data-shot="sec4-gallery"><div class="head"><i></i><b></b><span>回忆</span><small>GALLERY</small><b></b><i></i></div>
+  <div class="cgs">
+    <div style="background-image:url('../assets/cg-ginro-umbrella.webp')"></div>
+    <div style="background-image:url('../assets/cg-kohaku-ninetails.webp')"></div>
+    <div style="background-image:url('../assets/cg-shiro-bloom.webp')"></div>
+    <div style="background-image:url('../assets/cg-sou-flight.webp')"></div>
+  </div>
+  <div class="quote">有名字的东西，被叫到的时候，就会亮。</div>
+  <div class="foot">字体：霞鹜文楷（LXGW WenKai, OFL）· 马善政楷书（Ma Shan Zheng, OFL）</div>
+</div>
+
 <script>
 // face position in each sprite (from PORTRAIT_POS in index.html): ex/ey = eye point in %, s = zoom
 const CAST = [
@@ -73,7 +125,7 @@ const CAST = [
   ['苍羽', '#6aa0e0', 'sou', 55.6, 6.7, 1.0, '天空守望 · 蓝鹰', '……这个不算。'],
   ['玄夜', '#b07ad6', 'genya', 57.6, 12.8, 0.88, '幽暗低语 · 黑蛇', '满月之前，别相信任何一个说「没事」的人。'],
 ];
-const box = document.querySelector('.cards');
+for (const box of document.querySelectorAll('.cards')) {
 const H = 760; // displayed sprite height at zoom 1
 for (const [nm, c, id, ex, ey, s, tag, q] of CAST) {
   const d = document.createElement('div'); d.className = 'card'; d.style.setProperty('--c', c);
@@ -87,6 +139,7 @@ for (const [nm, c, id, ex, ey, s, tag, q] of CAST) {
     pic.style.backgroundSize = `${w}px ${h}px`;
     pic.style.backgroundPosition = `${88 - ex / 100 * w}px ${70 - ey / 100 * h}px`; // eyes at (88, 70) of the 176px card
   };
+}
 }
 </script>
 </body>
