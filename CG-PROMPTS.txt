@@ -36,10 +36,17 @@ modern clothing, photorealistic, 3d render, lowres
 角色设定卡（保持九张图里同一个人长得一样）
 ================================================================
 
-【主角 · 你】
-- 成年的你：性别不明确，尽量只画背影、侧影或手。
-- 六岁的你：短发的小孩子，穿黄色的雨靴（这是固定特征，一定要有）。
-  EN: a gender-neutral child of about six, short hair, wearing bright yellow rain boots
+【主角 · 你】不画清楚正脸，不强调性别
+- 发色：深棕色，发尾微卷。
+- 六岁的你：深棕色微卷短发，带帽子的黄色小斗篷、浅色衣服，亮黄色雨靴。
+  参考图：assets/cg-shiro-garland.webp
+  EN: a gender-neutral child of about six with short, slightly wavy dark-brown hair,
+  a small yellow hooded cape over light clothes, bright yellow rain boots
+- 二十六岁的你：深棕色长发到腰、发尾微卷，发间别一朵小红花；穿外婆留下的羽织
+  （白底、红色滚边的宽袖和服外褂）。尽量只画背影、侧影或手。
+  参考图：assets/cg-main-ceremony.webp
+  EN: a gender-neutral adult seen from behind, waist-length slightly wavy dark-brown
+  hair with a small red flower ornament, wearing a white wide-sleeved haori with red trim
 
 【白露 · 人形】少年，十四岁左右的样子
 - 翠绿色的蓬松短发，绿色的大眼睛，骨白色的小鹿角，角上开着花
