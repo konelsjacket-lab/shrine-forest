@@ -4886,6 +4886,39 @@ const S = {
       { char: 'narrator', text: '那是一只狸猫。毛是褐色的，肚子是圆的，眼睛是亮的。一点都不黑了。', cg: 'cg_main_adeng' },
       { char: 'narrator', text: '它走到你脚边，抬头看着你。看了很久。' },
       { char: 'narrator', text: '然后，它低下头，用脑袋蹭了蹭你手里的红绳。' },
+      { char: 'narrator', text: '你蹲下来。它往后缩了一下——像是还记得，自己曾经那么冷，那么重，差点把一个小孩压得喘不过气。' },
+      { char: 'player', text: '没关系。这次不冷了。' },
+      { char: 'narrator', text: '它犹豫了很久。然后，把一只小小的前爪，搭在了你的膝盖上。爪子是温的。' },
+      { char: 'player', text: '你还记得我吗？那天晚上，林子里。那个穿黄雨靴、一直哭鼻子的小孩。' },
+      { char: 'narrator', text: '它歪着头，湿漉漉的鼻子凑过来，在你脸上嗅了嗅。闻了很久。' },
+      { char: 'narrator', text: '然后——叮当。它用脑袋，轻轻顶了一下那个裂开的铃。' },
+      { char: 'player', text: '……对。叮当。是我给你起的名字。' },
+      { char: 'narrator', text: '它眯起眼睛，喉咙里发出一种很小很小的、咕噜咕噜的声音。' },
+      { char: 'genya', text: '……它在说，它一直记得。狸猫不会说话。可是尾巴会。' },
+      { char: 'narrator', text: '它的尾巴在你脚边扫来扫去，扫得地上的灰都打起了小卷。' },
+    ],
+    choices: [
+      { text: '摸摸它圆滚滚的脑袋', flag: 'adeng_pat', next: 'day7_adeng' },
+      { text: '把口袋里最后一颗金平糖给它', flag: 'adeng_candy', next: 'day7_adeng' },
+      { text: '张开手臂，把它抱起来', flag: 'adeng_hug', next: 'day7_adeng' },
+    ],
+  },
+
+  'day7_adeng': {
+    scene: 'cave', particles: 'spirits', keepCG: true, // the Adeng CG stays up through the reunion
+    lines: [
+      { char: 'narrator', text: '它把脑袋往你手心里拱，拱完一边，又换另一边。耳朵被你揉得东倒西歪，也不躲。', if: 'adeng_pat' },
+      { char: 'narrator', text: '毛很软。软得像外婆晒过的棉被。你摸着摸着，眼眶忽然就热了。', if: 'adeng_pat' },
+      { char: 'narrator', text: '外婆买给山上的孩子的。你一直揣在口袋里，糖纸都揉皱了。', if: 'adeng_candy' },
+      { char: 'narrator', text: '它闻了闻，一口叼走，嚼得「咔嚓咔嚓」响。嚼完，又盯着你的口袋看。', if: 'adeng_candy' },
+      { char: 'player', text: '……没有了。真的没有了。', if: 'adeng_candy' },
+      { char: 'narrator', text: '它不信，把整个脑袋钻进你的口袋里找。只露出圆滚滚的屁股，和一条摇个不停的尾巴。', if: 'adeng_candy' },
+      { char: 'narrator', text: '它比看起来重多了。圆滚滚的一团，暖烘烘地压在你怀里。', if: 'adeng_hug' },
+      { char: 'narrator', text: '二十年前，它想抱你，却差点把你冻坏。现在，换你抱它了。它把下巴搁在你的肩膀上，一动也不动。', if: 'adeng_hug' },
+      { char: 'player', text: '对不起。让你一个人找了那么久。' },
+      { char: 'player', text: '以后，你也是这座山的孩子了。谁都不会再把你忘掉。' },
+      { char: 'narrator', text: '它看着你。亮晶晶的眼睛里，映着要石的紫光，和你的脸。' },
+      { char: 'narrator', text: '叮当。' },
       { char: 'narrator', text: '就在这时，手里的铃，忽然变重了。', cg: null },
       { char: 'narrator', text: '重得像是攥着一块石头。不——像是有什么东西，正顺着你的手臂，往铃里流。' },
       { char: 'narrator', text: '你知道那是什么。' },
@@ -4931,11 +4964,19 @@ const S = {
       { char: 'narrator', text: '玄夜脸上的灰色鳞片，像旧皮一样一片一片剥落下来。底下，是新的、泛着紫光的黑。' },
       { char: 'narrator', text: '琥珀身后，第九条尾巴，轻轻地展开了。她自己都没发现，还在擦眼泪。' },
       { char: 'narrator', text: '狸猫阿灯打了个哈欠，一溜烟跑上了石阶。' },
+      { char: 'narrator', text: '跑到一半，它回过头来，冲你「叮当」了一声。才又跑远了。', if: 'adeng_hug' },
       { char: 'narrator', text: '过了一会儿，上面传来琥珀的尖叫——「供台上的饭团！！」' },
       { char: 'narrator', text: '洞窟里，所有人都笑了。连玄夜都笑出了声，笑到咳嗽。' },
       { char: 'narrator', text: '铃声停下来的时候，你手里的铜铃，轻轻地、温暖地，跳了一下。' },
       { char: 'narrator', text: '像是有谁，在很远很远的地方，笑着说：「做得好，小不点。」' },
       { char: 'narrator', text: '走出洞窟时，满月已经升到了天顶。鸟居下方，结界像一道银色的帘子，向山下缓缓打开。' },
+      { char: 'narrator', text: '石阶最上面，阿灯蹲在那里等你。嘴边还沾着饭粒。', if: 'adeng_candy' },
+      { char: 'narrator', text: '石阶最上面，阿灯蹲在那里等你。嘴边沾着饭粒，脸上一点都不心虚。', ifnot: 'adeng_candy' },
+      { char: 'narrator', text: '它跟着你走了一段。叮当，叮当。你走，它也走。你停，它也停。' },
+      { char: 'narrator', text: '跟二十年前，一模一样。只是这一次，你回头的时候，它就在那里。' },
+      { char: 'narrator', text: '走到鸟居下面，它停住了。坐好，用尾巴圈住爪子，仰头看着你。' },
+      { char: 'player', text: '……在这里等我？' },
+      { char: 'narrator', text: '叮当。' },
       { char: 'narrator', text: '口袋里，有什么东西震了一下。' },
       { char: 'narrator', text: '是手机。屏幕亮了。停在「17:43」的时间，跳了一下，开始走了。' },
       { char: 'narrator', text: '一条消息，是三天前发的。现在才进来。' },
@@ -6133,6 +6174,8 @@ function playNode(id) {
   if (node.transform_immediate) showTransform(node.transform_immediate.char, node.transform_immediate.text);
   if (node.chapter) state.chapter = node.chapter;
   (node.flags || []).forEach(setFlag);
+  (node.lines || []).forEach(l => { if (l.cg) preloadCG(l.cg); }); // start loading this scene's CGs now, not on the line
+  if (node.next && S[node.next]) (S[node.next].lines || []).forEach(l => { if (l.cg) preloadCG(l.cg); });
   if (!(node.keepCG && state.cg)) setCG(null); // keepCG: carry the previous node's CG into this one
   playBgm(bgmFor(id));
   setFlashback(!!node.flashback);
@@ -6208,17 +6251,27 @@ function skipTick() {
   }, 50);
 }
 
+const cgCache = {};
+function preloadCG(id) {
+  const src = CG_IMAGES[id];
+  if (src && !cgCache[src]) { cgCache[src] = new Image(); cgCache[src].src = src; }
+}
+
 function setCG(id) {
   const layer = $('#cg-layer');
   state.cg = id || null;
   if (!id) { layer.classList.remove('in'); setTimeout(() => { if (!state.cg) layer.classList.remove('show'); }, 800); return; }
   const src = CG_IMAGES[id], info = CG_INFO[id] || [id, ''];
   layer.classList.toggle('has-img', !!src);
-  if (src) $('#cg-img').src = src;
   layer.querySelector('.cg-ph-name').textContent = info[0];
   layer.querySelector('.cg-ph-desc').textContent = info[1];
-  layer.classList.add('show');
-  requestAnimationFrame(() => requestAnimationFrame(() => layer.classList.add('in')));
+  const reveal = () => { if (state.cg !== id) return; layer.classList.add('show'); requestAnimationFrame(() => requestAnimationFrame(() => layer.classList.add('in'))); };
+  const img = $('#cg-img');
+  if (src && img.getAttribute('src') !== src) {
+    layer.classList.remove('in'); // a different CG was up: hide it rather than flash the old picture
+    img.onload = img.onerror = () => { img.onload = img.onerror = null; reveal(); }; // slow phones: fade in once loaded
+    img.src = src;
+  } else reveal();
   markCgSeen(id);
 }
 
@@ -6533,7 +6586,7 @@ function updateDay() {
 //  SAVE / LOAD
 // ============================================================
 const SAVE_KEY = 'dujuansen-saves-v1';
-const STORY_VERSION = 16; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
+const STORY_VERSION = 17; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
 const MANUAL_SLOTS = ['1','2','3','4','5','6','7','8'];
 const storageOK = (() => {
   try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; }
