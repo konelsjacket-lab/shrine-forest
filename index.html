@@ -408,6 +408,10 @@ html, body {
 /* === Ending === */
 #ending-screen { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 40; padding: 0 20px; background: linear-gradient(rgba(6,8,20,0.35), rgba(6,8,20,0.55)), #0a0c1c url('assets/ui-ending.webp') center / cover no-repeat; animation: title-fade 2s ease; }
 #ending-screen.active { display: flex; }
+#ending-screen > * { position: relative; z-index: 1; }
+#ending-screen > #ending-figure { position: absolute; z-index: 0; top: -1%; left: 50%; height: 104%; width: auto; transform: translateX(-50%); opacity: 0; pointer-events: none; filter: drop-shadow(0 0 30px rgba(255,190,110,0.25)); -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%); mask-image: linear-gradient(to bottom, #000 55%, transparent 98%); }
+#ending-screen.active > #ending-figure { animation: ending-figure 3.2s ease 0.6s forwards; }
+@keyframes ending-figure { from { opacity: 0; transform: translateX(-50%) translateY(14px); } to { opacity: 0.42; transform: translateX(-50%) translateY(0); } }
 #ending-title { font-size: clamp(44px, 12vw, 68px); font-weight: 400; letter-spacing: 6px; color: #fff4dc; font-family: var(--font-brush); margin-bottom: 18px; text-shadow: 0 0 24px rgba(255,190,90,0.55), 0 3px 0 rgba(120,20,10,0.7); }
 #ending-subtitle { position: relative; isolation: isolate; max-width: 460px; font-size: 15px; color: #f1e8d8; font-family: var(--font); margin-bottom: 28px; text-align: center; line-height: 1.95; padding: 30px 34px; white-space: pre-line; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
 #ending-subtitle::before { content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0.94; border-style: solid; border-width: 50px 58px 48px 58px; border-image: url('assets/ui-dialogue.webp') 175 205 165 205 fill stretch; }
@@ -496,6 +500,9 @@ html, body {
 .bond-list { overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
 .bond { display: flex; gap: 12px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--ui-border); border-radius: 8px; padding: 8px; }
 .bond.unknown { opacity: 0.5; }
+.bond.you { border-color: rgba(243,207,122,0.45); background: rgba(243,207,122,0.06); }
+.bond.you .slot-thumb { background: #2a2236; }
+.bond.you .bond-desc { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.6; }
 .bond-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
 .bond-top { display: flex; align-items: baseline; gap: 8px; }
 .bond-name { font-family: var(--font-brush); font-size: 21px; letter-spacing: 2px; }
@@ -575,6 +582,7 @@ html, body {
   <div id="choice-layer"><div id="choice-container"></div></div>
 
   <div id="ending-screen">
+    <img id="ending-figure" src="assets/protagonist-adult.webp" alt="" loading="lazy">
     <div id="ending-title"></div>
     <div id="ending-subtitle"></div>
     <button id="ending-restart" class="title-btn">从头开始</button>
@@ -1113,7 +1121,7 @@ const S = {
       { char: 'kohaku', text: '你是谁？千代她……怎么了？' },
     ],
     choices: [
-      { text: '「我是她的外孙。……外婆让我来找一位叫琥珀的人。」', affection: { fox: 2 }, next: 'kohaku_news' },
+      { text: '「我是她的外孙女。……外婆让我来找一位叫琥珀的人。」', affection: { fox: 2 }, next: 'kohaku_news' },
       { text: '默默地把铃和信递了过去', affection: { fox: 2 }, next: 'kohaku_news' },
       { text: '「你……真的有耳朵。」话一出口，你就后悔了', affection: { fox: 1 }, next: 'kohaku_ears' },
     ],
@@ -2018,7 +2026,7 @@ const S = {
         chars: [{ id: 'kohaku', pos: 'left', form: 'human' }, { id: 'genya', pos: 'right', form: 'human' }] },
       { char: 'narrator', text: '琥珀挡在你面前。她身后的尾巴，不是一条——是好几条，全都燃着狐火，像一面张开的扇子。' },
       { char: 'kohaku', text: '离这个孩子远一点。' },
-      { char: 'genya', text: '好凶啊。我只是想看看，千代的外孙长什么样。' },
+      { char: 'genya', text: '好凶啊。我只是想看看，千代的外孙女长什么样。' },
       { char: 'kohaku', text: '昨晚在门外看的，还不够吗？' },
       { char: 'genya', text: '……哦，被发现了啊。' },
       { char: 'kohaku', text: '结界的节点，一个接一个地烂。每一次，你都在那里。' },
@@ -2075,7 +2083,7 @@ const S = {
       { char: 'player', text: '……我什么都没看见。' },
       { char: 'sou', text: '嗯。' },
       { char: 'narrator', text: '他的耳尖红了。在蓝黑色的头发里，红得很明显。' },
-      { char: 'sou', text: '……千代的外孙。' },
+      { char: 'sou', text: '……千代的外孙女。' },
       { char: 'sou', text: '你的眼睛像她。看东西的时候，总是先看最小的那个。' },
       { char: 'player', text: '你是……苍羽？外婆说你从来不下来吃饭。' },
       { char: 'narrator', text: '对方的嘴角几乎看不出地动了一下。' },
@@ -2087,7 +2095,7 @@ const S = {
       { char: 'sou', text: '……吃完了。', ifnot: 'placed_onigiri' },
       { char: 'player', text: '前天晚上，外婆家窗台上的羽毛，也是你？' },
       { char: 'sou', text: '嗯。' },
-      { char: 'sou', text: '我想知道，千代的外孙会不会上山。' },
+      { char: 'sou', text: '我想知道，千代的外孙女会不会上山。' },
       { char: 'sou', text: '……你上来了。' },
       { char: 'narrator', text: '他说「千代」的时候，一只手按在了胸口。' },
       { char: 'narrator', text: '你这才注意到——他的衣襟里鼓鼓的，揣着一包东西。用油纸包着，边角是方的，像是一叠纸。' },
@@ -2361,7 +2369,7 @@ const S = {
       { char: 'shiro', text: '娘说，我们鹿的角，是跟这片森林长在一起的。森林高兴，角就开花。森林疼，角就疼。' },
       { char: 'shiro', text: '所以我不能走远。走远了，就……听不见它了。' },
       { char: 'narrator', text: '他摸了摸树根旁边一块平平的石头，把捧着的那朵花放在上面。' },
-      { char: 'shiro', text: '娘，这是千代婆婆的外孙。人很好。会做很丑的饭团。' },
+      { char: 'shiro', text: '娘，这是千代婆婆的外孙女。人很好。会做很丑的饭团。' },
       { char: 'narrator', text: '他说得很认真。你不知道该笑还是该哭。' },
       { char: 'shiro', text: '六十年前，结界破了一次。那时候还是千代婆婆的娘在摇铃，她生病了，没来得及。' },
       { char: 'shiro', text: '有东西从裂缝里钻进来。黑色的，很大。娘让我躲在树洞里，不许出声。' },
@@ -2503,7 +2511,7 @@ const S = {
       { char: 'narrator', text: '紫色的眼睛。瞳孔是一条细细的竖线。' },
       { char: 'narrator', text: '——就是门缝外面的那双眼睛。', flag: 'a_eyes' },
       { char: 'genya', text: '终于来了。' },
-      { char: 'genya', text: '我还以为那枚铃要把我的耳朵摇聋了，你才肯醒。千代的外孙，睡得比她还死。' },
+      { char: 'genya', text: '我还以为那枚铃要把我的耳朵摇聋了，你才肯醒。千代的外孙女，睡得比她还死。' },
       { char: 'genya', text: '……别盯着那块石头看。石头里的东西，不是给活人看的。' },
       { char: 'player', text: '……你是玄夜。' },
       { char: 'genya', text: '嗯。那只狐狸跟你说了什么？「森林最深处的蛇」？「不太好相处的家伙」？' },
@@ -5135,7 +5143,7 @@ const S = {
       { char: 'narrator', text: '他把一根蓝色的羽毛，放在你手心里。' },
       { char: 'sou', text: '第一次见面的时候，那根羽毛，不是自己掉的。' },
       { char: 'sou', text: '是我放在你窗台上的。' },
-      { char: 'sou', text: '……因为我想知道，千代的外孙，会不会捡起来。' },
+      { char: 'sou', text: '……因为我想知道，千代的外孙女，会不会捡起来。' },
       { char: 'player', text: '我捡了。' },
       { char: 'sou', text: '嗯。所以，这一根也要捡好。' },
       { char: 'sou', text: '……还有。那叠信，最后一封。' },
@@ -5987,10 +5995,15 @@ function openBonds() {
         <div class="bond-meter"><div class="bond-fill" style="width:${v}%;background:${c.color}"></div></div>
       </div></div>`;
   }).join('');
+  const me = state.flags.a_photo
+    ? '六岁以前，穿着黄雨靴在这座山上跑来跑去。外婆忘了你小时候的样子——可整座山都替她记着。'
+    : '千代的外孙女。六岁以前住在山脚下，那时候的事，已经不太记得了。';
+  const you = `<div class="bond you"><div class="slot-thumb"><img src="assets/protagonist-child.webp" alt="" style="position:absolute;width:auto;height:260px;top:${28 - 0.115 * 260}px;left:50%;transform:translateX(-48%)"></div>
+      <div class="bond-body"><div class="bond-top"><span class="bond-name" style="color:#f3cf7a">你</span></div><div class="bond-desc">${me}</div></div></div>`;
   const card = $('#sys-card');
   card.innerHTML = `
     <div class="sys-head"><button class="sys-close" data-act="back" aria-label="返回">‹</button><div class="sys-title">羁 绊</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
-    <div class="bond-list">${rows}</div>`;
+    <div class="bond-list">${you}${rows}</div>`;
   card.onclick = e => {
     const act = e.target.closest('[data-act]')?.dataset.act;
     if (act === 'close') closeSys(); else if (act === 'back') openMenu();

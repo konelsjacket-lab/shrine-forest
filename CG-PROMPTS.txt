@@ -36,17 +36,20 @@ modern clothing, photorealistic, 3d render, lowres
 角色设定卡（保持九张图里同一个人长得一样）
 ================================================================
 
-【主角 · 你】不画清楚正脸，不强调性别
+【主角 · 你】女孩子。CG 里多画背影、侧影或手，不抢角色的镜头
 - 发色：深棕色，发尾微卷。
-- 六岁的你：深棕色微卷短发，带帽子的黄色小斗篷、浅色衣服，亮黄色雨靴。
-  参考图：assets/cg-shiro-garland.webp
-  EN: a gender-neutral child of about six with short, slightly wavy dark-brown hair,
-  a small yellow hooded cape over light clothes, bright yellow rain boots
-- 二十六岁的你：深棕色长发到腰、发尾微卷，发间别一朵小红花；穿外婆留下的羽织
-  （白底、红色滚边的宽袖和服外褂）。尽量只画背影、侧影或手。
-  参考图：assets/cg-main-ceremony.webp
-  EN: a gender-neutral adult seen from behind, waist-length slightly wavy dark-brown
-  hair with a small red flower ornament, wearing a white wide-sleeved haori with red trim
+- 六岁的你：小女孩，深棕色蓬松微卷短发、别小白花，带帽子的黄色小斗篷（流苏、小铃铛）、
+  浅色碎花衣服，亮黄色雨靴。
+  参考图：assets/protagonist-child.webp
+  EN: a little girl of about six with fluffy, slightly wavy short dark-brown hair and
+  small white flower clips, a yellow hooded cape with tassels and tiny bells over a
+  cream floral dress, bright yellow rain boots
+- 二十六岁的你：年轻女性，深棕色长卷发到腰，发间一朵红花和红珠串；白底红边、红色花纹的
+  宽袖和服，红色腰带。
+  参考图：assets/protagonist-adult.webp
+  EN: a young woman with waist-length wavy dark-brown hair, a red flower ornament with
+  red bead strands, a white wide-sleeved kimono with red floral patterns and red trim,
+  red obi
 
 【白露 · 人形】少年，十四岁左右的样子
 - 翠绿色的蓬松短发，绿色的大眼睛，骨白色的小鹿角，角上开着花
@@ -226,12 +229,12 @@ no watermark
 出现在：第四天 · 苍羽线（第六天苍羽线也会再出现一次）。你坐在蓝鹰背上，整片杜鹃森在脚下展开。
 画面：
 - 从高空往下看：一片绿色的森林海洋，神社是其中一个小小的红点，溪流像银线一样穿过去
-- 主角坐在巨大的蓝鹰背上，只画背影，头发被风吹乱，双手抓着羽毛
+- 主角（年轻女性）坐在巨大的蓝鹰背上，只画背影，长卷发被风吹乱，双手抓着羽毛
 - 森林的北边，有几块像墨水滴在宣纸上一样的黑色斑点（结界在烂）
 - 云层在身边掠过，傍晚前的金色阳光
 英文提示词：
-high above the clouds, a person seen from behind (gender-neutral, only back and
-windswept hair visible) rides on the back of a giant blue hawk with silver-tipped
+high above the clouds, a young woman seen from behind (only her back and
+windswept long wavy dark-brown hair visible) rides on the back of a giant blue hawk with silver-tipped
 blue feathers, hands gripping its feathers; far below, an endless ocean of green
 forest, a tiny red shrine like a single dot, streams like silver threads; on the
 northern edge of the forest a few black patches spreading like ink drops on rice
