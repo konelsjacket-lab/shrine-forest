@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>杜鹃森 — 神社与森林的恋爱物语</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Ma+Shan+Zheng&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap');
 /* LXGW WenKai (SIL OFL), subset to the characters this game uses. Re-subset if new text adds characters. */
 @font-face { font-family: 'Dujuan WenKai'; src: url('assets/font-wenkai.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Ma Shan Zheng'; src: url('assets/font-brush.woff2') format('woff2'); font-display: swap; } /* self-hosted subset: Google Fonts is unreachable in some regions */
 
 :root {
   --bg: #1a1a2e;
@@ -667,9 +668,9 @@ const CG_IMAGES = {
   cg_kohaku_torii: 'assets/cg-kohaku-torii.webp', cg_kohaku_ninetails: 'assets/cg-kohaku-ninetails.webp',
   cg_ginro_umbrella: 'assets/cg-ginro-umbrella.webp', cg_ginro_back: 'assets/cg-ginro-back.webp',
   cg_shiro_garland: 'assets/cg-shiro-garland.webp', cg_shiro_bloom: null,
-  cg_yuki_treetop: null, cg_yuki_howl: null,
-  cg_sou_flight: null, cg_sou_letters: 'assets/cg-sou-letters.webp',
-  cg_genya_go: null, cg_genya_coil: 'assets/cg-genya-coil.webp',
+  cg_yuki_treetop: 'assets/cg-yuki-treetop.webp', cg_yuki_howl: 'assets/cg-yuki-howl.webp',
+  cg_sou_flight: 'assets/cg-sou-flight.webp', cg_sou_letters: 'assets/cg-sou-letters.webp',
+  cg_genya_go: 'assets/cg-genya-go.webp', cg_genya_coil: 'assets/cg-genya-coil.webp',
 };
 const CG_INFO = {
   cg_main_letter:      ['铃与信', '老屋的矮桌上，旧木盒里的铜铃与两封信。'],
@@ -1917,6 +1918,16 @@ const S = {
       { char: 'kohaku', text: '我给他煮了一锅粥。他说「不吃」。然后吃了三碗。' },
       { char: 'kohaku', text: '……从那以后，他谁的话都不听。只听我的。偶尔。' },
       { char: 'narrator', text: '她把外褂接过去，搭在火盆边上烘。动作很仔细，把每一道褶子都抻平了。' },
+      { char: 'kohaku', text: '你也是，湿透了。……你带上山的衣服呢？' },
+      { char: 'player', text: '就一个小包。……一身黑的。葬礼穿的那身。' },
+      { char: 'narrator', text: '琥珀「嗯」了一声，拉开里间的柜子，抱出一叠叠得整整齐齐的衣服。白色的上衣，红色的滚边，袖子宽宽的。' },
+      { char: 'kohaku', text: '千代的。她一上山就换这个。扫院子、点灯笼、晒被子，穿了五十年。' },
+      { char: 'player', text: '这是……巫女服？' },
+      { char: 'kohaku', text: '神社的衣服。穿着它在山里走，林子里的东西远远一闻就知道——「啊，是神社的人」。不会来找你麻烦。' },
+      { char: 'kohaku', text: '穿一身黑在林子里走，才吓人呢。像乌鸦。苍羽会不高兴的。' },
+      { char: 'narrator', text: '你换上了。袖子长了一点点，腰身刚刚好。衣服上有樟脑和线香的味道。' },
+      { char: 'kohaku', text: '……她年轻的时候，跟你一样高。' },
+      { char: 'narrator', text: '琥珀看了你很久。然后转过身，去拨火盆里的炭。耳朵垂得低低的。' },
       { char: 'player', text: '琥珀。雪丸和银朗……' },
       { char: 'kohaku', text: '吵起来了？' },
       { char: 'player', text: '雪丸问他，「你当年守规矩了吗」。' },
@@ -2699,6 +2710,9 @@ const S = {
       { char: 'narrator', text: '琥珀还坐在那里。那张画放在她膝盖上。' },
       { char: 'narrator', text: '她没有赶你走。你在她旁边坐下，陪她一起，把外婆的旧东西一件件拿出来，晒一晒，再叠好放回去。' },
       { char: 'kohaku', text: '这件羽织，是她四十岁那年我给她缝的。袖口破了三次，她都舍不得扔。' },
+      { char: 'narrator', text: '你低头看看自己的袖口。那里也有一道细细的补丁，针脚和羽织上的一模一样。' },
+      { char: 'kohaku', text: '你身上那件也是我缝的。千代穿旧一件，我就再缝一件。……一共六件。' },
+      { char: 'kohaku', text: '你穿的是第六件。最新的。她只穿了一个冬天。' },
       { char: 'narrator', text: '羽织底下压着一面小小的手镜。琥珀拿起来，看都没看，就把镜面朝下，扣在了榻榻米上。' },
       { char: 'player', text: '琥珀……你不照镜子吗？' },
       { char: 'kohaku', text: '不照。' },
@@ -4581,7 +4595,7 @@ const S = {
       { char: 'player', text: '可是你的翅膀——', if: 'sou_fly' },
       { char: 'sou', text: '飞得慢一点就好。……我想让你看一样东西。', if: 'sou_fly' },
       { char: 'narrator', text: '他化成了蓝鹰。翅膀上还缠着绷带，起飞的时候晃了一下。可是他飞起来了。', if: 'sou_fly' },
-      { char: 'narrator', text: '整片杜鹃森在月光下展开。北坡烧焦了一大片，可是焦土上，已经冒出了一层浅浅的绿。', if: 'sou_fly', cg: 'cg_sou_flight' },
+      { char: 'narrator', text: '整片杜鹃森在月光下展开。北坡烧焦了一大片，可是焦土上，已经冒出了一层浅浅的绿。', if: 'sou_fly' },
       { char: 'sou', text: '……三片。今天，只剩三片了。', if: 'sou_fly' },
       { char: 'sou', text: '明天以后，就一片都没有了。', if: 'sou_fly' },
       { char: 'narrator', text: '苍羽看着月亮，想了很久。', ifnot: 'sou_fly' },
@@ -4713,6 +4727,15 @@ const S = {
       { char: 'narrator', text: '大家一起吃了早饭，一起吃了午饭。琥珀把最后两个杯面，拿出来泡了。一人分了一口。' },
       { char: 'kohaku', text: '……本来想留到千代下次来的。' },
       { char: 'kohaku', text: '可是，大家都在。今天就是最好的日子。' },
+      { char: 'narrator', text: '下午，琥珀把你叫进了外婆的房间。',
+        chars: [{ id: 'kohaku', pos: 'center', form: 'human' }] },
+      { char: 'narrator', text: '榻榻米上铺着一件你没见过的衣服。白底，满襟的红色花纹，一条红色的腰带，旁边放着一枚红花的发簪。' },
+      { char: 'kohaku', text: '守铃人的衣服。千代十六岁接铃那天，穿的就是这件。后来每个满月，她都穿着它下去念名。' },
+      { char: 'kohaku', text: '今晚是你念。……当然要穿得漂漂亮亮的。' },
+      { char: 'narrator', text: '她帮你系腰带，系了三次才满意。又把你的长发拢到一边，别上那枚红花。' },
+      { char: 'narrator', text: '然后她拿起那面小手镜，举到你面前。镜面朝着你，背朝着她。' },
+      { char: 'kohaku', text: '好看吗？……我不用看。我知道好看。' },
+      { char: 'narrator', text: '镜子里，是一个白衣红花的姑娘。有那么一瞬间，你觉得外婆也在镜子里，朝你笑。' },
       { char: 'narrator', text: '太阳落山的时候，所有人都站了起来。' },
       { char: 'narrator', text: '没有人说「走吧」。大家只是一个接一个地，走向那扇开着的窄门。' },
       { char: 'narrator', text: '你走在最后。银朗走在你的左边。' },
@@ -5780,7 +5803,7 @@ function updateDay() {
 //  SAVE / LOAD
 // ============================================================
 const SAVE_KEY = 'dujuansen-saves-v1';
-const STORY_VERSION = 12; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
+const STORY_VERSION = 13; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
 const MANUAL_SLOTS = ['1','2','3','4','5','6','7','8'];
 const storageOK = (() => {
   try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; }
