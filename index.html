@@ -386,8 +386,6 @@ html, body {
 #title-content::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 48%; z-index: -1; background: radial-gradient(ellipse 70% 60% at 50% 38%, rgba(8,8,24,0.55) 0%, transparent 70%); }
 #title-jp { font-size: 14px; color: #f3cf7a; text-shadow: 0 1px 6px rgba(0,0,0,0.8); letter-spacing: 8px; margin-bottom: 12px; opacity: 0; animation: title-fade 2s ease 0.5s forwards; font-family: var(--font); }
 #title-main { font-size: clamp(52px, 15vw, 88px); font-weight: 400; color: #fff4dc; letter-spacing: 6px; text-shadow: 0 0 24px rgba(255,190,90,0.55), 0 3px 0 rgba(120,20,10,0.7), 0 0 60px rgba(0,0,0,0.6); margin-bottom: 8px; opacity: 0; animation: title-fade 2s ease 1s forwards; font-family: var(--font-brush); }
-#title-figure { position: absolute; left: 59%; /* the torii gateway in ui-title.webp, phone and desktop crops alike */ width: auto; translate: -60% 0; /* translate, not transform: the title-fade keyframes own transform */ opacity: 0; display: none; pointer-events: none; filter: drop-shadow(0 0 18px rgba(255,200,120,0.35)); -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%); mask-image: linear-gradient(to bottom, #000 72%, transparent 100%); }
-#title-screen.cleared #title-figure.fits { display: block; animation: title-fade 2.4s ease 2.4s forwards; }
 #title-endings { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 14px; opacity: 0; animation: title-fade 2s ease 1.8s forwards; }
 #title-endings:empty { display: none; }
 #title-endings i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--c); opacity: 0.55; }
@@ -589,7 +587,6 @@ html, body {
   </div>
   <div id="title-screen" class="waiting">
     <div id="title-particles"></div>
-    <img id="title-figure" src="assets/protagonist-adult.webp" alt="">
     <div id="title-content">
       <div id="title-jp">社と森のものがたり</div>
       <div id="title-main">杜鹃森</div>
@@ -6663,26 +6660,14 @@ function backToTitle() {
   playBgm('title');
 }
 
-// Fit the figure into the gap between the ending marks and the top button; skip it if the gap is too small.
-function layoutTitleFigure() {
-  const fig = $('#title-figure'), marks = $('#title-endings'), btn = [...$$('#title-buttons .title-btn')].find(b => !b.hidden);
-  if (!marks.innerHTML || !btn) return fig.classList.remove('fits');
-  const top = marks.getBoundingClientRect().bottom + 14, bottom = btn.getBoundingClientRect().top + 6; // feet tuck just behind the top button
-  const h = Math.min(bottom - top, window.innerHeight * 0.4);
-  fig.classList.toggle('fits', h >= 150);
-  fig.style.height = h + 'px'; fig.style.top = (bottom - h) + 'px';
-}
-window.addEventListener('resize', () => { if ($('#title-screen').classList.contains('cleared')) layoutTitleFigure(); });
-
 function refreshTitleButtons() {
   const any = hasAnySave();
   $('#continue-btn').hidden = !any;
   $('#title-load-btn').hidden = !any;
   $('#title-chap-btn').hidden = !Object.keys(picksSeen()).length && !any; // once you've played a little
-  // After the first ending: the grown-up you stands on the steps, and a row of marks shows which endings you've seen.
+  // After the first ending: a row of marks shows which endings you've seen.
   const seen = endingsSeen(), n = ENDING_MARKS.filter(([k]) => seen[k]).length;
   $('#title-screen').classList.toggle('cleared', n > 0);
-  requestAnimationFrame(layoutTitleFigure);
   $('#title-endings').innerHTML = n ? ENDING_MARKS.map(([k, c]) => `<i class="${seen[k] ? 'on' : ''}${k === 'all' ? ' secret' : ''}" style="--c:${c}"></i>`).join('') + `<span>${n} / ${ENDING_MARKS.length}</span>` : '';
 }
 

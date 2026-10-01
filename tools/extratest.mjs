@@ -12,7 +12,7 @@ const st = () => page.evaluate(() => ({ node: state.currentNode, cg: state.cg, c
 const tap = async () => { await page.evaluate(() => { if (state.dlg && !state.textComplete) $('#dialogue-box').click(); if (state.dlg) $('#dialogue-box').click(); }); await page.waitForTimeout(30); };
 
 await page.goto(GAME); await page.evaluate(() => localStorage.clear()); await page.reload(); await page.waitForTimeout(3000);
-ok(await page.evaluate(() => !$('#title-screen').classList.contains('cleared') && $('#title-endings').innerHTML === ''), 'fresh: no figure, no ending marks on the title');
+ok(await page.evaluate(() => $('#title-endings').innerHTML === ''), 'fresh: no ending marks on the title');
 
 await page.click('#start-btn'); await page.waitForTimeout(5000);
 // 1. balanced bonds -> hidden ending
@@ -41,8 +41,8 @@ ok(await page.evaluate(() => endingsSeen().fox === 1), 'fox ending recorded');
 
 // 3. title after clearing
 await page.evaluate(() => backToTitle()); await page.reload(); await page.waitForTimeout(5500);
-const t = await page.evaluate(() => ({ cleared: $('#title-screen').classList.contains('cleared'), on: $$('#title-endings i.on').length, all: $$('#title-endings i').length, txt: $('#title-endings span').textContent, fig: getComputedStyle($('#title-figure')).display }));
-ok(t.cleared && t.fig === 'block' && t.on === 2 && t.all === 7 && t.txt === '2 / 7', 'title after clears: figure + 2/7 marks (' + JSON.stringify(t) + ')');
+const t = await page.evaluate(() => ({ on: $$('#title-endings i.on').length, all: $$('#title-endings i').length, txt: $('#title-endings span').textContent, fig: !!document.getElementById('title-figure') }));
+ok(!t.fig && t.on === 2 && t.all === 7 && t.txt === '2 / 7', 'title after clears: 2/7 marks, no figure (' + JSON.stringify(t) + ')');
 await shot('title');
 
 // 4. gallery completion
