@@ -511,6 +511,36 @@ html, body {
 #game.flashback::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 5;
   background: radial-gradient(ellipse at center, transparent 45%, rgba(40,25,10,0.55) 100%); }
 #scene-bg, #character-layer { transition: filter 1s ease; }
+.chap-item { display: flex; align-items: baseline; gap: 12px; }
+.chap-num { flex: 0 0 64px; font-family: var(--font-brush); font-size: 17px; color: #f3cf7a; letter-spacing: 2px; }
+.flow-tabs { display: flex; justify-content: center; gap: 6px; padding: 4px 0 8px; }
+.flow-tabs button { font-family: var(--font); font-size: 12px; padding: 4px 12px; border-radius: 12px; border: 1px solid var(--ui-border); background: transparent; color: var(--text-dim); cursor: pointer; }
+.flow-tabs button.on { color: #f3cf7a; border-color: #f3cf7a; background: rgba(243,207,122,0.08); }
+.flow { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 4px 12px 12px 26px; position: relative; scrollbar-width: thin; scrollbar-color: rgba(212,168,84,0.4) transparent; }
+.flow-chap { position: relative; margin: 10px 0 8px -14px; font-family: var(--font-brush); font-size: 16px; letter-spacing: 3px; color: #f3cf7a; }
+.flow-chap::before { content: ''; display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; background: #f3cf7a; box-shadow: 0 0 8px #f3cf7a; vertical-align: 1px; }
+.flow-chap.target { margin-top: 14px; }
+.flow-chap.target::after { content: '  ← 从这里开始'; font-family: var(--font); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); }
+.flow-node { position: relative; margin: 0 0 14px; padding: 8px 10px; border: 1px solid rgba(212,168,84,0.25); border-radius: 8px; background: rgba(255,255,255,0.03); }
+.flow-node.key { border-color: rgba(243,207,122,0.55); }
+.flow-node::before { content: ''; position: absolute; left: -18px; top: -14px; bottom: -14px; width: 2px; background: rgba(212,168,84,0.35); }
+.flow-node::after { content: ''; position: absolute; left: -21px; top: 14px; width: 8px; height: 8px; border-radius: 50%; background: #1a1428; border: 2px solid rgba(212,168,84,0.7); }
+.flow-node + .flow-node > .flow-q::before { content: '↓'; position: absolute; left: -22px; top: -16px; font-size: 11px; color: rgba(212,168,84,0.7); }
+.flow-node.auto { border-style: dashed; }
+.flow-q { position: relative; font-size: 11px; line-height: 1.5; color: var(--text-dim); margin-bottom: 6px; }
+.flow-opt { display: flex; align-items: center; gap: 6px; width: 100%; margin: 4px 0 0; padding: 6px 8px; text-align: left; font-family: var(--font); font-size: 13px; line-height: 1.4; color: rgba(241,232,216,0.5); background: transparent; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; cursor: pointer; }
+.flow-opt i { flex: 0 0 7px; height: 7px; border-radius: 50%; opacity: 0.6; }
+.flow-opt.on { color: #fff4dc; border-color: #f3cf7a; background: rgba(243,207,122,0.12); box-shadow: 0 0 10px rgba(243,207,122,0.25); }
+.flow-opt.on i { opacity: 1; }
+.flow-node.auto .flow-opt.on { color: var(--c); border-color: var(--c); cursor: default; }
+.flow-opt.seen::after { content: '✓'; margin-left: auto; padding-left: 6px; font-size: 11px; color: #f3cf7a; }
+.flow-foot { flex: 0 0 auto; display: flex; align-items: center; gap: 10px; padding: 8px 12px 4px; border-top: 1px solid rgba(212,168,84,0.3); }
+.flow-bars { flex: 1 1 auto; display: flex; gap: 6px; }
+.flow-bar { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.flow-bar > div { width: 100%; height: 44px; display: flex; align-items: flex-end; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.flow-bar b { width: 100%; min-height: 2px; transition: height 0.3s ease; }
+.flow-bar span { font-family: var(--font); font-size: 11px; line-height: 1; }
+.flow-go { flex: 0 0 auto; font-family: var(--font-brush); font-size: 17px; letter-spacing: 3px; padding: 8px 14px; border-radius: 8px; border: 1px solid #f3cf7a; background: rgba(243,207,122,0.15); color: #fff4dc; cursor: pointer; }
 .bond-list { overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
 .bond { display: flex; gap: 12px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--ui-border); border-radius: 8px; padding: 8px; }
 .bond.unknown { opacity: 0.5; }
@@ -568,6 +598,7 @@ html, body {
         <button id="continue-btn" class="title-btn" hidden>继续物语</button>
         <button id="start-btn" class="title-btn">开始物语</button>
         <button id="title-load-btn" class="title-btn secondary" hidden>读取存档</button>
+        <button id="title-chap-btn" class="title-btn secondary" hidden>选择章节</button>
       </div>
     </div>
   </div>
@@ -5554,6 +5585,7 @@ function initTitle() {
     if (latest) applySave(latest);
   });
   $('#title-load-btn').addEventListener('click', () => openSlots('load'));
+  $('#title-chap-btn').addEventListener('click', () => openChapters());
   refreshTitleButtons();
   playBgm('title');
 }
@@ -5807,6 +5839,7 @@ function showChoices(choices) {
     b.className = 'choice-btn'; b.textContent = ch.text;
     b.addEventListener('click', () => {
       layer.classList.remove('active');
+      recordPick(state.currentNode, ch.text);
       if (ch.affection) for (const [k, v] of Object.entries(ch.affection)) addAff(k, v);
       if (ch.flag) state.flags[ch.flag] = true;
       playNode(ch.next);
@@ -6120,6 +6153,7 @@ function refreshTitleButtons() {
   const any = hasAnySave();
   $('#continue-btn').hidden = !any;
   $('#title-load-btn').hidden = !any;
+  $('#title-chap-btn').hidden = !Object.keys(picksSeen()).length && !any; // once you've played a little
   // After the first ending: the grown-up you stands on the steps, and a row of marks shows which endings you've seen.
   const seen = endingsSeen(), n = ENDING_MARKS.filter(([k]) => seen[k]).length;
   $('#title-screen').classList.toggle('cleared', n > 0);
@@ -6148,6 +6182,151 @@ function confirmBox(text, onYes) {
 
 function closeSys() { $('#sys-layer').classList.remove('active'); }
 
+// ============================================================
+//  CHAPTER SELECT
+//  Every choice the player makes is remembered by node id (across story versions). Starting
+//  from a chapter replays the story up to that chapter's first node with those choices, the
+//  same way the engine would (node flags, line flags with if/ifnot, met_* from speakers, choice affection/flags,
+//  the affection-routed rescue), then plays the chapter for real. The flowchart lets the
+//  player check or change the choices first.
+// ============================================================
+const PICKS_KEY = 'dujuansen-picks';
+let picksMem = {};
+function picksSeen() { try { return JSON.parse(localStorage.getItem(PICKS_KEY) || '{}') || {}; } catch (e) { return picksMem; } }
+function recordPick(nodeId, text) {
+  const p = picksSeen(), r = p[nodeId] || { last: '', seen: [] };
+  r.last = text; if (!r.seen.includes(text)) r.seen.push(text);
+  p[nodeId] = r; picksMem = p;
+  try { localStorage.setItem(PICKS_KEY, JSON.stringify(p)); } catch (e) {}
+}
+const CHAPTERS = Object.keys(S).filter(id => S[id].chapter);
+const AFF_KEYS = ['fox', 'wolf', 'deer', 'whitewolf', 'hawk', 'snake'];
+const AFF_CHAR = { fox: 'kohaku', wolf: 'ginro', deer: 'shiro', whitewolf: 'yukimaru', hawk: 'sou', snake: 'genya' };
+const visibleTo = (x, f) => !(x.if && !f[x.if]) && !(x.ifnot && f[x.ifnot]);
+const FLAGS_USED = new Set();
+Object.values(S).forEach(n => (n.lines || []).concat(n.choices || []).forEach(x => { if (x.if) FLAGS_USED.add(x.if); if (x.ifnot) FLAGS_USED.add(x.ifnot); }));
+
+// picks: { nodeId: choiceText }. Unknown or hidden choices fall back to the first visible one.
+function simulateStory(picks, stopAt) {
+  const flags = {}, aff = Object.fromEntries(AFF_KEYS.map(k => [k, 0])), steps = [];
+  let id = 'start', chap = -1;
+  for (let guard = 0; guard < 2000; guard++) {
+    if (id === stopAt) return { reached: true, flags, aff, steps };
+    const n = S[id];
+    if (!n) break;
+    if (n.chapter) chap = CHAPTERS.indexOf(id);
+    (n.flags || []).forEach(f => flags[f] = true);
+    let ctx = '';
+    for (const l of n.lines || []) if (visibleTo(l, flags)) {
+      if (CHARS[l.char]?.affKey) flags['met_' + l.char] = true; // showDialogue: speaking marks them as met
+      if (l.flag) flags[l.flag] = true;
+      if (l.text.length > 6) ctx = l.text; // context for the flowchart: the last real line before the choice (not 「叮。」)
+    }
+    if (n.choices) {
+      const vis = n.choices.filter(c => visibleTo(c, flags));
+      const c = vis.find(c => c.text === picks[id]) || vis[0];
+      const key = new Set(vis.map(c => c.next)).size > 1 || vis.some(c => c.flag && FLAGS_USED.has(c.flag));
+      steps.push({ id, chap, ctx, vis, c, key });
+      for (const [k, v] of Object.entries(c.affection || {})) aff[k] = Math.min(100, aff[k] + v * 95 / AFF_MAX[k]);
+      if (c.flag) flags[c.flag] = true;
+      id = c.next;
+    } else if (n.next) id = n.next;
+    else if (n.next_by_affection) {
+      const k = Object.entries(aff).sort((x, y) => y[1] - x[1])[0][0]; // same tie-break as getMaxAff
+      steps.push({ id, chap, auto: k });
+      id = 'rescue_' + k;
+    } else break;
+  }
+  return { reached: false, flags, aff, steps };
+}
+
+function chapterLabel(i) { const c = S[CHAPTERS[i]].chapter; return `${c.num} · ${c.title}`; }
+
+function openChapters() {
+  const rows = CHAPTERS.map((id, i) => {
+    const c = S[id].chapter;
+    return `<button class="menu-item chap-item" data-chap="${i}"><span class="chap-num">${c.num}</span>${c.title}</button>`;
+  }).join('');
+  const card = $('#sys-card');
+  card.innerHTML = `
+    <div class="sys-head"><span></span><div class="sys-title">章 节</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
+    <div class="slot-note" style="padding:10px 16px 0;text-align:center">从任意一章开始。之前的选择会按你玩过的记录自动填好，也可以改。</div>
+    <div class="menu-list">${rows}</div>`;
+  card.onclick = e => {
+    if (e.target.closest('[data-act]')?.dataset.act === 'close') return closeSys();
+    const i = e.target.closest('[data-chap]')?.dataset.chap;
+    if (i == null) return;
+    if (+i === 0) confirmBox('从序章开始？', () => startFromChapter(0, {}));
+    else openChapterFlow(+i);
+  };
+  $('#sys-layer').classList.add('active');
+}
+
+let flowPicks = {}, flowAll = false;
+function openChapterFlow(target) {
+  const hist = picksSeen();
+  flowPicks = Object.fromEntries(Object.entries(hist).map(([k, v]) => [k, v.last]));
+  flowAll = false;
+  renderChapterFlow(target);
+  $('#sys-layer').classList.add('active');
+}
+
+function renderChapterFlow(target) {
+  const card = $('#sys-card');
+  const keep = card.querySelector('.flow')?.scrollTop || 0;
+  const hist = picksSeen(), sim = simulateStory(flowPicks, CHAPTERS[target]);
+  let html = '', lastChap = -1, hidden = 0, n = 0;
+  for (const s of sim.steps) {
+    if (s.chap !== lastChap) { html += `<div class="flow-chap">${chapterLabel(s.chap)}</div>`; lastChap = s.chap; }
+    if (s.auto) {
+      const ch = CHARS[AFF_CHAR[s.auto]];
+      html += `<div class="flow-node auto"><div class="flow-q">危机之夜 · 好感最高的人会赶来</div><div class="flow-opt on" style="--c:${ch.color}">→ ${ch.name}</div></div>`;
+      continue;
+    }
+    if (!s.key && !flowAll) { hidden++; continue; }
+    const seen = hist[s.id]?.seen || [];
+    const opts = s.vis.map(c => {
+      const who = Object.keys(c.affection || {}).map(k => CHARS[AFF_CHAR[k]]);
+      const dot = who.map(ch => `<i style="background:${ch.color}"></i>`).join('');
+      return `<button class="flow-opt${c === s.c ? ' on' : ''}${seen.includes(c.text) ? ' seen' : ''}" data-node="${s.id}" data-text="${c.text.replace(/"/g, '&quot;')}">${dot}<span>${c.text}</span></button>`;
+    }).join('');
+    const ctx = s.ctx.length > 30 ? s.ctx.slice(0, 30) + '…' : s.ctx;
+    html += `<div class="flow-node${s.key ? ' key' : ''}"><div class="flow-q">${ctx}</div>${opts}</div>`;
+    n++;
+  }
+  html += `<div class="flow-chap target">${chapterLabel(target)}</div>`;
+  const bars = AFF_KEYS.map(k => { const ch = CHARS[AFF_CHAR[k]]; return `<div class="flow-bar" title="${ch.name}"><div><b style="height:${Math.round(sim.aff[k])}%;background:${ch.color}"></b></div><span style="color:${ch.color}">${ch.name.slice(0, 1)}</span></div>`; }).join('');
+  card.innerHTML = `
+    <div class="sys-head"><button class="sys-close" data-act="back" aria-label="返回">‹</button><div class="sys-title">前 情</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
+    <div class="slot-note" style="padding:10px 14px 4px;text-align:center">从「${chapterLabel(target)}」开始。<br>亮着的是这次会用的选择，带 ✓ 的是你以前选过的。点一下就能换。</div>
+    <div class="flow-tabs"><button data-act="key" class="${flowAll ? '' : 'on'}">关键选择</button><button data-act="all" class="${flowAll ? 'on' : ''}">全部选择</button></div>
+    <div class="flow">${html}${hidden ? `<div class="slot-note" style="text-align:center;padding:6px 0 0">另有 ${hidden} 个小选择按记录自动填好</div>` : ''}</div>
+    <div class="flow-foot"><div class="flow-bars">${bars}</div><button class="flow-go" data-act="go">从这里开始 ›</button></div>`;
+  card.querySelector('.flow').scrollTop = keep;
+  card.onclick = e => {
+    const act = e.target.closest('[data-act]')?.dataset.act;
+    if (act === 'close') return closeSys();
+    if (act === 'back') return openChapters();
+    if (act === 'key' || act === 'all') { flowAll = act === 'all'; return renderChapterFlow(target); }
+    if (act === 'go') return startFromChapter(target, flowPicks);
+    const o = e.target.closest('.flow-opt[data-node]');
+    if (o) { flowPicks[o.dataset.node] = o.dataset.text; renderChapterFlow(target); }
+  };
+}
+
+function startFromChapter(target, picks) {
+  const id = CHAPTERS[target], sim = simulateStory(picks, id);
+  if (!sim.reached) { toast('这条路走不到这一章'); return; }
+  sim.steps.forEach(s => { if (s.c) recordPick(s.id, s.c.text); }); // the choices used become the new defaults
+  closeSys();
+  resetGame();
+  state.flags = { ...sim.flags };
+  state.affection = { ...sim.aff };
+  const gen = state.gen, t = $('#title-screen');
+  const go = () => { if (gen === state.gen) { playBgm(bgmFor(id)); playNode(id); } };
+  if (t.style.display !== 'none' && !t.classList.contains('hidden')) hideTitle(go); else { t.style.display = 'none'; go(); }
+}
+
 function openMenu() {
   const card = $('#sys-card');
   card.innerHTML = `
@@ -6158,6 +6337,7 @@ function openMenu() {
       <button class="menu-item" data-act="gallery">回忆<small>看过的 CG</small></button>
       <button class="menu-item" data-act="save">保存进度<small>存到 8 个存档栏中的任意一个</small></button>
       <button class="menu-item" data-act="load">读取进度<small>回到之前保存的某一刻</small></button>
+      <button class="menu-item" data-act="chapters">选择章节<small>从任意一章开始，之前的选择可以改</small></button>
       <button class="menu-item" data-act="title">回到标题<small>自动存档会记住当前场景的开头</small></button>
       <button class="menu-item" data-act="close">继续游戏</button>
     </div>`;
@@ -6169,6 +6349,7 @@ function openMenu() {
     else if (act === 'gallery') openGallery();
     else if (act === 'save') openSlots('save');
     else if (act === 'load') openSlots('load');
+    else if (act === 'chapters') openChapters();
     else if (act === 'title') confirmBox('回到标题画面？', backToTitle);
   };
   $('#sys-layer').classList.add('active');
