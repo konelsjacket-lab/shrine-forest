@@ -88,6 +88,7 @@
 
 ## 还可以继续做的（如果用户想要）
 
+- 9 张 CG 的生成提示词在仓库根目录 `CG-PROMPTS.txt`（含角色设定卡、构图要求、文件名）。
 - 还没画的 CG（`CG_IMAGES` 里为 null 的）：cg_main_adeng、cg_shiro_garland、cg_shiro_bloom、cg_yuki_treetop、cg_yuki_howl、cg_sou_flight、cg_sou_letters、cg_genya_go、cg_genya_coil。图到了只改 `CG_IMAGES` 一行。
 - ~~六个结局各扩成一整场~~ ✅ 已做：每个结局 = `ending_X`（满月夜告别）→ `ending_X2`（后日谈，一个小选择，不加好感）→ `ending_X3`（带 `ending` 卡）。后日谈节点 `day: -1` 隐藏天数指示。`routeToEnding` 仍然只认 `ending_X`。
 - ~~第 6 天个人线~~ ✅ 已做：每条 = `day6_X`（加了开场铺垫，末尾一个 +3 好感的选择）→ `day6_X2` → `day7_morning`。揭开的设定：琥珀一千零七岁；银朗救的雪沟孩子是守铃人家族的祖先（第一个守铃人身上有那孩子的味道）；玄夜七百年前用自己蜕的皮封住要石、与它长在一起、不能离开太久，所以历代守铃人的记忆都存在他身上。最终 AFF_MAX fox 39 / wolf 32 / deer 25 / whitewolf 31 / hawk 28 / snake 26；STORY_VERSION 11。

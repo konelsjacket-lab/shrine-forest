@@ -1,0 +1,332 @@
+杜鹃森 · 剩余 9 张 CG 生成提示词
+================================================================
+
+用法
+----
+1. 每张图都是：中文画面说明（给你看的）+ 英文提示词（直接复制去生成）。
+2. 生成时如果工具支持「参考图」，把对应角色的立绘一起传上去
+   （仓库 assets/ 里的 xxx-human.webp / xxx-beast.webp），人物会更像。
+3. 生成好的图，按每条写的「文件名」命名，放进仓库 assets/ 文件夹，或者直接发给 Claude。
+   Claude 只需要改 index.html 里 CG_IMAGES 的一行，就能放进游戏。
+
+尺寸与构图（很重要）
+--------------------
+- 竖图，2:3，1024 × 1536（和已有的 6 张 CG 一致）。
+- 手机上会裁成 1:2 铺满屏幕：左右两边各会被切掉一些。
+  → 主体放在画面「横向正中间」，不要贴边。
+- 屏幕下方约 20% 被对话框盖住。
+  → 脸、关键物件放在画面上方 3/4 以内，底部留给衣摆、地面、花瓣这类不怕被盖的东西。
+- 画面里不要出现任何文字、对话框、水印、签名。
+
+统一画风（每条英文提示词末尾都已经带上，不用另外加）
+----------------------------------------------------
+anime-style visual novel CG, painterly digital illustration, highly detailed,
+cinematic lighting, rich saturated colors, Japanese shrine and forest fantasy,
+soft glow and atmospheric particles, vertical composition 2:3, 1024x1536,
+main subject centered, no text, no watermark
+
+通用负面提示词（工具支持 negative prompt 时使用）
+-----------------------------------------------
+text, letters, watermark, signature, speech bubble, UI, frame, border,
+extra fingers, deformed hands, extra limbs, blurry face, cropped head,
+modern clothing, photorealistic, 3d render, lowres
+
+
+================================================================
+角色设定卡（保持九张图里同一个人长得一样）
+================================================================
+
+【主角 · 你】
+- 成年的你：性别不明确，尽量只画背影、侧影或手。
+- 六岁的你：短发的小孩子，穿黄色的雨靴（这是固定特征，一定要有）。
+  EN: a gender-neutral child of about six, short hair, wearing bright yellow rain boots
+
+【白露 · 人形】少年，十四岁左右的样子
+- 翠绿色的蓬松短发，绿色的大眼睛，骨白色的小鹿角，角上开着花
+- 绿色、带叶片和藤蔓装饰的宽松长袍，光着脚，脚踝缠着藤蔓
+  EN: a cheerful boy with fluffy emerald-green hair, big green eyes, small bone-white
+  deer antlers with blossoms growing on them, loose green robes trimmed with leaves
+  and vines, barefoot with vine anklets
+【白露 · 兽形】
+- 纤细的白鹿，身上有淡淡的斑点，角上缠满花和藤蔓，周身淡绿金色的光
+  EN: a slender white deer with faint pale spots, antlers draped in blossoms and
+  trailing vines, soft green-gold aura
+
+【雪丸 · 人形】少年，十七岁左右的样子
+- 乱糟糟的白发，白色狼耳（左耳缺了一个小口），金色眼睛，笑起来露虎牙
+- 无袖的白色毛边短褂，层层叠叠的灰白破布衣，手臂缠着绷带，蓬松的白尾巴
+- 脖子上挂着皮绳，坠着一块白色骨牌（第六天以后已经埋掉了）
+  EN: a wild teenage boy with messy white hair, white wolf ears (a small notch in the
+  left ear), golden eyes, a visible fang, sleeveless white fur-trimmed vest over
+  ragged layered grey-white clothes, bandaged forearms, fluffy white wolf tail
+【雪丸 · 兽形】
+- 体型很大的纯白狼，金色眼睛，周身带着冰霜的气息
+  EN: a large pure-white wolf with golden eyes, frost swirling around its paws
+
+【苍羽 · 人形】高个子的青年
+- 很长的蓝黑色头发，发间编着羽毛，蓝色眼睛，表情安静
+- 蓝白两色、层层叠叠的长袍，宽袖，袖口有羽毛纹样
+  EN: a tall quiet young man with very long blue-black hair braided with feathers,
+  calm blue eyes, layered blue-and-white robes with wide sleeves and feather motifs
+【苍羽 · 兽形】
+- 巨大的蓝鹰，羽毛是蓝色带银光，尾羽很长
+  EN: a giant blue hawk with silver-tipped blue feathers and long trailing tail feathers
+
+【玄夜 · 人形】青年，危险又温柔
+- 又长又直的黑发，带紫色光泽，长到拖地；皮肤苍白得像瓷
+- 紫色的眼睛，瞳孔是细细的竖线；脖子和手背上有细密的鳞纹
+- 黑色和服，紫色流苏，衣服上有蛇的暗纹
+- 生病时：手背的鳞片是灰色的，有裂纹
+  EN: a pale young man with very long straight black hair with a purple sheen
+  reaching the floor, porcelain skin, purple eyes with slit pupils, faint scales on
+  his neck and the backs of his hands, black kimono with purple tassels and subtle
+  snake patterns
+【玄夜 · 兽形】
+- 巨大的黑蛇，鳞片有紫色光泽，身上挂着紫色流苏饰物
+  EN: an enormous black serpent whose scales shimmer purple, adorned with purple tassels
+
+【阿灯 · 叮当】
+- 圆滚滚的小狸猫，褐色的毛，圆肚子，眼睛亮亮的
+- 脖子上（或主角手里）系着一根褪了色的红绳，红绳上挂着一个裂开的小铜铃
+  EN: a small round tanuki with brown fur, a plump belly and bright shining eyes;
+  a faded red cord with a tiny cracked brass bell
+
+
+================================================================
+1. 叮当
+================================================================
+文件名：assets/cg-main-adeng.webp
+出现在：第七天 · 满月仪式。你念出「叮当」以后，被遗忘了六十年的阿灯从黑暗里走出来，不再是黑烟了。
+画面：
+- 地底的洞窟，中间是缠着注连绳、发着紫光的要石，石壁上的苔藓发着微光
+- 一只圆滚滚的褐色小狸猫，抬头看着画面外的人，用脑袋蹭着一根褪色的红绳
+- 红绳握在主角手里（只画手和袖口），红绳上挂着一个裂开的小铜铃
+- 狸猫身后残留着一点点正在散去的黑雾，像是终于被放下的影子
+- 气氛：安静、温暖、想哭
+英文提示词：
+inside a vast underground cave, a waist-high sacred stone wrapped in a thick
+shimenawa rope glowing soft purple, glowing moss on the cave walls; in the
+foreground a small round brown tanuki with a plump belly and bright shining eyes
+looks up lovingly and nuzzles its head against a faded red cord held in a human
+hand (only the hand and sleeve visible), a tiny cracked brass bell hangs from the
+cord, the last wisps of black smoke dissolving behind the tanuki like a shadow
+finally let go, warm and tearful atmosphere, tender close-up, anime-style visual
+novel CG, painterly digital illustration, highly detailed, cinematic lighting,
+rich saturated colors, Japanese shrine and forest fantasy, soft glow and
+atmospheric particles, vertical composition 2:3, 1024x1536, main subject centered,
+no text, no watermark
+
+
+================================================================
+2. 花之王
+================================================================
+文件名：assets/cg-shiro-garland.webp
+出现在：第四天 · 白露线回忆（二十年前）。小鹿哥哥给你戴上花环，你们拉钩约好要去看海。
+画面：
+- 二十年前，花谷，一棵很大的白樱树下，花瓣纷纷落下
+- 年纪更小的白露（十岁左右的样子，角还很小），笨手笨脚地把一个歪歪扭扭的花环戴到小孩头上
+- 小孩六岁，穿黄色雨靴，伸出小拇指要拉钩
+- 整体是怀旧的回忆色调：暖黄、柔光、边缘有一点朦胧
+英文提示词：
+nostalgic memory scene twenty years ago, a sea of flowers in a hidden valley, a
+huge white cherry tree with petals drifting down; a younger Shiro, a small boy of
+about ten with fluffy emerald-green hair and tiny bone-white deer antlers covered
+in pink blossoms, clumsily places a lopsided handmade flower crown on the head of
+a six-year-old child wearing bright yellow rain boots; the child holds out a little
+finger for a pinky promise, both smiling, warm golden sepia memory tones, soft
+dreamy haze at the edges, anime-style visual novel CG, painterly digital
+illustration, highly detailed, cinematic lighting, rich saturated colors, Japanese
+shrine and forest fantasy, soft glow and atmospheric particles, vertical
+composition 2:3, 1024x1536, main subject centered, no text, no watermark
+
+
+================================================================
+3. 盛开
+================================================================
+文件名：assets/cg-shiro-bloom.webp
+出现在：危机之夜 · 白露线。被掀飞的白鹿站起来，低头把小小的角对准巨大的堕兽：「这一次，我不躲了！」
+画面：
+- 夜里的神社前庭，石灯笼倒了一半，青火熄灭
+- 白鹿（兽形）四腿还在发抖、带着伤，但昂着头，角上所有的花一瞬间全部盛开
+- 白色花瓣像暴风雪一样卷起来，地面裂开、无数藤蔓冲出，缠住画面一侧的巨大黑雾怪物
+- 光源来自鹿角：青白色、明亮、神圣
+英文提示词：
+night at a shrine courtyard, toppled stone lanterns with their blue flames gone out;
+a slender white deer with faint pale spots stands wounded and trembling yet
+defiant, head lowered, and every blossom on its antlers bursts into full bloom at
+once, radiant blue-white light pouring from the antlers; a blizzard of white petals
+swirls upward, countless vines erupt from the cracked ground and bind a huge
+shapeless monster of black smoke with hungry red eyes at one side of the frame,
+heroic and sacred, dramatic upward angle, anime-style visual novel CG, painterly
+digital illustration, highly detailed, cinematic lighting, rich saturated colors,
+Japanese shrine and forest fantasy, soft glow and atmospheric particles, vertical
+composition 2:3, 1024x1536, main subject centered, no text, no watermark
+
+
+================================================================
+4. 北方
+================================================================
+文件名：assets/cg-yuki-treetop.webp
+出现在：第四天 · 雪丸线。他把你扛上森林最高的那棵树，指着北边：「那就是我家。……以前是。」
+画面：
+- 森林最高的一棵大树的树顶，枝头积着雪，风很大
+- 雪丸（人形）坐在粗树枝上，两条腿悬空晃着，尾巴垂在树枝下面
+- 他侧着脸望向远方，表情是笑着的，眼睛却有点亮
+- 远处天边，一线雪白的山脊，像刀切出来的一样
+- 脖子上的骨牌在领口若隐若现
+- 白天，冷冽的蓝白色调
+英文提示词：
+the top of the tallest tree in a vast forest, snow on the branches, strong cold
+wind; a wild teenage boy with messy white hair, white wolf ears (a small notch in
+the left ear), golden eyes and a fluffy white wolf tail sits on a thick branch with
+his legs dangling, wearing a sleeveless white fur-trimmed vest and bandaged
+forearms, a white bone token on a leather cord half hidden at his collar; he gazes
+toward a distant razor-sharp ridge of snowy mountains on the horizon, smiling but
+with glistening eyes, homesick and defiant, crisp blue-white daylight, seen from
+slightly behind and to the side, anime-style visual novel CG, painterly digital
+illustration, highly detailed, cinematic lighting, rich saturated colors, Japanese
+shrine and forest fantasy, soft glow and atmospheric particles, vertical
+composition 2:3, 1024x1536, main subject centered, no text, no watermark
+
+
+================================================================
+5. 我的窝
+================================================================
+文件名：assets/cg-yuki-howl.webp
+出现在：雪丸结局。你下山时，北坡最高处传来一声长嚎——不再是在问什么，是在宣布：这里是我的窝。
+画面：
+- 满月，北坡最高的一块岩石，周围是积雪的松林
+- 纯白的大狼（兽形）站在岩石顶上，昂头对着月亮长嚎
+- 月光把它整个镀成银白色，呼出的白气在空中散开
+- 气氛：响亮、骄傲、一点都不悲伤
+- 构图：狼在画面上半部分，月亮在它身后
+英文提示词：
+a huge full moon over a snowy northern slope, on the highest rock among snow-laden
+pine trees a large pure-white wolf with golden eyes stands proudly and howls up at
+the moon, its breath misting in the cold air, moonlight gilding its fur silver,
+frost sparkling around its paws, triumphant and joyful, not sorrowful, the wolf
+silhouetted against the moon in the upper half of the frame, anime-style visual
+novel CG, painterly digital illustration, highly detailed, cinematic lighting, rich
+saturated colors, Japanese shrine and forest fantasy, soft glow and atmospheric
+particles, vertical composition 2:3, 1024x1536, main subject centered, no text,
+no watermark
+
+
+================================================================
+6. 天上
+================================================================
+文件名：assets/cg-sou-flight.webp
+出现在：第四天 · 苍羽线（第六天苍羽线也会再出现一次）。你坐在蓝鹰背上，整片杜鹃森在脚下展开。
+画面：
+- 从高空往下看：一片绿色的森林海洋，神社是其中一个小小的红点，溪流像银线一样穿过去
+- 主角坐在巨大的蓝鹰背上，只画背影，头发被风吹乱，双手抓着羽毛
+- 森林的北边，有几块像墨水滴在宣纸上一样的黑色斑点（结界在烂）
+- 云层在身边掠过，傍晚前的金色阳光
+英文提示词：
+high above the clouds, a person seen from behind (gender-neutral, only back and
+windswept hair visible) rides on the back of a giant blue hawk with silver-tipped
+blue feathers, hands gripping its feathers; far below, an endless ocean of green
+forest, a tiny red shrine like a single dot, streams like silver threads; on the
+northern edge of the forest a few black patches spreading like ink drops on rice
+paper; clouds rushing past, late-afternoon golden sunlight, breathtaking sense of
+height and freedom, anime-style visual novel CG, painterly digital illustration,
+highly detailed, cinematic lighting, rich saturated colors, Japanese shrine and
+forest fantasy, soft glow and atmospheric particles, vertical composition 2:3,
+1024x1536, main subject centered, no text, no watermark
+
+
+================================================================
+7. 没寄出的信
+================================================================
+文件名：assets/cg-sou-letters.webp
+出现在：第六天 · 所有路线。苍羽在屋顶上解开油纸包：外婆二十年来每年写给你、却一封都没寄出的生日信。
+画面：
+- 黄昏，神社的屋脊上，远处是层叠的山和晚霞
+- 苍羽（人形）坐在屋脊上，一边的手臂/肩膀缠着绷带
+- 膝盖上摊着一块油纸，上面是一叠很厚的旧信封；最上面几封被风掀开，信纸一页一页地翻飞
+- 信封上没有邮票，角落写着小小的数字（7、8、9……26），纸是泛黄的
+- 他低着头看信，蓝色的羽毛被风吹起来，飘在信纸之间
+- 气氛：安静、心酸、温柔
+英文提示词：
+sunset on the ridge of an old Japanese shrine roof, layered mountains and a
+glowing evening sky behind; a tall quiet young man with very long blue-black hair
+braided with feathers and calm blue eyes, wearing layered blue-and-white robes
+with one shoulder bandaged, sits on the roof ridge with an unwrapped sheet of oil
+paper on his knees holding a thick stack of old yellowed envelopes with no stamps,
+small handwritten numbers in their corners; the wind lifts the top letters and
+their pages flutter open one by one, loose blue feathers drift among the flying
+pages, he looks down at them tenderly, bittersweet and quiet, anime-style visual
+novel CG, painterly digital illustration, highly detailed, cinematic lighting, rich
+saturated colors, Japanese shrine and forest fantasy, soft glow and atmospheric
+particles, vertical composition 2:3, 1024x1536, main subject centered, no text,
+no watermark
+（提示：生成工具常常会在信纸上写乱码字，如果出现，可以加一句
+ "the handwriting on the pages is illegible and soft-focused"）
+
+
+================================================================
+8. 对弈
+================================================================
+文件名：assets/cg-genya-go.webp
+出现在：第四天 · 玄夜线（玄夜结局里也会再出现一次）。地底，他一边按着要石喘气，一边教你下棋，第四盘故意让你赢。
+画面：
+- 地底洞窟，要石缠着注连绳，发着一明一暗的紫光
+- 一张旧围棋盘，黑子白子，旁边一碗凉掉的茶，碗沿上有一点口红的颜色（外婆的）
+- 玄夜（人形）坐在棋盘对面，一只手捏着一颗白子，另一只手按在要石上
+- 按在石头上的那只手，手背鳞片是灰色的、有裂纹（他在生病）
+- 他微微笑着，看着画面外的你（视角就是坐在他对面的你）
+- 棋盘边放着一朵小小的紫色花
+英文提示词：
+inside a dim underground cave, a waist-high sacred stone wrapped in a shimenawa
+rope pulsing with faint purple light; an old wooden go board with black and white
+stones, a cooling tea bowl beside it with a faint trace of an old woman's lipstick
+on the rim, and a single small purple flower resting at the board's edge; across
+the board sits a pale young man with very long straight black hair with a purple
+sheen pooling on the floor, purple slit-pupil eyes and porcelain skin, black kimono
+with purple tassels, one hand holding a white go stone, the other resting on the
+glowing stone, the scales on the back of that hand grey and cracked; he gives a
+faint gentle smile toward the viewer, first-person view as his opponent across the
+board, intimate and melancholic, anime-style visual novel CG, painterly digital
+illustration, highly detailed, cinematic lighting, rich saturated colors, Japanese
+shrine and forest fantasy, soft glow and atmospheric particles, vertical
+composition 2:3, 1024x1536, main subject centered, no text, no watermark
+
+
+================================================================
+9. 蛇先生
+================================================================
+文件名：assets/cg-genya-coil.webp
+出现在：第六天 · 记忆归还（二十年前那一夜）。黑烟一样的阿灯扑向你，地面裂开，黑色大蛇冲出来，一圈一圈把你护在正中间。
+画面：
+- 二十年前，夜里漆黑的森林，萤火虫
+- 巨大的黑蛇（兽形，鳞片泛紫光）盘成一个大圈，把一个六岁的小孩护在正中间
+- 小孩穿黄色雨靴，蜷在蛇的身体里睡着了（或者正在睡着），一点都不害怕
+- 蛇低着头挡在前面，紫色的眼睛盯着画面一侧
+- 画面一侧，一团像烟一样的黑色影子正在退走，影子身上挂着一根红绳和一个小铃铛（那是阿灯）
+- 整体是回忆色调，但月光是温柔的
+英文提示词：
+a memory from twenty years ago, a pitch-dark forest at night with fireflies; an
+enormous black serpent with purple-shimmering scales coils in a great protective
+circle around a small six-year-old child wearing bright yellow rain boots, the
+child curled up asleep safe and unafraid at the very center of the coils; the
+serpent lowers its head as a shield, purple eyes fixed on one side of the frame,
+where a shapeless figure of black smoke wearing a faded red cord with a tiny bell
+retreats into the trees, gentle moonlight filtering through the canopy, protective
+and tender rather than scary, soft nostalgic memory tones, anime-style visual novel
+CG, painterly digital illustration, highly detailed, cinematic lighting, rich
+saturated colors, Japanese shrine and forest fantasy, soft glow and atmospheric
+particles, vertical composition 2:3, 1024x1536, main subject centered, no text,
+no watermark
+
+
+================================================================
+生成顺序建议
+================================================================
+如果额度有限，按这个顺序生成，最影响体验的先来：
+1. 没寄出的信（第六天所有人都会看到）
+2. 叮当（第七天满月仪式，所有人都会看到）
+3. 蛇先生（第六天记忆归还，所有人都会看到）
+4. 天上（苍羽线，出现两次）
+5. 对弈（玄夜线，出现两次）
+6. 盛开 / 花之王（白露线）
+7. 北方 / 我的窝（雪丸线）
