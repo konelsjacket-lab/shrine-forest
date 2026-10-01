@@ -24,7 +24,7 @@ sh tools/build-itch.sh          # → dist/shrine-forest-itch.zip（index.html �
 **Embed options**（上传 zip 之后出现）：
 
 - Viewport dimensions：**960 × 640**（横屏电脑上最舒服；手机会自动全屏竖排）
-- 勾选 **Mobile friendly**，Orientation 选 **Default**（横竖都能玩）
+- 勾选 **Mobile friendly**，Orientation 选 **Portrait**（选 Default 的话，itch 会跟着横的嵌入尺寸在手机上横屏打开）
 - 勾选 **Fullscreen button**
 - **不要**勾 Automatically start on page load（游戏自带「轻触屏幕」开场，用来解锁音乐）
 - Frame options 里不用勾 SharedArrayBuffer
