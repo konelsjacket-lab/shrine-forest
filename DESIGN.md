@@ -17,7 +17,7 @@
 | 7 | 第六、七天 + 六个结局 | ✅ 321→~520 句；新节点 day6_stone(+mem,2) / day6_letters(2) / day7_morning；仪式加入「代价」与六人念名；终章章节卡移到 day7_morning |
 | 8 | 全路线测试、AFF_MAX 重算、字体重抽、STORY_VERSION | ✅ 每步都做了；最终 AFF_MAX fox 36 / wolf 29 / deer 22 / whitewolf 28 / hawk 25 / snake 23；STORY_VERSION 9；所有节点可达、所有 if/ifnot flag 都有出处、所有谜团都能解开 |
 
-目标：剧本从 ~1600 句 / 3.4 万字扩到 ≥3200 句。**实际完成：2557 句**（每天约 1.3–1.9 倍；分支路线的内容玩家一周目只看到一部分）。每步只改自己那一段，节点 id 尽量沿用。
+目标：剧本从 ~1600 句 / 3.4 万字扩到 ≥3200 句。**实际完成：2753 句**（含结局扩写）（每天约 1.3–1.9 倍；分支路线的内容玩家一周目只看到一部分）。每步只改自己那一段，节点 id 尽量沿用。
 
 ## 第 2 步埋下的线（后面的步骤要接住）
 
@@ -89,7 +89,14 @@
 ## 还可以继续做的（如果用户想要）
 
 - 还没画的 CG（`CG_IMAGES` 里为 null 的）：cg_main_adeng、cg_shiro_garland、cg_shiro_bloom、cg_yuki_treetop、cg_yuki_howl、cg_sou_flight、cg_sou_letters、cg_genya_go、cg_genya_coil。图到了只改 `CG_IMAGES` 一行。
-- 想冲到 3200 句：最有价值的是把六个结局各扩成一整场（现在每个 ~13 句），以及第 6 天个人线（每条 ~20 句）。
+- ~~六个结局各扩成一整场~~ ✅ 已做：每个结局 = `ending_X`（满月夜告别）→ `ending_X2`（后日谈，一个小选择，不加好感）→ `ending_X3`（带 `ending` 卡）。后日谈节点 `day: -1` 隐藏天数指示。`routeToEnding` 仍然只认 `ending_X`。
+- 想冲到 3200 句：剩下最有价值的是第 6 天个人线（每条 ~20 句）。
+
+## 跳过已读（skip）
+
+- 右上角「跳过」按钮（`#skip-btn`）；电脑上按住 Ctrl 也会跳。读过的台词每 50ms 翻一句；遇到**未读台词**、**选项**、**结局**自动停，并 toast 原因。打开菜单/存档等浮层时暂停。章节卡在跳过时缩到 0.6 秒，「叮」不响铃。
+- 已读记录：localStorage `dujuansen-read` = `{ v: STORY_VERSION, m: { nodeId: 已读到的最大行号 } }`，跨存档、跨新游戏有效；`STORY_VERSION` 一变就作废（因为行号会错位）。代码在 `startLines` 后面（`reads` / `isRead` / `markRead` / `skip` / `setSkip` / `skipTick`）。
+- 测试：`node tools/skiptest.mjs`（12 项）。
 
 ## 引擎要点（改剧本前必读）
 
@@ -104,7 +111,7 @@
   `pip install fonttools brotli`；下载 `https://github.com/lxgw/LxgwWenKai/releases/download/v1.510/LXGWWenKai-Regular.ttf`；
   从 html 取所有 >U+2000 字符 + ASCII + 常用标点写入 chars.txt；
   `pyftsubset LXGWWenKai-Regular.ttf --text-file=chars.txt --flavor=woff2 --output-file=assets/font-wenkai.woff2 --layout-features='*' --no-hinting`
-- 测试：`node tools/playthrough.mjs`（六条线各自追一个角色自动通关，应各到自己的 rescue_* 与 ending_*）；`node tools/savetest.mjs`（15 项存档测试）。截图用 playwright，启动参数要加 `--ignore-certificate-errors` 且 context 加 `ignoreHTTPSErrors:true`，否则 Google 字体加载不出来。
+- 测试：`node tools/skiptest.mjs`（跳过已读，12 项）；`node tools/playthrough.mjs`（六条线各自追一个角色自动通关，应各到自己的 rescue_* 与 ending_*）；`node tools/savetest.mjs`（15 项存档测试）。截图用 playwright，启动参数要加 `--ignore-certificate-errors` 且 context 加 `ignoreHTTPSErrors:true`，否则 Google 字体加载不出来。
 - 发布：Artifact publish 同一 file_path + url，新图片/音频放 `files`。
 
 ## 主线节奏（三幕 + 倒计时）
