@@ -47,7 +47,9 @@ sh tools/build-itch.sh          # → dist/shrine-forest-itch.zip（index.html �
 
 先存成 **Draft**，点进页面自己玩一遍（尤其是手机），确认没问题再改成 **Public**。
 
-## 页面正文（直接粘进 Description）
+## 页面正文
+
+**带图片的排版版本见 `itch/DESCRIPTION.md`（推荐）。** 下面是纯文字版，备用。
 
 外婆去世了。
 

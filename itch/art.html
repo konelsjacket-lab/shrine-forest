@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<!-- Source for the itch.io page images. Render with tools/itch-art.mjs (one PNG per [data-shot]). -->
+<style>
+@font-face { font-family: 'WK'; src: url('../assets/font-wenkai.woff2') format('woff2'); }
+@font-face { font-family: 'Brush'; src: url('../assets/font-brush.woff2') format('woff2'); }
+:root { --bg: #0e1024; --ink: #f1e8d8; --dim: #b8ad9a; --gold: #f3cf7a; --red: #c8352a; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #333; font-family: 'WK', serif; color: var(--ink); padding: 20px; display: flex; flex-direction: column; gap: 30px; align-items: flex-start; }
+
+/* banner 960x300 */
+.banner { position: relative; width: 960px; height: 300px; overflow: hidden; background: var(--bg) url('../assets/ui-title.webp') center 58% / cover; }
+.banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 55% 75% at 50% 48%, rgba(8,8,24,0.62), transparent 72%), linear-gradient(transparent 70%, rgba(14,16,36,0.85)); }
+.banner .t { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.banner .jp { font-size: 15px; letter-spacing: 9px; color: var(--gold); margin-bottom: 4px; text-shadow: 0 1px 6px #000; }
+.banner .main { font-family: 'Brush'; font-size: 104px; line-height: 1.05; color: #fff4dc; letter-spacing: 8px; text-shadow: 0 0 26px rgba(255,190,90,0.6), 0 4px 0 rgba(120,20,10,0.75), 0 0 60px rgba(0,0,0,0.7); }
+.banner .sub { font-size: 17px; letter-spacing: 6px; color: #f0e2c4; text-shadow: 0 1px 6px #000; margin-top: 6px; }
+
+/* section heading 600x70 */
+.head { width: 600px; height: 70px; background: var(--bg); display: flex; align-items: center; justify-content: center; gap: 18px; }
+.head i { flex: 1 1 auto; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.head i:last-child { background: linear-gradient(90deg, var(--gold), transparent); }
+.head b { width: 8px; height: 8px; background: var(--red); transform: rotate(45deg); box-shadow: 0 0 8px var(--red); flex: 0 0 auto; }
+.head span { font-family: 'Brush'; font-size: 34px; letter-spacing: 10px; color: #fff4dc; text-shadow: 0 0 14px rgba(243,207,122,0.45); padding-left: 10px; flex: 0 0 auto; }
+.head small { font-size: 12px; letter-spacing: 4px; color: var(--gold); flex: 0 0 auto; }
+
+/* character cards 600 wide */
+.cards { width: 600px; background: var(--bg); padding: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.card { position: relative; height: 290px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(243,207,122,0.35); background: #1a1630; }
+.card .pic { position: absolute; inset: 0; background-repeat: no-repeat; }
+.card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgba(10,10,26,0.92) 78%); }
+.card .txt { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px 12px; z-index: 1; }
+.card .nm { font-family: 'Brush'; font-size: 30px; letter-spacing: 4px; line-height: 1.1; }
+.card .tag { font-size: 11.5px; color: var(--dim); letter-spacing: 1px; margin: 2px 0 6px; }
+.card .q { min-height: 39px; font-size: 12.5px; line-height: 1.55; color: var(--ink); border-left: 2px solid var(--c); padding-left: 7px; }
+
+/* CG strip */
+.cgs { width: 600px; background: var(--bg); padding: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.cgs div { height: 200px; border-radius: 6px; background-size: cover; background-position: center 30%; border: 1px solid rgba(243,207,122,0.3); }
+</style>
+</head>
+<body>
+
+<div class="banner" data-shot="banner"><div class="t">
+  <div class="jp">社と森のものがたり</div>
+  <div class="main">杜鹃森</div>
+  <div class="sub">神社与森林的恋爱物语</div>
+</div></div>
+
+<div class="head" data-shot="head-story"><i></i><b></b><span>故事</span><small>STORY</small><b></b><i></i></div>
+<div class="head" data-shot="head-cast"><i></i><b></b><span>六个人</span><small>CAST</small><b></b><i></i></div>
+<div class="head" data-shot="head-features"><i></i><b></b><span>特色</span><small>FEATURES</small><b></b><i></i></div>
+<div class="head" data-shot="head-gallery"><i></i><b></b><span>回忆</span><small>GALLERY</small><b></b><i></i></div>
+
+<div class="cards" data-shot="cast"></div>
+
+<div class="cgs" data-shot="cgs">
+  <div style="background-image:url('../assets/cg-ginro-umbrella.webp')"></div>
+  <div style="background-image:url('../assets/cg-kohaku-ninetails.webp')"></div>
+  <div style="background-image:url('../assets/cg-shiro-bloom.webp')"></div>
+  <div style="background-image:url('../assets/cg-sou-flight.webp')"></div>
+</div>
+
+<script>
+// face position in each sprite (from PORTRAIT_POS in index.html): ex/ey = eye point in %, s = zoom
+const CAST = [
+  ['琥珀', '#ff6b4a', 'kohaku', 53.5, 13, 1.0, '神社巫女 · 九尾灵狐', '有名字的东西，被叫到的时候，就会亮。'],
+  ['银朗', '#7eb8da', 'ginro', 62.5, 9.9, 1.18, '森之守护 · 苍银狼', '……不管你在哪里迷路，我都会找到你。'],
+  ['白露', '#8fd4a0', 'shiro', 56.8, 12.8, 1.0, '林间精灵 · 白玉鹿', '这个词，好难。比「加班」还难。'],
+  ['雪丸', '#e8e0d0', 'yukimaru', 66, 10, 1.08, '北方流浪者 · 白狼', '比喜欢鱼还喜欢！比喜欢赢还喜欢！'],
+  ['苍羽', '#6aa0e0', 'sou', 55.6, 6.7, 1.0, '天空守望 · 蓝鹰', '……这个不算。'],
+  ['玄夜', '#b07ad6', 'genya', 57.6, 12.8, 0.88, '幽暗低语 · 黑蛇', '满月之前，别相信任何一个说「没事」的人。'],
+];
+const box = document.querySelector('.cards');
+const H = 760; // displayed sprite height at zoom 1
+for (const [nm, c, id, ex, ey, s, tag, q] of CAST) {
+  const d = document.createElement('div'); d.className = 'card'; d.style.setProperty('--c', c);
+  d.innerHTML = `<div class="pic"></div><div class="txt"><div class="nm" style="color:${c}">${nm}</div><div class="tag">${tag}</div><div class="q">${q}</div></div>`;
+  box.appendChild(d);
+  const img = new Image(); img.src = `../assets/${id}-human.webp`;
+  img.onload = () => {
+    const h = H * s, w = h * img.naturalWidth / img.naturalHeight;
+    const pic = d.querySelector('.pic');
+    pic.style.backgroundImage = `url(${img.src})`;
+    pic.style.backgroundSize = `${w}px ${h}px`;
+    pic.style.backgroundPosition = `${88 - ex / 100 * w}px ${70 - ey / 100 * h}px`; // eyes at (88, 70) of the 176px card
+  };
+}
+</script>
+</body>
+</html>
