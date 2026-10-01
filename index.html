@@ -3314,8 +3314,20 @@ const S = {
       { char: 'narrator', text: '雪丸的呼吸变得又深又稳。白露趴在被褥边上，睡着了。他的角上，一朵花都不剩。' },
       { char: 'narrator', text: '琥珀拿来一条毯子，盖在两个孩子身上。她的手在白露光秃秃的角上停了一下。' },
       { char: 'kohaku', text: '……傻孩子。' },
-      { char: 'narrator', text: '你回头看了一眼拉门外面。银朗站在走廊上，没有进来。他看着屋里，看着被褥上那两个缩成一团的孩子。' },
-      { char: 'narrator', text: '然后，他背过身，靠着门框坐了下去。' },
+      { char: 'narrator', text: '她解开雪丸的领口，要给他擦脖子上的血。手指碰到那根皮绳，停住了。' },
+      { char: 'narrator', text: '皮绳上坠着的，是你在溪边见过的那块白色骨牌。琥珀把它取下来，放在枕头边。' },
+      { char: 'narrator', text: '灯笼的光照在上面。骨牌正中，刻着一个爪印一样的记号。' },
+      { char: 'narrator', text: '拉门外，银朗站在走廊上，没有进来。可是你看见，他的视线落在枕头边，就再也没有移开。' },
+      { char: 'kohaku', text: '……银朗？你认得这个？' },
+      { char: 'ginro', text: '……北边的东西。',
+        chars: [{ id: 'ginro', pos: 'center', form: 'human' }] },
+      { char: 'narrator', text: '被褥里，雪丸翻了个身。没受伤的那只手，在胸口摸来摸去，像是在找什么。' },
+      { char: 'narrator', text: '摸到空空的领口，他皱起眉头，含含糊糊地说了一句梦话。' },
+      { char: 'narrator', text: '「……还没……今天……还没动手……」' },
+      { char: 'narrator', text: '屋子里一下子安静了。' },
+      { char: 'narrator', text: '琥珀看了银朗一眼。银朗什么都没说。他背过身，靠着门框，坐了下去。',
+        chars: [{ id: 'kohaku', pos: 'center', form: 'human' }] },
+      { char: 'kohaku', text: '……今晚，让他守着吧。' },
     ],
     next: 'day4_night',
   },
@@ -3357,8 +3369,12 @@ const S = {
     chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '第五天，天阴着。' },
+      { char: 'narrator', text: '你醒来经过琥珀房间的时候，银朗还靠着门框坐在那里。姿势和昨晚一模一样。',
+        chars: [{ id: 'ginro', pos: 'center', form: 'human' }] },
+      { char: 'narrator', text: '他的眼睛，一直看着枕头边那块骨牌。像是在等，等着睡着的那个人醒过来。' },
       { char: 'narrator', text: '雪丸的伤，一夜之间好了大半。白露守着他，用角上的花敷了一整夜。天亮的时候，白露自己累得趴在被子边上睡着了，头上一朵花都不剩。' },
-      { char: 'narrator', text: '琥珀在缘廊上等你。她换了一身正式的巫女服，头发一丝不乱，像是要去参加什么仪式。' },
+      { char: 'narrator', text: '琥珀在缘廊上等你。她换了一身正式的巫女服，头发一丝不乱，像是要去参加什么仪式。',
+        chars: [{ id: 'kohaku', pos: 'center', form: 'human' }] },
       { char: 'kohaku', text: '坐吧。我说过，今天全都告诉你。' },
       { char: 'kohaku', text: '先从最简单的说起。守铃人要做什么。' },
       { char: 'kohaku', text: '满月的夜里，站在要石前面，摇响那枚铃。然后，把我们每一个的名字，念出来。' },
@@ -3471,6 +3487,9 @@ const S = {
       { char: 'narrator', text: '你跑到琥珀房间门口的时候，拉门已经被撞开了一半。' },
       { char: 'narrator', text: '雪丸坐在被褥上，绷带还缠在胳膊上。银朗站在门外，没有进来。' },
       { char: 'narrator', text: '被褥中间，躺着那块白色的骨牌。' },
+      { char: 'ginro', text: '昨晚。你说梦话了。' },
+      { char: 'ginro', text: '「还没动手」。' },
+      { char: 'narrator', text: '雪丸的脸，一下子白了。他伸手去抓那块骨牌，又停在半空。' },
       { char: 'ginro', text: '北方族的召令牌。族长的爪印。' },
       { char: 'ginro', text: '……谁给你的。' },
       { char: 'narrator', text: '雪丸盯着那块骨牌。很久，他笑了一下。笑得很难看。' },
@@ -6012,7 +6031,7 @@ function updateDay() {
 //  SAVE / LOAD
 // ============================================================
 const SAVE_KEY = 'dujuansen-saves-v1';
-const STORY_VERSION = 14; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
+const STORY_VERSION = 15; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
 const MANUAL_SLOTS = ['1','2','3','4','5','6','7','8'];
 const storageOK = (() => {
   try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; }
