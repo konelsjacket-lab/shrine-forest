@@ -409,10 +409,12 @@ html, body {
 /* === Ending === */
 #ending-screen { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 40; padding: 0 20px; background: linear-gradient(rgba(6,8,20,0.35), rgba(6,8,20,0.55)), #0a0c1c url('assets/ui-ending.webp') center / cover no-repeat; animation: title-fade 2s ease; }
 #ending-screen.active { display: flex; }
-#ending-screen > * { position: relative; z-index: 1; }
-#ending-screen > #ending-figure { position: absolute; z-index: 0; top: -1%; left: 50%; height: 104%; width: auto; transform: translateX(-50%); opacity: 0; pointer-events: none; filter: drop-shadow(0 0 30px rgba(255,190,110,0.25)); -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 98%); mask-image: linear-gradient(to bottom, #000 55%, transparent 98%); }
-#ending-screen.active > #ending-figure { animation: ending-figure 3.2s ease 0.6s forwards; }
-@keyframes ending-figure { from { opacity: 0; transform: translateX(-50%) translateY(14px); } to { opacity: 0.42; transform: translateX(-50%) translateY(0); } }
+#ending-screen > * { position: relative; z-index: 1; transition: opacity 1.4s ease; }
+/* Two beats: first you, alone in the ceremony robes; then she fades and the ending card comes in. */
+#ending-screen > #ending-figure { position: absolute; z-index: 0; bottom: 0; left: 50%; height: 86%; width: auto; transform: translateX(-60%); /* her body sits right of the image centre */ opacity: 0; pointer-events: none; transition: opacity 1.2s ease, transform 1.6s ease; filter: drop-shadow(0 0 28px rgba(255,200,120,0.35)); -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 99%); mask-image: linear-gradient(to bottom, #000 70%, transparent 99%); }
+#ending-screen.fig-on > #ending-figure { opacity: 1; transform: translateX(-60%) translateY(-8px); }
+#ending-screen.intro > :not(#ending-figure) { opacity: 0; pointer-events: none; }
+#ending-screen.intro { cursor: pointer; }
 #ending-title { font-size: clamp(44px, 12vw, 68px); font-weight: 400; letter-spacing: 6px; color: #fff4dc; font-family: var(--font-brush); margin-bottom: 18px; text-shadow: 0 0 24px rgba(255,190,90,0.55), 0 3px 0 rgba(120,20,10,0.7); }
 #ending-subtitle { position: relative; isolation: isolate; max-width: 460px; font-size: 15px; color: #f1e8d8; font-family: var(--font); margin-bottom: 28px; text-align: center; line-height: 1.95; padding: 30px 34px; white-space: pre-line; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
 #ending-subtitle::before { content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0.94; border-style: solid; border-width: 50px 58px 48px 58px; border-image: url('assets/ui-dialogue.webp') 175 205 165 205 fill stretch; }
@@ -583,7 +585,7 @@ html, body {
   <div id="choice-layer"><div id="choice-container"></div></div>
 
   <div id="ending-screen">
-    <img id="ending-figure" src="assets/protagonist-adult.webp" alt="" loading="lazy">
+    <img id="ending-figure" src="assets/protagonist-adult.webp" alt="">
     <div id="ending-title"></div>
     <div id="ending-subtitle"></div>
     <button id="ending-restart" class="title-btn">从头开始</button>
@@ -5787,7 +5789,13 @@ function showChapter(num, title, cb) {
 
 function showEnding(e) {
   if (skip.active()) setSkip(false);
-  $('#ending-screen').classList.add('active');
+  const es = $('#ending-screen'), gen = state.gen;
+  es.classList.add('active', 'intro');
+  requestAnimationFrame(() => requestAnimationFrame(() => { if (gen === state.gen && es.classList.contains('intro')) es.classList.add('fig-on'); }));
+  const endIntro = () => { es.classList.remove('intro', 'fig-on'); es.onclick = null; };
+  es.onclick = endIntro; // tap to go straight to the card
+  setTimeout(() => { if (gen === state.gen) es.classList.remove('fig-on'); }, 3000);
+  setTimeout(() => { if (gen === state.gen) endIntro(); }, 3700);
   $('#ending-title').textContent = e.title;
   $('#ending-subtitle').textContent = e.subtitle;
   $('#dialogue-layer').style.display = 'none';
@@ -5914,6 +5922,7 @@ function resetGame() {
   $('#speaker-name').textContent = ''; $('#dialogue-text').innerHTML = '';
   $('#text-indicator').classList.remove('show');
   ['#chapter-overlay', '#choice-layer', '#ending-screen', '#transform-overlay'].forEach(s => $(s).classList.remove('active'));
+  $('#ending-screen').classList.remove('intro', 'fig-on');
   $('#dialogue-layer').style.display = '';
   setFlashback(false);
   setCG(null);
@@ -6021,7 +6030,7 @@ function openBonds() {
   const me = state.flags.a_photo
     ? '六岁以前，穿着黄雨靴在这座山上跑来跑去。外婆忘了你小时候的样子——可整座山都替她记着。'
     : '千代的外孙女。六岁以前住在山脚下，那时候的事，已经不太记得了。';
-  const you = `<div class="bond you"><div class="slot-thumb"><img src="assets/protagonist-child.webp" alt="" style="position:absolute;width:auto;height:260px;top:${28 - 0.115 * 260}px;left:50%;transform:translateX(-48%)"></div>
+  const you = `<div class="bond you"><div class="slot-thumb"><img src="assets/protagonist-child.webp" alt="" style="position:absolute;width:auto;height:190px;top:-2px;left:50%;transform:translateX(-46%)"></div>
       <div class="bond-body"><div class="bond-top"><span class="bond-name" style="color:#f3cf7a">你</span></div><div class="bond-desc">${me}</div></div></div>`;
   const card = $('#sys-card');
   card.innerHTML = `
