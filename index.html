@@ -227,6 +227,7 @@ html, body {
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
 }
 .character-sprite.speaking { z-index: 2; }
+.character-sprite.front { z-index: 3; } /* stands nearer the camera: stays in front even while the other one speaks */
 .character-sprite img { transition: filter 0.4s ease, left 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
 .character-sprite.listening img { filter: brightness(0.55) saturate(0.75); }
 
@@ -758,7 +759,7 @@ const PORTRAIT_POS = {
   'kohaku-beast':   { ex: 61,   ey: 35,   h: 100 },
   'ginro-beast':    { ex: 81.6, bx: 62, ey: 19.7, h: 72, sx: -14 }, // wide art: head+chest right of centre, tails trail in from the left
   'shiro-beast':    { ex: 76,   ey: 32.7, h: 100, dx: 8 },
-  'yukimaru-beast': { ex: 75,   ey: 62.7, h: 145, dx: 8 },
+  'yukimaru-beast': { ex: 75,   bx: 50, ey: -1.4, h: 50, sx: -8.5, ss: 6.5, front: true }, // the whole leaping wolf, smaller than his uncle; ey is a placement value (feet just above the dialogue box), not the eye. Beside Ginro he crouches in front, lower-left, so the two heads never overlap
   'sou-beast':      { ex: 84,   ey: 40,   h: 140, dx: 10 },
   'genya-beast':    { ex: 42,   ey: 16,   h: 100 },
 };
@@ -5960,7 +5961,7 @@ function setChars(chars) {
   chars.forEach(c => {
     if (l.querySelector(`[data-id="${c.id}"]`)) return;
     const w = document.createElement('div');
-    w.className = 'character-sprite entering';
+    w.className = 'character-sprite entering' + (PORTRAIT_POS[CHARS[c.id][c.form]]?.front ? ' front' : '');
     w.id = `char-${c.id}`;
     Object.assign(w.dataset, { id: c.id, pos: c.pos, form: c.form });
     w.innerHTML = getPortrait(c.id, CHARS[c.id][c.form], c.pos);
