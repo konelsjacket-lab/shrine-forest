@@ -2371,11 +2371,29 @@ const S = {
       { char: 'ginro', text: '……那天我在溪里洗了三遍。' },
       { char: 'ginro', text: '……阿嚏。' },
       { char: 'ginro', text: '走吧。天黑了。' },
-      { char: 'narrator', text: '走出蕨草坡的时候，你看到白露站在路边，手里捧着一朵花，一直在等你们。' },
-      { char: 'narrator', text: '银朗朝白露点了点头，转身走进了林子。往北边去了。' },
-      { char: 'shiro', text: '那个……我想带你去一个地方。',
+      { char: 'narrator', text: '下坡的路，他走在你左边。走得很慢。你走快一点，他也快一点；你停下来看萤火虫，他也停下来，假装在看别的地方。' },
+      { char: 'narrator', text: '你忽然想，二十年前，他大概也是这样，把一个哭个不停的孩子，一步一步送下山的。' },
+      { char: 'narrator', text: '走到蕨草坡的尽头，银朗的耳朵动了一下。' },
+      { char: 'ginro', text: '……出来。' },
+      { char: 'narrator', text: '路边的灌木丛「哗啦」响了一声。一个翠绿色的脑袋探了出来，头发上沾着叶子，怀里捧着一朵花。',
+        chars: [{ id: 'shiro', pos: 'left', form: 'human' }, { id: 'ginro', pos: 'right', form: 'human' }] },
+      { char: 'shiro', text: '我、我不是偷听！我是在这里等你们……等着等着，你们就开始讲大狗狗了……' },
+      { char: 'narrator', text: '他头上的花，一下子变成粉色，一下子又变回白色，像是拿不定主意。' },
+      { char: 'ginro', text: '……等了多久。' },
+      { char: 'shiro', text: '……太阳还在那棵树上面的时候。' },
+      { char: 'narrator', text: '银朗没有说话。他抬起头，闻了闻风。北边吹过来的风里，有一股很淡很淡的焦味。' },
+      { char: 'ginro', text: '……那小子，还没回来。' },
+      { char: 'narrator', text: '他看了看白露，又看了看你。' },
+      { char: 'ginro', text: '天黑透之前，把人送回神社。' },
+      { char: 'ginro', text: '少一个，我吃不下饭。' },
+      { char: 'narrator', text: '说完，他转身走进了林子。往北边去了。' },
+      { char: 'narrator', text: '白露一直看着他的背影消失在树后面，才慢慢走到你面前。',
         chars: [{ id: 'shiro', pos: 'center', form: 'human' }] },
-      { char: 'shiro', text: '就是……我想让你见见我娘。' },
+      { char: 'shiro', text: '那个……你小时候，外婆不见了，你就一直哭，对吗？' },
+      { char: 'shiro', text: '我也是。……我也有一个，不见了的人。' },
+      { char: 'narrator', text: '他低头看着怀里的花。是一朵白樱，花瓣边上有一点点发黄。' },
+      { char: 'shiro', text: '以前，千代婆婆每个月都陪我去看她。这个月……我一个人去了好多次。' },
+      { char: 'shiro', text: '我想带你去一个地方。……我想让你见见我娘。' },
     ],
     next: 'shiro_mother',
   },
@@ -2385,7 +2403,7 @@ const S = {
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '白露拉着你的手，钻过一条只有他知道的小路。眼前忽然开阔起来——' },
-      { char: 'narrator', text: '一整片山谷，开满了花。粉的，白的，淡紫的，在暮色里一层一层地翻动。' },
+      { char: 'narrator', text: '一整片山谷，开满了花。粉的，白的，淡紫的，在最后一点暮光里一层一层地翻动。' },
       { char: 'shiro', text: '都是我种的哦！一棵一棵，用角上的灵力催出来的。种了六十年。' },
       { char: 'narrator', text: '可是走近了看，你发现山谷边缘的花，有好些是蔫的。花瓣卷着边，颜色发灰。' },
       { char: 'shiro', text: '……那边的，最近不太听话。我每天都跟它们说话，可它们还是没精神。' },
@@ -5960,7 +5978,7 @@ function updateDay() {
 //  SAVE / LOAD
 // ============================================================
 const SAVE_KEY = 'dujuansen-saves-v1';
-const STORY_VERSION = 13; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
+const STORY_VERSION = 14; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
 const MANUAL_SLOTS = ['1','2','3','4','5','6','7','8'];
 const storageOK = (() => {
   try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; }
