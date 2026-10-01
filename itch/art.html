@@ -64,6 +64,9 @@ body { background: #333; font-family: 'WK', serif; color: var(--ink); padding: 2
 /* embed background 960x640: key art behind the Run game button */
 .embedbg { position: relative; width: 960px; height: 640px; overflow: hidden; background: var(--bg) url('../assets/ui-title.webp') center 52% / cover; }
 .embedbg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 30% 22% at 50% 54%, rgba(8,8,24,0.55), transparent 80%), linear-gradient(rgba(8,8,24,0.55), transparent 38%, transparent 70%, rgba(8,8,24,0.7)); }
+.embedbg::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(var(--bg), transparent 16%, transparent 80%, var(--bg)), linear-gradient(90deg, var(--bg), transparent 12%, transparent 88%, var(--bg)); } /* edges fade to the page colour so tiling/stretching has no seam */
+.embedbg .t, .embedbg .hint { z-index: 1; }
 .embedbg .t { position: absolute; left: 0; right: 0; top: 70px; text-align: center; }
 .embedbg .jp { font-size: 14px; letter-spacing: 9px; color: var(--gold); text-shadow: 0 1px 6px #000; }
 .embedbg .main { font-family: 'Brush'; font-size: 92px; line-height: 1.1; color: #fff4dc; letter-spacing: 8px; text-shadow: 0 0 26px rgba(255,190,90,0.6), 0 4px 0 rgba(120,20,10,0.75), 0 0 60px rgba(0,0,0,0.7); }
