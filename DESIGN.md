@@ -10,7 +10,7 @@
 | 0 | 本备忘 + tools/ 测试脚本 | ✅ |
 | 1 | CG 系统（`cg` 字段、占位框、菜单「回忆」画廊）+ 给用户的 CG prompt 清单 | ✅ 15 个 CG 位已定义，13 个已埋进剧本；`cg_ginro_umbrella`、`cg_sou_letters` 等扩写时再埋 |
 | 2 | 序章 + 第一天 扩写 | ✅ 268→502 句；新节点 pro_hospital / pro_wake / pro_morning / kohaku_lanterns(2) / day1_ginro_after / day1_radio(2)；AFF_MAX.fox 25→29；STORY_VERSION 4 |
-| 3 | 第二天 | ⬜ |
+| 3 | 第二天 | ✅ 197→~320 句；新节点 shiro_flowers / shiro_wake / day2_umbrella / day2_towel / day2_eaves；`cg_ginro_umbrella` 已埋（雨中鸟居）；AFF_MAX fox 30 / wolf 27 / hawk 19；STORY_VERSION 5 |
 | 4 | 第三天 | ⬜ |
 | 5 | 第四天（中点反转） | ⬜ |
 | 6 | 第五天 + 危机之夜 | ⬜ |
@@ -32,6 +32,15 @@
 - 梦里已出现：叮当铃声跟着走、湿花环、下棋声。
 - 其他 flag：`held_bell`、`asked_welcome`、`saw_tail`、`named_lantern`、`asked_isyou`、`said_nocry`、`asked_dirty`、`pressed_kohaku`（目前只在本段内用）。
 - 好感上限计算脚本：对每个 key 从 start 做最大路径 DP（choices 取 max，next_by_affection 走 rescue_<key>），旧值可复现。
+
+## 第 3 步埋下的线
+
+- **q_horn「白露为什么总是犯困」**：哭完就睡、睡了两个时辰；花比去年少一半；离开花谷半天以上角会痒；给主角的花边缘发黄。琥珀被问到时说「春天嘛」，尾巴炸毛。→ 白露的秘密揭开时 `flag: 'a_horn'`。花色规则已立：粉=高兴，黄=想吃东西，白=平静，褐=难过，红=生气（追了银朗两座半山）。第 7 步的蓝=想念（day6_shiro 已有）与之不冲突。
+- **q_bone「雪丸领口里的骨牌」**：白色骨牌挂在皮绳上，他下意识按住；拐弯抹角问银朗的巡逻路线和回屋时间；半夜对着北方的年轻狼嚎，突然停住。→ 第 5 天银朗发现骨牌时 `flag: 'a_bone'`。
+- **伞**：雨夜鸟居下银朗撑伞（CG），flag `shared_umbrella`（「一起撑」，伞只挪回来遮住他一只耳朵）或 `told_umbrella`（「推了五十年，最后一次她没有推回来」）。第一天的伞 + 这一把，主角手里现在有两把深蓝油纸伞，可在结局/下山时回收。
+- **苍羽**：第二天夜里主角放梅子饭团（flag `placed_onigiri` 表示主角亲手放），屋檐那一小块是干的、有羽毛，屋脊上一声「……谢谢」。第三天他正式登场。
+- **玄夜**：rot_stay 里多了「外褂是那条狼的吧。抱紧点。今晚冷。」；rot_go 结尾榉树根边有蛇蜷了很久的压痕。
+- 琥珀今天两次回避：紫眼睛（尾巴藏到身后）、白露犯困（尾巴炸毛）。
 
 ## 引擎要点（改剧本前必读）
 
