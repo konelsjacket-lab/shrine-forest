@@ -680,6 +680,7 @@ const BACKGROUNDS = {
   'night-shrine': 'assets/bg-night-shrine.webp',
   'spring':       'assets/bg-spring.webp',
   'garden':       'assets/bg-garden.webp',
+  'garden-night': 'assets/bg-garden-night.webp', // the valley after dusk (graded from bg-garden)
   'moonlit':      'assets/bg-moonlit.webp',
   'sky':          'assets/bg-sky.webp',
   'cave':         'assets/bg-cave.webp',
@@ -2430,7 +2431,7 @@ const S = {
   },
 
   'shiro_mother': {
-    scene: 'garden', particles: 'sakura',
+    scene: 'garden-night', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '白露拉着你的手，钻过一条只有他知道的小路。眼前忽然开阔起来——' },
@@ -4005,7 +4006,7 @@ const S = {
 
   'rescue_deer': {
     flags: ['rescued_deer'],
-    scene: 'garden', particles: 'sakura',
+    scene: 'night-shrine', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'beast' }],
     lines: [
       { char: 'narrator', text: '撞在石灯笼上的白鹿，站起来了。' },
@@ -4026,7 +4027,7 @@ const S = {
 
   'rescue_whitewolf': {
     flags: ['rescued_whitewolf'],
-    scene: 'snowfield', particles: 'snowflakes',
+    scene: 'night-shrine', particles: 'snowflakes',
     chars: [{ id: 'yukimaru', pos: 'center', form: 'beast' }],
     transform_immediate: { char: 'yukimaru', text: '白狼 · 觉醒' },
     lines: [
@@ -4050,7 +4051,7 @@ const S = {
 
   'rescue_hawk': {
     flags: ['rescued_hawk'],
-    scene: 'sky', particles: 'feathers',
+    scene: 'night-shrine', particles: 'feathers',
     chars: [{ id: 'sou', pos: 'center', form: 'beast' }],
     transform_immediate: { char: 'sou', text: '蓝鹰 · 觉醒' },
     lines: [
@@ -4486,7 +4487,7 @@ const S = {
   },
 
   'day6_shiro': {
-    scene: 'garden', particles: 'sakura',
+    scene: 'garden-night', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '白露在缘廊底下等你。手里捧着一顶旧草帽，脚尖踮来踮去。' },
@@ -4520,7 +4521,7 @@ const S = {
   },
 
   'day6_shiro2': {
-    scene: 'garden', particles: 'sakura',
+    scene: 'garden-night', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '白露深吸一口气，闭上眼睛。小脸憋得通红。', if: 'shiro_hat' },
