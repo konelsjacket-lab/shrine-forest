@@ -351,6 +351,16 @@ html, body {
 @keyframes aff-popup { 0% { opacity: 1; transform: translateY(0) scale(1); } 50% { opacity: 1; transform: translateY(-30px) scale(1.2); } 100% { opacity: 0; transform: translateY(-60px) scale(0.8); } }
 
 /* === Title Screen === */
+/* Browsers block sound until the first tap, so the game opens on a tap-to-start gate; the title waits behind it. */
+#tap-gate { position: absolute; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; background: #06060f url('assets/ui-title.webp') center / cover no-repeat; cursor: pointer; transition: opacity 0.8s ease; }
+#tap-gate::before { content: ''; position: absolute; inset: 0; background: rgba(4,4,12,0.74); }
+#tap-gate.gone { opacity: 0; pointer-events: none; }
+.tg-inner { position: relative; text-align: center; padding: 0 16px; }
+.tg-title { font-family: var(--font-brush); font-size: clamp(48px, 14vw, 80px); color: #fff4dc; letter-spacing: 6px; text-shadow: 0 0 24px rgba(255,190,90,0.5), 0 3px 0 rgba(120,20,10,0.7); }
+.tg-hint { margin-top: 28px; font-family: var(--font); font-size: 15px; color: #f3cf7a; letter-spacing: 6px; animation: tg-pulse 2.2s ease-in-out infinite; }
+.tg-sub { margin-top: 10px; font-family: var(--font); font-size: 12px; color: var(--text-dim); letter-spacing: 2px; }
+@keyframes tg-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+#title-screen.waiting, #title-screen.waiting * { animation-play-state: paused !important; }
 #title-screen {
   position: absolute; inset: 0; display: flex; flex-direction: column;
   justify-content: center; align-items: center;
@@ -522,7 +532,10 @@ html, body {
 </head>
 <body>
 <div id="game">
-  <div id="title-screen">
+  <div id="tap-gate" role="button" tabindex="0" aria-label="轻触开始">
+    <div class="tg-inner"><div class="tg-title">杜鹃森</div><div class="tg-hint">— 轻触屏幕 —</div><div class="tg-sub">建议开启声音</div></div>
+  </div>
+  <div id="title-screen" class="waiting">
     <div id="title-particles"></div>
     <div id="title-content">
       <div id="title-jp">社と森のものがたり</div>
@@ -4189,6 +4202,12 @@ const S = {
     scene: 'shrine', particles: 'sakura',
     chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
     lines: [
+      { char: 'narrator', text: '下午，你帮琥珀把危机那夜倒掉的石灯笼，一盏一盏扶起来。' },
+      { char: 'narrator', text: '有的裂了。有的灯罩碎了一半。琥珀每扶起一盏，就摸摸它的头，叫一声它的名字。' },
+      { char: 'kohaku', text: '歪脖子，你又歪了一点。……没关系，这样比较好认。' },
+      { char: 'kohaku', text: '二十四号——', ifnot: 'named_lantern' },
+      { char: 'kohaku', text: '……「千代」。你倒得最远。是想去追谁吗？', if: 'named_lantern' },
+      { char: 'narrator', text: '扶到最后一盏的时候，太阳已经挨到山顶了。她拍了拍手上的灰，拉着你在石阶上坐下。' },
       { char: 'narrator', text: '黄昏。你和琥珀并排坐在鸟居下面的石阶上。', cg: 'cg_kohaku_torii' },
       { char: 'kohaku', text: '上个满月，我就是坐在这里等千代的。从太阳落山，等到太阳出来。' },
       { char: 'kohaku', text: '天亮的时候我跟自己说，下个月吧。下个月她就来了。' },
@@ -4213,6 +4232,38 @@ const S = {
       { char: 'kohaku', text: '明天以后，你再帮我数一次。' },
       { char: 'kohaku', text: '……真是的。你们这一家人，都这么会说话。' },
     ],
+    choices: [
+      { text: '伸手，轻轻摸了一下她的尾巴', affection: { fox: 3 }, flag: 'touched_tail', next: 'day6_kohaku2' },
+      { text: '「明天以后，我帮你数一辈子。」', affection: { fox: 3 }, next: 'day6_kohaku2' },
+    ],
+  },
+
+  'day6_kohaku2': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '尾巴在你手心底下抖了一下。很软，很暖，带着一点点阳光晒过的味道。', if: 'touched_tail' },
+      { char: 'kohaku', text: '……！', if: 'touched_tail' },
+      { char: 'kohaku', text: '狐、狐狸的尾巴，是不能随便摸的！千代当年也——', if: 'touched_tail' },
+      { char: 'narrator', text: '她说不下去了。尾巴却没有缩回去。反而又往你手心里，蹭了一下。', if: 'touched_tail' },
+      { char: 'narrator', text: '琥珀愣了很久。然后，她把脸转开了。', ifnot: 'touched_tail' },
+      { char: 'kohaku', text: '……一辈子。你们人类的一辈子，很短的。', ifnot: 'touched_tail' },
+      { char: 'kohaku', text: '可是，好像也够了。', ifnot: 'touched_tail' },
+      { char: 'narrator', text: '太阳落下去了一半。她抱着膝盖，看着山下。' },
+      { char: 'kohaku', text: '……我活了一千零七年。' },
+      { char: 'player', text: '诶？' },
+      { char: 'kohaku', text: '女孩子的秘密。今天，告诉你。' },
+      { char: 'kohaku', text: '一千年里，我送走过很多人。有的记得我，有的不记得。有的走的时候在哭，有的在笑。' },
+      { char: 'kohaku', text: '可是第一次有人叫我「姐姐」，是千代。八岁的千代。坐在这里，哭得满脸都是鼻涕。' },
+      { char: 'kohaku', text: '我给了她一颗糖。她不哭了，抬头说：「姐姐，你有耳朵。」' },
+      { char: 'kohaku', text: '……后来，她叫了我三十年姐姐。然后，就变成了我叫她「千代」。最后那几年，她摸着我的头叫我「小琥珀」。' },
+      { char: 'narrator', text: '她笑着说的。眼睛却一点一点地红了。' },
+      { char: 'kohaku', text: '你呢？你要叫我什么？' },
+      { char: 'player', text: '……琥珀。' },
+      { char: 'narrator', text: '她转过头来看你。很久。然后，把头靠在了你的肩膀上。' },
+      { char: 'kohaku', text: '嗯。就这个。' },
+      { char: 'kohaku', text: '以后，不管你变成大人，还是变成老人——都这样叫我。' },
+    ],
     next: 'day7_morning',
   },
 
@@ -4220,6 +4271,12 @@ const S = {
     scene: 'moonlit', particles: 'fireflies',
     chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
     lines: [
+      { char: 'narrator', text: '银朗在鸟居下面等你。他的手臂还缠着绷带，是危机那夜留下的。' },
+      { char: 'narrator', text: '你走过去的时候，他把一样东西塞进了你手里。是一根削好的竹杖。' },
+      { char: 'ginro', text: '……下山的路，比上山难走。' },
+      { char: 'player', text: '你削的？' },
+      { char: 'ginro', text: '……雪丸削的。我只是磨了一下。' },
+      { char: 'narrator', text: '竹杖的握柄上，刻着一个歪歪扭扭的狼头。你忍不住笑了。银朗的耳朵动了一下，假装没看见。' },
       { char: 'ginro', text: '满月那晚，结界从鸟居往下开。走这条路。' },
       { char: 'narrator', text: '他带着你，从鸟居一直走到山脚。走得很慢，每一个转弯，每一块会松动的石头，都指给你看。' },
       { char: 'ginro', text: '这块会滑。下雨天踩左边。' },
@@ -4241,6 +4298,37 @@ const S = {
       { char: 'ginro', text: '……那就三把。' },
       { char: 'narrator', text: '他说得很认真。你笑出了声。他的耳朵，又红了。' },
     ],
+    choices: [
+      { text: '「那你也要撑伞。下雨天，伞底下有两个人的位置。」', affection: { wolf: 3 }, flag: 'wolf_promise', next: 'day6_ginro2' },
+      { text: '「……为什么？为什么对我们家这么好？」', affection: { wolf: 3 }, next: 'day6_ginro2' },
+    ],
+  },
+
+  'day6_ginro2': {
+    scene: 'forest', particles: 'fireflies',
+    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '银朗没有回答。他低头看着手里那把伞，看了很久。', if: 'wolf_promise' },
+      { char: 'ginro', text: '……千代也说过一模一样的话。五十年前，第一次。', if: 'wolf_promise' },
+      { char: 'ginro', text: '我没有听。', if: 'wolf_promise' },
+      { char: 'narrator', text: '银朗看着山下。小镇的灯，又亮了几盏。', ifnot: 'wolf_promise' },
+      { char: 'ginro', text: '……六百年前。北边。那条雪沟。' },
+      { char: 'ginro', text: '我说过，我把一个人类的孩子叼了出来。送到了山下的村子口。' },
+      { char: 'ginro', text: '那孩子在雪沟里抱着我的脖子，哭了一整夜。鼻涕全蹭在我的毛上。' },
+      { char: 'narrator', text: '你想起了二十年前，蕨草坡上的那块石头。' },
+      { char: 'ginro', text: '后来我被赶出来，一路往南走。走了三个月，倒在这片森林外面。琥珀捡到了我。' },
+      { char: 'ginro', text: '过了很多很多年。一百多年前，有一个人类的女人上山来，跟琥珀立了约，当了第一个守铃人。' },
+      { char: 'ginro', text: '她身上，有那个孩子的味道。隔了五百年，淡得几乎闻不出来了。可是我认得。' },
+      { char: 'narrator', text: '风停了。萤火虫一点一点地亮起来。' },
+      { char: 'ginro', text: '狼不会忘记气味。' },
+      { char: 'ginro', text: '那个雪沟里的孩子……是你们这一家的祖先。' },
+      { char: 'ginro', text: '从那天起，我就守着这一家。她的女儿。女儿的女儿。千代。' },
+      { char: 'ginro', text: '……还有你。' },
+      { char: 'narrator', text: '他终于转过头来，看着你。冰蓝色的眼睛里，有一种很旧很旧的、六百年都没有变过的东西。' },
+      { char: 'ginro', text: '我不是对你们家好。' },
+      { char: 'ginro', text: '我只是……一直在等那个孩子，再抱一次我的脖子。' },
+      { char: 'ginro', text: '二十年前，你抱了。' },
+    ],
     next: 'day7_morning',
   },
 
@@ -4248,6 +4336,13 @@ const S = {
     scene: 'garden', particles: 'sakura',
     chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
     lines: [
+      { char: 'narrator', text: '白露在缘廊底下等你。手里捧着一顶旧草帽，脚尖踮来踮去。' },
+      { char: 'shiro', text: '你看！这是千代婆婆的！在她房间的柜子顶上找到的！' },
+      { char: 'shiro', text: '琥珀姐说，要下山的话，得先学会把角藏起来。我要练！你帮我看着！' },
+      { char: 'narrator', text: '他把草帽往头上一扣。帽子底下，「啵」「啵」「啵」，三朵小花从帽檐的缝里钻了出来。' },
+      { char: 'shiro', text: '……不算不算！再来！' },
+      { char: 'narrator', text: '练了一下午。草帽被花顶起来十一次。最后一次，他气得在草地上打滚，头上开了一圈红花。' },
+      { char: 'narrator', text: '傍晚，他拉着你去了花谷。' },
       { char: 'narrator', text: '花谷的白樱被烧焦了一半。可是焦黑的树枝上，已经冒出了新芽。' },
       { char: 'shiro', text: '我昨天晚上，一整夜都在跟它说话。它说它还想开花。' },
       { char: 'narrator', text: '白露蹲在树下，双手合拢，像是捧着什么东西。' },
@@ -4265,6 +4360,38 @@ const S = {
       { char: 'shiro', text: '离开几天，也不会痒了。' },
       { char: 'shiro', text: '……那我就能，跟你去看海了吧？' },
     ],
+    choices: [
+      { text: '把那顶草帽重新扣在他头上：「再练一次。我陪你。」', affection: { deer: 3 }, flag: 'shiro_hat', next: 'day6_shiro2' },
+      { text: '「海很远。可是我们可以先去看看山下的小溪通到哪里。」', affection: { deer: 3 }, next: 'day6_shiro2' },
+    ],
+  },
+
+  'day6_shiro2': {
+    scene: 'garden', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '白露深吸一口气，闭上眼睛。小脸憋得通红。', if: 'shiro_hat' },
+      { char: 'narrator', text: '一秒。两秒。三秒。……草帽，没有动。', if: 'shiro_hat' },
+      { char: 'shiro', text: '……成、成功了？我成功了？！', if: 'shiro_hat' },
+      { char: 'narrator', text: '他一高兴——「啵」。一朵蓝色的花，把帽子顶飞了。', if: 'shiro_hat' },
+      { char: 'shiro', text: '啊啊啊——！', if: 'shiro_hat' },
+      { char: 'narrator', text: '你们沿着花谷的溪水往下走。溪水穿过林子，穿过石缝，越流越宽。', ifnot: 'shiro_hat' },
+      { char: 'shiro', text: '它会一直流到海里吗？', ifnot: 'shiro_hat' },
+      { char: 'player', text: '会的。所有的溪，最后都会流到海里。', ifnot: 'shiro_hat' },
+      { char: 'shiro', text: '……那千代婆婆的饼干盒子里的花，也是从这里流出去的吗？', ifnot: 'shiro_hat' },
+      { char: 'narrator', text: '你们在白樱树下坐下来。他靠着你，看着那块平平的石头。' },
+      { char: 'shiro', text: '娘，明天是满月。' },
+      { char: 'shiro', text: '这次，我不躲在树洞里了。我会站在要石旁边，跟大家一起。' },
+      { char: 'shiro', text: '……那天晚上我快消失的时候，好安静。什么都听不见。' },
+      { char: 'shiro', text: '然后，我听见有人在喊我的名字。喊得好大声。好吵。' },
+      { char: 'narrator', text: '他抬起头看你。翠绿的眼睛里，映着白樱的花。' },
+      { char: 'shiro', text: '原来，被人叫名字，是这种感觉啊。' },
+      { char: 'shiro', text: '像是有人在黑漆漆的地方，拉住了你的手。' },
+      { char: 'shiro', text: '……娘那天晚上，也一直在叫我的名字。我在树洞里，听了一整夜。' },
+      { char: 'shiro', text: '她是不是，也想拉住我的手？' },
+      { char: 'narrator', text: '你没有回答。你只是握住了他的手。他的手很小，很暖。' },
+      { char: 'narrator', text: '白樱的枝头上，一朵新的花，开了。' },
+    ],
     next: 'day7_morning',
   },
 
@@ -4272,6 +4399,13 @@ const S = {
     scene: 'snowfield', particles: 'snowflakes',
     chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
     lines: [
+      { char: 'narrator', text: '雪丸肩膀上的伤还没好全，缠着厚厚的绷带。可他一见到你，就从树上跳了下来。' },
+      { char: 'yukimaru', text: '来得正好！比赛！' },
+      { char: 'player', text: '……比什么？' },
+      { char: 'yukimaru', text: '两百米！你说的，你一天能跑两百米！我让你一条腿！' },
+      { char: 'narrator', text: '你跑了。他单脚跳着追你，还是赢了。赢了以后在草地上笑得打滚，扯到了伤口，「嗷」地叫了一声，又接着笑。' },
+      { char: 'yukimaru', text: '你是我见过最慢的生物！比冬眠的熊还慢！' },
+      { char: 'narrator', text: '笑够了，他拉着你，爬上了那棵最高的树。' },
       { char: 'narrator', text: '还是那棵最高的树。雪丸坐在树枝上，这次没有看北边。' },
       { char: 'yukimaru', text: '喂。我决定了。' },
       { char: 'yukimaru', text: '我不回北边了。' },
@@ -4294,6 +4428,39 @@ const S = {
       { char: 'player', text: '所以——雪丸。' },
       { char: 'narrator', text: '他愣了一下。然后，把脸埋进了膝盖里。尾巴把树枝上的雪，全拍了下去。' },
     ],
+    choices: [
+      { text: '「全北方最没用的押送狼，可是杜鹃森最快的守卫。」', affection: { whitewolf: 3 }, flag: 'yuki_guard', next: 'day6_yukimaru2' },
+      { text: '「走。去找你舅舅。让他教你巡北坡。」', affection: { whitewolf: 2, wolf: 1 }, next: 'day6_yukimaru2' },
+    ],
+  },
+
+  'day6_yukimaru2': {
+    scene: 'moonlit', particles: 'fireflies',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '他从膝盖里抬起头。眼睛红红的。', if: 'yuki_guard' },
+      { char: 'yukimaru', text: '……你再说一遍。', if: 'yuki_guard' },
+      { char: 'player', text: '杜鹃森，最快的守卫。', if: 'yuki_guard' },
+      { char: 'yukimaru', text: '……嘿嘿。', if: 'yuki_guard' },
+      { char: 'yukimaru', text: '那、那我们去找舅舅吧！最快的守卫，得有人教巡逻路线！', if: 'yuki_guard' },
+      { char: 'yukimaru', text: '……他会教吗？', ifnot: 'yuki_guard' },
+      { char: 'player', text: '你去问了才知道。', ifnot: 'yuki_guard' },
+      { char: 'narrator', text: '银朗在北坡的林子边上。手掌贴在一棵老树上，闭着眼睛。' },
+      { char: 'narrator', text: '雪丸在离他三步远的地方停住了。脚趾在地上蹭来蹭去。' },
+      { char: 'yukimaru', text: '……喂。舅舅。' },
+      { char: 'narrator', text: '银朗睁开了眼睛。' },
+      { char: 'yukimaru', text: '北坡……你说归我巡。那你得教我。哪棵树是结，哪块石头会滑，哪边有蛇——普通的那种。' },
+      { char: 'narrator', text: '银朗看着他。看了很久。',
+        chars: [{ id: 'yukimaru', pos: 'left', form: 'human' }, { id: 'ginro', pos: 'right', form: 'human' }] },
+      { char: 'ginro', text: '……跟紧。' },
+      { char: 'yukimaru', text: '走你左边？' },
+      { char: 'ginro', text: '左边有人了。' },
+      { char: 'narrator', text: '他看了你一眼。' },
+      { char: 'ginro', text: '……雪丸，右边。' },
+      { char: 'narrator', text: '雪丸愣了半秒。然后咧开嘴笑了，一步跨到了银朗的右边。尾巴摇得像要飞起来。' },
+      { char: 'narrator', text: '你们三个人，在北坡的林子里，一直走到月亮升起来。银朗一棵树一棵树地教。雪丸一棵树一棵树地记。记错了，就被敲一下脑袋。' },
+      { char: 'narrator', text: '他被敲了十七下。每一下，都在笑。' },
+    ],
     next: 'day7_morning',
   },
 
@@ -4301,6 +4468,12 @@ const S = {
     scene: 'sky', particles: 'feathers',
     chars: [{ id: 'sou', pos: 'center', form: 'human' }],
     lines: [
+      { char: 'narrator', text: '苍羽今天一整天都在地上。' },
+      { char: 'narrator', text: '翅膀受了伤，飞不起来。他走路的样子很奇怪——每一步都像是在试探地面结不结实。' },
+      { char: 'narrator', text: '白露拉着他去花谷，他被树根绊倒了两次。雪丸要跟他赛跑，他站在原地，看着雪丸跑远，一动不动。' },
+      { char: 'sou', text: '……地上，好多东西。' },
+      { char: 'sou', text: '从天上看，这些全都是平的。' },
+      { char: 'narrator', text: '傍晚的时候，他一个人坐在缘廊的最边上，看着天。你经过的时候，他抬头看了你一眼，又低下了头。' },
       { char: 'narrator', text: '夜里，你抱着一个梅子饭团，顺着梯子爬上了屋顶。' },
       { char: 'narrator', text: '苍羽坐在屋脊上。受伤的肩膀缠着绷带。看到你，他往旁边让了让。' },
       { char: 'narrator', text: '你们并排坐着，分着吃了那个饭团。' },
@@ -4321,6 +4494,34 @@ const S = {
       { char: 'narrator', text: '落得很稳。稳稳当当，一片瓦都没有响。' },
       { char: 'sou', text: '……练过了。' },
     ],
+    choices: [
+      { text: '「翅膀好了以后，再带我飞一次吧。」', affection: { hawk: 3 }, flag: 'sou_fly', next: 'day6_sou2' },
+      { text: '「今天在地上，被大家吵了一整天……是什么感觉？」', affection: { hawk: 3 }, next: 'day6_sou2' },
+    ],
+  },
+
+  'day6_sou2': {
+    scene: 'sky', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'sou', text: '……现在就可以。', if: 'sou_fly' },
+      { char: 'player', text: '可是你的翅膀——', if: 'sou_fly' },
+      { char: 'sou', text: '飞得慢一点就好。……我想让你看一样东西。', if: 'sou_fly' },
+      { char: 'narrator', text: '他化成了蓝鹰。翅膀上还缠着绷带，起飞的时候晃了一下。可是他飞起来了。', if: 'sou_fly' },
+      { char: 'narrator', text: '整片杜鹃森在月光下展开。北坡烧焦了一大片，可是焦土上，已经冒出了一层浅浅的绿。', if: 'sou_fly', cg: 'cg_sou_flight' },
+      { char: 'sou', text: '……三片。今天，只剩三片了。', if: 'sou_fly' },
+      { char: 'sou', text: '明天以后，就一片都没有了。', if: 'sou_fly' },
+      { char: 'narrator', text: '苍羽看着月亮，想了很久。', ifnot: 'sou_fly' },
+      { char: 'sou', text: '……像是从很高的地方，掉进了一锅热汤里。', ifnot: 'sou_fly' },
+      { char: 'sou', text: '烫。可是不想爬出来。', ifnot: 'sou_fly' },
+      { char: 'sou', text: '五十年，我每天都在数。数黑斑，数云，数千代上山的次数。', cg: null },
+      { char: 'sou', text: '六百次。我数到了六百次。' },
+      { char: 'sou', text: '然后，就没有了。' },
+      { char: 'narrator', text: '风吹过来。他的长发，落在你的肩膀上。' },
+      { char: 'sou', text: '……我想，以后数别的。' },
+      { char: 'sou', text: '数你上山的次数。' },
+      { char: 'sou', text: '一次，两次，三次。……数到我数不动为止。' },
+    ],
     next: 'day7_morning',
   },
 
@@ -4328,6 +4529,11 @@ const S = {
     scene: 'cave', particles: 'spirits',
     chars: [{ id: 'genya', pos: 'center', form: 'human' }],
     lines: [
+      { char: 'narrator', text: '你走下石阶的时候，听见底下有人在咳嗽。' },
+      { char: 'narrator', text: '还有另一个声音。很小，很轻。是在哼歌——是琥珀那首很老很老的歌。' },
+      { char: 'narrator', text: '你走到洞口，看见琥珀蹲在棋盘边上，往一个碗里倒热水。看到你，她「噌」地站起来，耳朵都竖直了。' },
+      { char: 'kohaku', text: '我、我只是来送茶的！马上就走！' },
+      { char: 'narrator', text: '她从你身边跑过去，跑上了石阶。尾巴擦过你的手背——没有炸。' },
       { char: 'narrator', text: '要石的光比前几天弱了很多。琥珀在洞口留了一碗花茶，已经凉了。' },
       { char: 'narrator', text: '玄夜靠在石头旁边，手边摆着那盘下到一半的棋。' },
       { char: 'genya', text: '来了？坐。轮到你了。' },
@@ -4355,6 +4561,40 @@ const S = {
       { char: 'genya', text: '……二十年。我把整个洞窟都翻遍了。' },
       { char: 'genya', text: '原来，被她偷走了。' },
       { char: 'narrator', text: '他笑了。笑得肩膀都在抖。笑着笑着，他抬起手，挡住了眼睛。' },
+    ],
+    choices: [
+      { text: '「明天以后，你也上来看看月亮吧。」', affection: { snake: 3 }, flag: 'genya_moon', next: 'day6_genya2' },
+      { text: '「我会念你的名字。每个满月，第一个念。」', affection: { snake: 3 }, next: 'day6_genya2' },
+    ],
+  },
+
+  'day6_genya2': {
+    scene: 'cave', particles: 'spirits',
+    chars: [{ id: 'genya', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'genya', text: '……月亮。', if: 'genya_moon' },
+      { char: 'genya', text: '我上不去的。至少，不能待太久。', if: 'genya_moon' },
+      { char: 'player', text: '为什么？', if: 'genya_moon' },
+      { char: 'genya', text: '……第一个？', ifnot: 'genya_moon' },
+      { char: 'genya', text: '不行。第一个，得是那只狐狸。不然她会哭着烧了我的棋盘。', ifnot: 'genya_moon' },
+      { char: 'genya', text: '……第二个吧。第二个，就够了。', ifnot: 'genya_moon' },
+      { char: 'narrator', text: '他把手掌贴在要石上。紫色的光，在他的指缝间一明一暗。' },
+      { char: 'genya', text: '七百年前，这片森林还没有结界。灵界那边的浊气，一年一年地漫过来。' },
+      { char: 'genya', text: '我那时候还很年轻。蜕了一层皮。很大，很结实的一层。' },
+      { char: 'genya', text: '我把它盘成一圈，压在这块石头上。注连绳底下那层发灰的东西——就是它。' },
+      { char: 'narrator', text: '你看着那块石头。注连绳底下，确实有一层薄薄的、像鳞片一样的东西，裹着石头。' },
+      { char: 'genya', text: '从那天起，我和它就长在一起了。它疼，我就疼。它饿，我就饿。' },
+      { char: 'genya', text: '离开它太久……它会松。我也会。' },
+      { char: 'genya', text: '所以守铃人交出来的记忆，都存在它身上——也就是，存在我身上。' },
+      { char: 'genya', text: '六百个满月，千代的六百段。还有她娘的，她外婆的。一百多年。' },
+      { char: 'narrator', text: '他笑了一下。' },
+      { char: 'genya', text: '我是这座山上，记得千代最多的人。比她自己记得还多。' },
+      { char: 'genya', text: '……所以，她走了以后，我才那么怕被忘掉。' },
+      { char: 'genya', text: '我怕没有人记得我，那些记忆就一起散了。' },
+      { char: 'narrator', text: '你伸出手，覆在他按着要石的那只手上。冰凉的。' },
+      { char: 'player', text: '我记得。' },
+      { char: 'narrator', text: '他低头看着你的手。很久，很久。' },
+      { char: 'genya', text: '……嗯。' },
     ],
     next: 'day7_morning',
   },
@@ -5020,7 +5260,22 @@ document.addEventListener('keyup', e => { if (e.key === 'Control' && skip.hold) 
   if (music.on && music.el && music.el.paused) music.el.play().then(() => fadeTo(music.el, 0.55, 1500)).catch(() => {});
 }, { once: false }));
 
+function openGate() {
+  const g = $('#tap-gate');
+  if (!g || g.classList.contains('gone')) return;
+  music.unlocked = true;
+  g.classList.add('gone');
+  $('#title-screen').classList.remove('waiting');
+  if (music.on && music.el && music.el.paused) music.el.play().then(() => fadeTo(music.el, 0.55, 1500)).catch(() => {});
+  setTimeout(() => g.remove(), 900);
+}
+
 function initTitle() {
+  const gate = $('#tap-gate');
+  gate.addEventListener('click', openGate);
+  gate.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGate(); } });
+  if (!music.on) gate.querySelector('.tg-sub').textContent = '声音已关闭 · 可在右上角 ♪ 打开';
+  gate.focus();
   const c = $('#title-particles');
   for (let i = 0; i < 20; i++) {
     const f = document.createElement('div');
@@ -5298,7 +5553,7 @@ function showChoices(choices) {
 }
 
 // Most points each character can earn on one playthrough; scales every route so a devoted run ends near 95.
-const AFF_MAX = { fox: 36, wolf: 29, deer: 22, whitewolf: 28, hawk: 25, snake: 23 };
+const AFF_MAX = { fox: 39, wolf: 32, deer: 25, whitewolf: 31, hawk: 28, snake: 26 };
 
 function addAff(who, amt) {
   state.affection[who] = Math.min(100, state.affection[who] + amt * 95 / AFF_MAX[who]);
@@ -5439,7 +5694,7 @@ function updateDay() {
 //  SAVE / LOAD
 // ============================================================
 const SAVE_KEY = 'dujuansen-saves-v1';
-const STORY_VERSION = 10; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
+const STORY_VERSION = 11; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
 const MANUAL_SLOTS = ['1','2','3','4','5','6','7','8'];
 const storageOK = (() => {
   try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; }

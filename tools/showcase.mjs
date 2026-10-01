@@ -4,6 +4,7 @@ const OUT = new URL('../screenshots', import.meta.url).pathname;
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--ignore-certificate-errors', '--autoplay-policy=no-user-gesture-required'] });
 const ctx = await b.newContext({ viewport: { width: 390, height: 780 }, deviceScaleFactor: 2, ignoreHTTPSErrors: true });
 const p = await ctx.newPage();
+p.on('load', () => p.evaluate(() => document.getElementById('tap-gate')?.click()).catch(() => {})); // tap-to-start gate
 const errs = []; p.on('pageerror', e => errs.push(e.message));
 await p.goto(GAME);
 await p.evaluate(() => localStorage.clear());

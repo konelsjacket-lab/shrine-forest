@@ -17,7 +17,7 @@
 | 7 | 第六、七天 + 六个结局 | ✅ 321→~520 句；新节点 day6_stone(+mem,2) / day6_letters(2) / day7_morning；仪式加入「代价」与六人念名；终章章节卡移到 day7_morning |
 | 8 | 全路线测试、AFF_MAX 重算、字体重抽、STORY_VERSION | ✅ 每步都做了；最终 AFF_MAX fox 36 / wolf 29 / deer 22 / whitewolf 28 / hawk 25 / snake 23；STORY_VERSION 9；所有节点可达、所有 if/ifnot flag 都有出处、所有谜团都能解开 |
 
-目标：剧本从 ~1600 句 / 3.4 万字扩到 ≥3200 句。**实际完成：2753 句**（含结局扩写）（每天约 1.3–1.9 倍；分支路线的内容玩家一周目只看到一部分）。每步只改自己那一段，节点 id 尽量沿用。
+目标：剧本从 ~1600 句 / 3.4 万字扩到 ≥3200 句。**实际完成：2913 句**（含结局与第 6 天个人线扩写）（每天约 1.3–1.9 倍；分支路线的内容玩家一周目只看到一部分）。每步只改自己那一段，节点 id 尽量沿用。
 
 ## 第 2 步埋下的线（后面的步骤要接住）
 
@@ -90,7 +90,13 @@
 
 - 还没画的 CG（`CG_IMAGES` 里为 null 的）：cg_main_adeng、cg_shiro_garland、cg_shiro_bloom、cg_yuki_treetop、cg_yuki_howl、cg_sou_flight、cg_sou_letters、cg_genya_go、cg_genya_coil。图到了只改 `CG_IMAGES` 一行。
 - ~~六个结局各扩成一整场~~ ✅ 已做：每个结局 = `ending_X`（满月夜告别）→ `ending_X2`（后日谈，一个小选择，不加好感）→ `ending_X3`（带 `ending` 卡）。后日谈节点 `day: -1` 隐藏天数指示。`routeToEnding` 仍然只认 `ending_X`。
-- 想冲到 3200 句：剩下最有价值的是第 6 天个人线（每条 ~20 句）。
+- ~~第 6 天个人线~~ ✅ 已做：每条 = `day6_X`（加了开场铺垫，末尾一个 +3 好感的选择）→ `day6_X2` → `day7_morning`。揭开的设定：琥珀一千零七岁；银朗救的雪沟孩子是守铃人家族的祖先（第一个守铃人身上有那孩子的味道）；玄夜七百年前用自己蜕的皮封住要石、与它长在一起、不能离开太久，所以历代守铃人的记忆都存在他身上。最终 AFF_MAX fox 39 / wolf 32 / deer 25 / whitewolf 31 / hawk 28 / snake 26；STORY_VERSION 11。
+
+## 开场「轻触屏幕」
+
+- 浏览器在用户第一次点击前不允许出声，所以页面先显示 `#tap-gate`（z-index 80），标题页带 `waiting` 类、动画暂停。点一下 → `openGate()`：解锁音频、播放标题 BGM、移除 `waiting` 让标题动画从头开始。
+- 所有 tools/*.mjs 都在 `newPage()` 后加了一行：每次页面 load 自动点掉 gate。新写测试脚本也要加。
+- savetest 里有三项检查 gate（消失、标题动画开始、标题音乐在播）。
 
 ## 跳过已读（skip）
 

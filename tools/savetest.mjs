@@ -3,6 +3,7 @@ const GAME = new URL('../index.html', import.meta.url).href;
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' }).catch(() => chromium.launch());
 const ctx = await browser.newContext({ viewport: { width: 390, height: 780 } });
 const page = await ctx.newPage();
+page.on('load', () => page.evaluate(() => document.getElementById('tap-gate')?.click()).catch(() => {})); // tap-to-start gate
 const errs = []; page.on('pageerror', e => errs.push(e.message));
 
 const ok = (c, m) => console.log((c ? 'PASS ' : 'FAIL ') + m);
@@ -14,6 +15,9 @@ async function adv() { const t = await text(); for (let i = 0; i < 4 && (await t
 await page.goto(GAME); await page.evaluate(() => localStorage.clear()); await page.reload();
 await page.waitForTimeout(2500);
 ok(!(await vis('#continue-btn')), 'no saves: continue hidden');
+ok(await page.evaluate(() => !document.getElementById('tap-gate') || document.getElementById('tap-gate').classList.contains('gone')), 'tap gate dismissed by a tap');
+ok(await page.evaluate(() => !document.querySelector('#title-screen.waiting')), 'title animations start after the tap');
+ok(await page.evaluate(() => !music.on || (music.el && !music.el.paused)), 'title music is playing after the tap');
 await page.screenshot({ path: '/tmp/s0-title-empty.png' });
 
 await page.click('#start-btn'); await page.waitForTimeout(1600 + 3400);

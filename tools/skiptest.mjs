@@ -2,6 +2,7 @@ import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
 const GAME = new URL('../index.html', import.meta.url).href;
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' }).catch(() => chromium.launch());
 const page = await (await browser.newContext({ viewport: { width: 390, height: 780 } })).newPage();
+page.on('load', () => page.evaluate(() => document.getElementById('tap-gate')?.click()).catch(() => {})); // tap-to-start gate
 const errs = []; page.on('pageerror', e => errs.push(e.message));
 const ok = (c, m) => console.log((c ? 'PASS ' : 'FAIL ') + m);
 const st = () => page.evaluate(() => ({ node: state.currentNode, line: state.line, skip: skip.active(), choice: $('#choice-layer').classList.contains('active'), toast: [...document.querySelectorAll('.save-toast')].map(t => t.textContent).pop() || '' }));

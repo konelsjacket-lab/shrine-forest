@@ -6,6 +6,7 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
 async function run(t) {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 780 } });
   const page = await ctx.newPage();
+  page.on('load', () => page.evaluate(() => document.getElementById('tap-gate')?.click()).catch(() => {})); // tap-to-start gate
   const errs = []; page.on('pageerror', e => errs.push(e.message));
   await page.goto(GAME);
   await page.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
