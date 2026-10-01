@@ -60,7 +60,7 @@ body { background: #333; font-family: 'WK', serif; color: var(--ink); padding: 2
 /* page background 1920x1200: the forest, dark and soft so content stays readable */
 .pagebg { position: relative; width: 1920px; height: 1200px; overflow: hidden; background: var(--bg); }
 .pagebg::before { content: ''; position: absolute; inset: -40px; background: url('../assets/bg-night-shrine.webp') center 40% / cover; filter: blur(6px) brightness(0.42) saturate(0.85); }
-.pagebg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 34% 70% at 50% 45%, rgba(14,16,36,0.88), rgba(14,16,36,0.35) 70%), linear-gradient(transparent 55%, var(--bg) 98%); }
+.pagebg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 34% 70% at 50% 50%, rgba(14,16,36,0.88), rgba(14,16,36,0.35) 70%), linear-gradient(var(--bg) 1%, transparent 22%, transparent 70%, var(--bg) 99%), linear-gradient(90deg, var(--bg), transparent 8%, transparent 92%, var(--bg)); } /* every edge is exactly the page colour: tiles without a seam */
 /* embed background 960x640: key art behind the Run game button */
 .embedbg { position: relative; width: 960px; height: 640px; overflow: hidden; background: var(--bg) url('../assets/ui-title.webp') center 52% / cover; }
 .embedbg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 30% 22% at 50% 54%, rgba(8,8,24,0.55), transparent 80%), linear-gradient(rgba(8,8,24,0.55), transparent 38%, transparent 70%, rgba(8,8,24,0.7)); }
