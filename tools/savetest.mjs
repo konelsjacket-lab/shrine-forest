@@ -52,7 +52,7 @@ ok(await page.evaluate(l => state.line === l + 1, beforeLine), 'one tap advances
 
 // save at a choice
 await page.evaluate(() => playNode('day4_breakfast')); await page.waitForTimeout(3500);
-for (let i = 0; i < 30 && !(await page.$eval('#choice-layer', e => e.classList.contains('active'))); i++) await adv();
+for (let i = 0; i < 80 && !(await page.$eval('#choice-layer', e => e.classList.contains('active'))); i++) await adv();
 await page.click('#menu-btn'); await page.click('[data-act=save]'); await page.click('[data-slot="2"]'); await page.waitForTimeout(200); await page.click('[data-act=close]');
 await page.evaluate(() => playNode('start')); await page.waitForTimeout(500);
 
