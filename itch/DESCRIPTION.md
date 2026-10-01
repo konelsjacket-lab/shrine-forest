@@ -12,6 +12,8 @@
 ## 主题（Edit theme，在游戏页面上方的工具条里）
 
 - Banner：上传 page-banner.png
+- Background image：上传 page-background.jpg（压暗、虚化的夜晚神社）。下面选项选 Cover / 不重复，Position 选 Top。
+- Embed BG（游戏启动前「Run game」按钮后面的图）：上传 page-embed-bg.jpg。按钮会落在鸟居正中间。
 - Background：#0e1024
 - Background 2（内容底色）：#0e1024（和图片底色一样，图片就会和页面融成一片）
 - Text：#f1e8d8

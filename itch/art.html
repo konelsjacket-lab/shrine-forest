@@ -56,6 +56,19 @@ body { background: #333; font-family: 'WK', serif; color: var(--ink); padding: 2
 .sec .cards, .sec .cgs { padding-top: 6px; padding-bottom: 0; }
 .quote { text-align: center; font-family: 'Brush'; font-size: 26px; letter-spacing: 4px; color: var(--gold); margin-top: 22px; text-shadow: 0 0 14px rgba(243,207,122,0.35); }
 .foot { text-align: center; font-size: 11.5px; color: #7f7a8e; margin-top: 14px; letter-spacing: 1px; }
+
+/* page background 1920x1200: the forest, dark and soft so content stays readable */
+.pagebg { position: relative; width: 1920px; height: 1200px; overflow: hidden; background: var(--bg); }
+.pagebg::before { content: ''; position: absolute; inset: -40px; background: url('../assets/bg-night-shrine.webp') center 40% / cover; filter: blur(6px) brightness(0.42) saturate(0.85); }
+.pagebg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 34% 70% at 50% 45%, rgba(14,16,36,0.88), rgba(14,16,36,0.35) 70%), linear-gradient(transparent 55%, var(--bg) 98%); }
+/* embed background 960x640: key art behind the Run game button */
+.embedbg { position: relative; width: 960px; height: 640px; overflow: hidden; background: var(--bg) url('../assets/ui-title.webp') center 52% / cover; }
+.embedbg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 30% 22% at 50% 54%, rgba(8,8,24,0.55), transparent 80%), linear-gradient(rgba(8,8,24,0.55), transparent 38%, transparent 70%, rgba(8,8,24,0.7)); }
+.embedbg .t { position: absolute; left: 0; right: 0; top: 70px; text-align: center; }
+.embedbg .jp { font-size: 14px; letter-spacing: 9px; color: var(--gold); text-shadow: 0 1px 6px #000; }
+.embedbg .main { font-family: 'Brush'; font-size: 92px; line-height: 1.1; color: #fff4dc; letter-spacing: 8px; text-shadow: 0 0 26px rgba(255,190,90,0.6), 0 4px 0 rgba(120,20,10,0.75), 0 0 60px rgba(0,0,0,0.7); }
+.embedbg .sub { font-size: 16px; letter-spacing: 6px; color: #f0e2c4; text-shadow: 0 1px 6px #000; }
+.embedbg .hint { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-size: 13px; letter-spacing: 4px; color: rgba(241,232,216,0.75); text-shadow: 0 1px 4px #000; }
 </style>
 </head>
 <body>
@@ -114,6 +127,9 @@ body { background: #333; font-family: 'WK', serif; color: var(--ink); padding: 2
   <div class="quote">有名字的东西，被叫到的时候，就会亮。</div>
   <div class="foot">字体：霞鹜文楷（LXGW WenKai, OFL）· 马善政楷书（Ma Shan Zheng, OFL）</div>
 </div>
+
+<div class="pagebg" data-shot="background"></div>
+<div class="embedbg" data-shot="embed-bg"><div class="t"><div class="jp">社と森のものがたり</div><div class="main">杜鹃森</div><div class="sub">神社与森林的恋爱物语</div></div><div class="hint">手机 · 电脑浏览器直接玩 · 全中文</div></div>
 
 <script>
 // face position in each sprite (from PORTRAIT_POS in index.html): ex/ey = eye point in %, s = zoom
