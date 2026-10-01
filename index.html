@@ -1867,7 +1867,7 @@ const S = {
   },
 
   'day2_umbrella': {
-    scene: 'night-shrine', particles: 'fireflies',
+    scene: 'night-shrine', particles: 'fireflies', keepCG: true,
     chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '伞柄在你们两个人的手之间，停住了。', if: 'shared_umbrella' },
@@ -4882,7 +4882,7 @@ const S = {
   },
 
   'ending_wolf3': {
-    scene: 'forest', particles: null, day: -1, // epilogue: hides the 7-day counter
+    scene: 'forest', particles: null, day: -1, keepCG: true, // epilogue: hides the 7-day counter
     chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
     lines: [
       { char: 'narrator', text: '他整个人僵住了。很久很久，一动不动。', if: 'wolf_close' },
@@ -4983,10 +4983,10 @@ const S = {
       { char: 'narrator', text: '长长的，响亮的，一点都不悲伤。' },
       { char: 'narrator', text: '是朝着北边的。可是这一次，不像在问什么了。像是在宣布。' },
       { char: 'narrator', text: '——这里，是我的窝。' },
-      { char: 'narrator', text: '然后，一道白影从树梢上一路跳下来，落在你面前。', cg: null },
+      { char: 'narrator', text: '然后，一道白影从树梢上一路跳下来，落在你面前。' },
       { char: 'yukimaru', text: '我说了我会一直看着的！结果看着看着，腿自己就跑下来了！' },
       { char: 'yukimaru', text: '……再送一段。就一段。' },
-      { char: 'narrator', text: '他送你到了老杉树下。又送了一段。又一段。' },
+      { char: 'narrator', text: '他送你到了老杉树下。又送了一段。又一段。', cg: null },
       { char: 'yukimaru', text: '啊，不行了，再往前就出结界了。舅舅会骂死我的。' },
       { char: 'yukimaru', text: '下个满月，你第一个见到的，一定要是我。说好了。比苍羽还快。' },
       { char: 'narrator', text: '他往回跑了几步，又停下，回过头来。' },
@@ -5167,7 +5167,7 @@ const S = {
   },
 
   'ending_snake3': {
-    scene: 'night-shrine', particles: 'spirits', day: -1, // epilogue: hides the 7-day counter
+    scene: 'night-shrine', particles: 'spirits', day: -1, keepCG: true, // epilogue: hides the 7-day counter
     chars: [{ id: 'genya', pos: 'center', form: 'human' }],
     lines: [
       { char: 'genya', text: '……月亮？', if: 'snake_moon' },
@@ -5327,7 +5327,7 @@ function playNode(id) {
   if (node.transform_immediate) showTransform(node.transform_immediate.char, node.transform_immediate.text);
   if (node.chapter) state.chapter = node.chapter;
   (node.flags || []).forEach(setFlag);
-  setCG(null);
+  if (!(node.keepCG && state.cg)) setCG(null); // keepCG: carry the previous node's CG into this one
   playBgm(bgmFor(id));
   setFlashback(!!node.flashback);
   autoSave();
@@ -5345,7 +5345,7 @@ function startLines(node, i) {
   const line = node.lines[i];
   if ((line.if && !state.flags[line.if]) || (line.ifnot && state.flags[line.ifnot])) { startLines(node, i + 1); return; }
   if (line.chars) { state.chars = line.chars.map(c => ({ ...c })); setChars(state.chars); }
-  if ('cg' in line) setCG(line.cg); else if (line.chars) setCG(null);
+  if ('cg' in line) setCG(line.cg); // a CG stays up (over any cast changes) until a line clears it or the node ends
   if (line.transform) showTransform(line.transform.char, line.transform.text);
   if (line.flag) setFlag(line.flag);
   if (line.text.startsWith('叮') && !skip.active()) playBell();

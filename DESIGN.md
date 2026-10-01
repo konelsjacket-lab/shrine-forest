@@ -92,6 +92,12 @@
 - ~~六个结局各扩成一整场~~ ✅ 已做：每个结局 = `ending_X`（满月夜告别）→ `ending_X2`（后日谈，一个小选择，不加好感）→ `ending_X3`（带 `ending` 卡）。后日谈节点 `day: -1` 隐藏天数指示。`routeToEnding` 仍然只认 `ending_X`。
 - ~~第 6 天个人线~~ ✅ 已做：每条 = `day6_X`（加了开场铺垫，末尾一个 +3 好感的选择）→ `day6_X2` → `day7_morning`。揭开的设定：琥珀一千零七岁；银朗救的雪沟孩子是守铃人家族的祖先（第一个守铃人身上有那孩子的味道）；玄夜七百年前用自己蜕的皮封住要石、与它长在一起、不能离开太久，所以历代守铃人的记忆都存在他身上。最终 AFF_MAX fox 39 / wolf 32 / deer 25 / whitewolf 31 / hawk 28 / snake 26；STORY_VERSION 11。
 
+## CG 什么时候关
+
+- 台词 `cg: 'id'` 打开，`cg: null` 关闭；进入新节点时自动关闭——**除非新节点带 `keepCG: true`**，那就沿用上一个节点的 CG（用于 CG 中间插了选项的场景：day2_umbrella、ending_wolf3、ending_snake3）。
+- 台词级 `chars` 换人**不再**关闭 CG（CG 盖在立绘上面，换人看不见）。想在换人时关 CG，就在那句写 `cg: null`。
+- 对话框始终在 CG 上面。测试：`node tools/cgtest.mjs`（9 项）。
+
 ## 开场「轻触屏幕」
 
 - 浏览器在用户第一次点击前不允许出声，所以页面先显示 `#tap-gate`（z-index 80），标题页带 `waiting` 类、动画暂停。点一下 → `openGate()`：解锁音频、播放标题 BGM、移除 `waiting` 让标题动画从头开始。
@@ -117,7 +123,7 @@
   `pip install fonttools brotli`；下载 `https://github.com/lxgw/LxgwWenKai/releases/download/v1.510/LXGWWenKai-Regular.ttf`；
   从 html 取所有 >U+2000 字符 + ASCII + 常用标点写入 chars.txt；
   `pyftsubset LXGWWenKai-Regular.ttf --text-file=chars.txt --flavor=woff2 --output-file=assets/font-wenkai.woff2 --layout-features='*' --no-hinting`
-- 测试：`node tools/skiptest.mjs`（跳过已读，12 项）；`node tools/playthrough.mjs`（六条线各自追一个角色自动通关，应各到自己的 rescue_* 与 ending_*）；`node tools/savetest.mjs`（15 项存档测试）。截图用 playwright，启动参数要加 `--ignore-certificate-errors` 且 context 加 `ignoreHTTPSErrors:true`，否则 Google 字体加载不出来。
+- 测试：`node tools/cgtest.mjs`（CG 停留，9 项）；`node tools/skiptest.mjs`（跳过已读，12 项）；`node tools/playthrough.mjs`（六条线各自追一个角色自动通关，应各到自己的 rescue_* 与 ending_*）；`node tools/savetest.mjs`（15 项存档测试）。截图用 playwright，启动参数要加 `--ignore-certificate-errors` 且 context 加 `ignoreHTTPSErrors:true`，否则 Google 字体加载不出来。
 - 发布：Artifact publish 同一 file_path + url，新图片/音频放 `files`。
 
 ## 主线节奏（三幕 + 倒计时）
