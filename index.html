@@ -286,6 +286,9 @@ html, body {
 .gal-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .gal-item span { position: relative; width: 100%; padding: 4px 2px; font-family: var(--font); font-size: 11px; color: #f1e8d8; background: linear-gradient(transparent, rgba(0,0,0,0.75)); text-align: center; }
 .gal-item.locked { cursor: default; }
+.gal-done { flex: 0 0 auto; text-align: center; padding: 8px 8px 0; font-family: var(--font-brush); font-size: 20px; letter-spacing: 4px; color: #f3cf7a; text-shadow: 0 0 12px rgba(243,207,122,0.4); }
+.gal-done small { display: block; margin-top: 6px; font-family: var(--font); font-size: 12px; letter-spacing: 1px; line-height: 1.7; color: var(--text-dim); text-shadow: none; }
+.gal-extra img { object-fit: cover; object-position: 55% 6%; }
 .gal-item.locked span { color: var(--text-dim); }
 .gal-item.locked::before { content: '？'; position: absolute; top: 38%; left: 0; right: 0; text-align: center; font-size: 22px; color: rgba(243,207,122,0.35); }
 
@@ -382,6 +385,14 @@ html, body {
 #title-content::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 48%; z-index: -1; background: radial-gradient(ellipse 70% 60% at 50% 38%, rgba(8,8,24,0.55) 0%, transparent 70%); }
 #title-jp { font-size: 14px; color: #f3cf7a; text-shadow: 0 1px 6px rgba(0,0,0,0.8); letter-spacing: 8px; margin-bottom: 12px; opacity: 0; animation: title-fade 2s ease 0.5s forwards; font-family: var(--font); }
 #title-main { font-size: clamp(52px, 15vw, 88px); font-weight: 400; color: #fff4dc; letter-spacing: 6px; text-shadow: 0 0 24px rgba(255,190,90,0.55), 0 3px 0 rgba(120,20,10,0.7), 0 0 60px rgba(0,0,0,0.6); margin-bottom: 8px; opacity: 0; animation: title-fade 2s ease 1s forwards; font-family: var(--font-brush); }
+#title-figure { position: absolute; left: 59%; /* the torii gateway in ui-title.webp, phone and desktop crops alike */ width: auto; translate: -60% 0; /* translate, not transform: the title-fade keyframes own transform */ opacity: 0; display: none; pointer-events: none; filter: drop-shadow(0 0 18px rgba(255,200,120,0.35)); -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%); mask-image: linear-gradient(to bottom, #000 72%, transparent 100%); }
+#title-screen.cleared #title-figure.fits { display: block; animation: title-fade 2.4s ease 2.4s forwards; }
+#title-endings { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 14px; opacity: 0; animation: title-fade 2s ease 1.8s forwards; }
+#title-endings:empty { display: none; }
+#title-endings i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--c); opacity: 0.55; }
+#title-endings i.on { background: var(--c); opacity: 1; box-shadow: 0 0 8px var(--c); }
+#title-endings i.secret { transform: rotate(45deg); border-radius: 2px; }
+#title-endings span { margin-left: 6px; font-family: var(--font); font-size: 12px; color: #f0e2c4; letter-spacing: 2px; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
 #title-sub { font-family: var(--font) !important; font-size: 14px; color: #f0e2c4; text-shadow: 0 1px 6px rgba(0,0,0,0.9); letter-spacing: 4px; margin-bottom: 0; opacity: 0; animation: title-fade 2s ease 1.5s forwards; font-family: var(--font); }
 @keyframes title-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -547,10 +558,12 @@ html, body {
   </div>
   <div id="title-screen" class="waiting">
     <div id="title-particles"></div>
+    <img id="title-figure" src="assets/protagonist-adult.webp" alt="">
     <div id="title-content">
       <div id="title-jp">社と森のものがたり</div>
       <div id="title-main">杜鹃森</div>
       <div id="title-sub">神社与森林的恋爱物语</div>
+      <div id="title-endings"></div>
       <div id="title-buttons">
         <button id="continue-btn" class="title-btn" hidden>继续物语</button>
         <button id="start-btn" class="title-btn">开始物语</button>
@@ -5302,6 +5315,115 @@ const S = {
     ],
     ending: { title: '暗夜之约', subtitle: '口袋里的蛇鳞，有时候会在深夜里微微发烫。\n你知道那意味着什么——某个阴影里，有人正在想你。\n每个满月，要石旁边的棋盘上，总是摆好了两碗花茶。下完棋，他会陪你走上来，坐在缘廊的最边上看月亮。\n他依然常常赢。只是赢的时候，会停下来，念一遍你的名字。\n就像你每次念他的那样。\n\n—— 玄夜线 · 完 ——' },
   },
+  // =============== HIDDEN ENDING: everyone (every bond >= ALL_ENDING_MIN) ===============
+  'ending_all': {
+    scene: 'night-shrine', particles: 'fireflies',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '鸟居下面，站着六个人。' },
+      { char: 'narrator', text: '谁都没有「识趣地」走开。谁都没有先开口。' },
+      { char: 'kohaku', text: '我、我只是送到这里而已。' },
+      { char: 'narrator', text: '「噗」。' },
+      { char: 'ginro', text: '……我也是。',
+        chars: [{ id: 'kohaku', pos: 'left', form: 'human' }, { id: 'ginro', pos: 'right', form: 'human' }] },
+      { char: 'yukimaru', text: '我才不是来送你的！我是来跟苍羽比，谁送得更远！',
+        chars: [{ id: 'yukimaru', pos: 'left', form: 'human' }, { id: 'sou', pos: 'right', form: 'human' }] },
+      { char: 'sou', text: '……我没有比。' },
+      { char: 'narrator', text: '白露抱着一个花环，哭得一抽一抽的。花环上的花，一半是蓝的，一半是粉的。',
+        chars: [{ id: 'shiro', pos: 'center', form: 'human' }] },
+      { char: 'shiro', text: '我、我没有哭。是花太香了。' },
+      { char: 'narrator', text: '窄门那边，玄夜靠在鸟居的柱子上。离要石这么远，他的脸色有点白。可是他在笑。',
+        chars: [{ id: 'genya', pos: 'center', form: 'human' }] },
+      { char: 'genya', text: '别这么看我。门开着，我出来透透气而已。' },
+      { char: 'genya', text: '……那只狐狸说，今晚谁都不许缺席。' },
+      { char: 'narrator', text: '你站在石阶最上面，一个一个看过去。',
+        chars: [] },
+      { char: 'narrator', text: '你本来想好了要跟谁说「再见」的。可是看着他们，那句话，怎么也挑不出一个人来。' },
+      { char: 'player', text: '……我选不出来。' },
+      { char: 'narrator', text: '琥珀愣了一下。然后笑了。',
+        chars: [{ id: 'kohaku', pos: 'center', form: 'human' }] },
+      { char: 'kohaku', text: '那就不要选。' },
+      { char: 'kohaku', text: '千代也没有选过。五十年，她谁都喜欢。每个满月，大家都在这里等她。' },
+      { char: 'kohaku', text: '……我们，很擅长等的。' },
+      { char: 'narrator', text: '银朗又数了一遍人头。',
+        chars: [{ id: 'ginro', pos: 'left', form: 'human' }, { id: 'yukimaru', pos: 'right', form: 'human' }] },
+      { char: 'ginro', text: '……七个。' },
+      { char: 'yukimaru', text: '你数错了吧！明明是六个，加上要走的那个！' },
+      { char: 'ginro', text: '……所以是七个。' },
+      { char: 'narrator', text: '雪丸张着嘴，半天没说出话来。然后别过头去。尾巴在身后，用力地摇了一下。' },
+    ],
+    next: 'ending_all2',
+  },
+
+  'ending_all2': {
+    scene: 'forest', particles: 'fireflies', day: -1, // epilogue: hides the 7-day counter
+    lines: [
+      { char: 'narrator', text: '——一个月后。' },
+      { char: 'narrator', text: '你辞掉了城里的工作。同事问你要去哪里，你说：「回家。」' },
+      { char: 'narrator', text: '山脚那间老房子，你没有卖。你把它擦得干干净净，在门口挂了一串风铃。' },
+      { char: 'narrator', text: '满月那天的黄昏，你沿着溪往山上走。过了那棵裂开的老杉树——' },
+      { char: 'narrator', text: '树下，吵吵嚷嚷的。' },
+      { char: 'kohaku', text: '我先到的！我中午就来了！',
+        chars: [{ id: 'kohaku', pos: 'center', form: 'human' }] },
+      { char: 'ginro', text: '……我早上。',
+        chars: [{ id: 'kohaku', pos: 'left', form: 'human' }, { id: 'ginro', pos: 'right', form: 'human' }] },
+      { char: 'kohaku', text: '你作弊！' },
+      { char: 'yukimaru', text: '我昨天晚上就睡在这棵树上了！我赢了！',
+        chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }] },
+      { char: 'sou', text: '……你一出家门，我就在天上看着了。',
+        chars: [{ id: 'yukimaru', pos: 'left', form: 'human' }, { id: 'sou', pos: 'right', form: 'human' }] },
+      { char: 'narrator', text: '三个人一起转过头去看他。' },
+      { char: 'sou', text: '……这个不算吗。' },
+      { char: 'shiro', text: '我、我带了花。等太久了，有一点蔫……',
+        chars: [{ id: 'shiro', pos: 'center', form: 'human' }] },
+      { char: 'narrator', text: '他头上的花，是黄色的。然后，他的肚子「咕」地叫了一声。' },
+      { char: 'sou', text: '玄夜让我带话。「棋盘摆好了。茶太甜，叫那只狐狸少放糖。」',
+        chars: [{ id: 'sou', pos: 'center', form: 'human' }] },
+      { char: 'narrator', text: '然后，他们一下子都不说话了。六双眼睛……五双，全都看着你。',
+        chars: [] },
+    ],
+    choices: [
+      { text: '「我回来了。」', flag: 'all_home', next: 'ending_all3' },
+      { text: '「……你们到底等了多久？」', next: 'ending_all3' },
+    ],
+  },
+
+  'ending_all3': {
+    scene: 'night-shrine', particles: 'spirits', day: -1, // epilogue: hides the 7-day counter
+    lines: [
+      { char: 'narrator', text: '一瞬间，五个声音一起回答。叠在一起，乱七八糟的，可是你每一个都听清了。', if: 'all_home' },
+      { char: 'narrator', text: '——欢迎回来。', if: 'all_home' },
+      { char: 'kohaku', text: '一个月。',
+        chars: [{ id: 'kohaku', pos: 'center', form: 'human' }], ifnot: 'all_home' },
+      { char: 'ginro', text: '……三十一天。',
+        chars: [{ id: 'kohaku', pos: 'left', form: 'human' }, { id: 'ginro', pos: 'right', form: 'human' }], ifnot: 'all_home' },
+      { char: 'sou', text: '七百四十四个小时。',
+        chars: [{ id: 'sou', pos: 'left', form: 'human' }, { id: 'yukimaru', pos: 'right', form: 'human' }], ifnot: 'all_home' },
+      { char: 'yukimaru', text: '你们怎么都数得这么清楚啊！', ifnot: 'all_home' },
+      { char: 'narrator', text: '那天晚上，神社的饭桌，第一次坐满了。',
+        chars: [{ id: 'genya', pos: 'center', form: 'human' }] },
+      { char: 'narrator', text: '玄夜也上来了。他坐在离窄门最近的位置，每隔一会儿，就回头看一眼。没有人说什么。只是把他的茶碗，倒得最满。' },
+      { char: 'genya', text: '……太甜了。' },
+      { char: 'narrator', text: '他喝完了。' },
+      { char: 'narrator', text: '银朗站起来，数人头。',
+        chars: [{ id: 'ginro', pos: 'center', form: 'human' }] },
+      { char: 'ginro', text: '……七个。' },
+      { char: 'narrator', text: '数完，他没有动筷子。又数了一遍。' },
+      { char: 'ginro', text: '……七个。' },
+      { char: 'narrator', text: '然后他坐下来，低头吃饭。耳朵红了。' },
+      { char: 'narrator', text: '吃完饭，琥珀把那枚铜铃放进你的手心。',
+        chars: [{ id: 'kohaku', pos: 'center', form: 'human' }] },
+      { char: 'kohaku', text: '守铃人每个满月，都要念一遍大家的名字。' },
+      { char: 'kohaku', text: '可是今天——换我们念。' },
+      { char: 'narrator', text: '六个人，一起叫了你的名字。',
+        chars: [] },
+      { char: 'narrator', text: '你没有摇铃。可是它响了。' },
+      { char: 'narrator', text: '叮——' },
+      { char: 'narrator', text: '你想起外婆信里的最后一句话。「你只要记得：你是被很多很多人喜欢着的孩子。」' },
+      { char: 'narrator', text: '……原来，是真的。' },
+    ],
+    ending: { title: '杜鹃之约', subtitle: '后来，神社的饭桌换成了一张更长的。\n每个满月，银朗都要数两遍人头，数到七，才肯动筷子。\n雪丸和苍羽比到了第两百次。白露头上的花，一年四季都是粉色的。\n玄夜每个月上来吃一次饭，每次都嫌茶太甜，每次都喝完。\n琥珀的来客簿上，你的名字下面，多了六个歪歪扭扭的签名。\n\n—— 隐藏结局 · 大家 ——' },
+  },
 };
 
 // ============================================================
@@ -5527,25 +5649,36 @@ function setCG(id) {
   markCgSeen(id);
 }
 
+const GALLERY_EXTRAS = {
+  x_sketch: ['速写本最后一页', 'assets/protagonist-child.webp', '#efe6d2'],
+  x_keeper: ['守铃人', 'assets/protagonist-adult.webp', 'radial-gradient(circle at 50% 30%, #3a3352, #0d0c1c)'],
+};
+
 function openGallery() {
   const seen = cgSeen();
   const items = Object.keys(CG_INFO).map(id => {
     const ok = seen[id], src = CG_IMAGES[id];
     return `<div class="gal-item${ok ? '' : ' locked'}" data-cg="${ok ? id : ''}">${ok && src ? `<img src="${src}" alt="">` : ''}<span>${ok ? CG_INFO[id][0] : '？？？'}</span></div>`;
   }).join('');
-  const n = Object.keys(CG_INFO).filter(id => seen[id]).length;
+  const n = Object.keys(CG_INFO).filter(id => seen[id]).length, total = Object.keys(CG_INFO).length;
+  // Every CG seen: the sketchbook's last page (the face Chiyo kept erasing) and the bell keeper unlock.
+  const done = n === total;
+  const banner = done ? `<div class="gal-done">✿ 全部收集 ✿<small>外婆速写本的最后一页，那张画了又擦的脸——现在，有人替她画完了。</small></div>` : '';
+  const extras = !done ? '' :
+    Object.entries(GALLERY_EXTRAS).map(([id, [name, src, bg]]) => `<div class="gal-item gal-extra" data-cg="${id}" style="background:${bg}"><img src="${src}" alt=""><span>${name}</span></div>`).join('');
   const card = $('#sys-card');
   card.innerHTML = `
     <div class="sys-head"><button class="sys-close" data-act="back" aria-label="返回">‹</button><div class="sys-title">回 忆</div><button class="sys-close" data-act="close" aria-label="关闭">×</button></div>
-    <div class="slot-note" style="padding:8px 4px 0;text-align:center">已收集 ${n} / ${Object.keys(CG_INFO).length}</div>
-    <div class="gallery">${items}</div>`;
+    <div class="slot-note" style="padding:8px 4px 0;text-align:center">已收集 ${n} / ${total}</div>${banner}
+    <div class="gallery">${extras}${items}</div>`;
   card.onclick = e => {
     const act = e.target.closest('[data-act]')?.dataset.act;
     if (act === 'close') return closeSys();
     if (act === 'back') return openMenu();
     const id = e.target.closest('[data-cg]')?.dataset.cg;
     if (!id) return;
-    const v = $('#cg-viewer'), src = CG_IMAGES[id];
+    const v = $('#cg-viewer'), extra = GALLERY_EXTRAS[id], src = extra ? extra[1] : CG_IMAGES[id];
+    v.style.background = extra ? extra[2] : '';
     v.querySelector('img').style.display = src ? '' : 'none';
     if (src) v.querySelector('img').src = src;
     v.querySelector('.cg-ph-name').textContent = src ? '' : CG_INFO[id][0] + '（图还没画好）';
@@ -5696,7 +5829,12 @@ function routeByAff() {
   playNode(map[getMaxAff()]);
 }
 
+// Hidden ending: every bond at least this high (on the 0-100 scale). A random player gets there
+// well under 1% of the time; one who deliberately keeps everyone close does about 1 run in 5.
+const ALL_ENDING_MIN = 33;
+
 function routeToEnding() {
+  if (Object.values(state.affection).every(v => v >= ALL_ENDING_MIN)) return playNode('ending_all');
   const map = { fox:'ending_fox', wolf:'ending_wolf', deer:'ending_deer', whitewolf:'ending_whitewolf', hawk:'ending_hawk', snake:'ending_snake' };
   playNode(map[getMaxAff()]);
 }
@@ -5787,8 +5925,17 @@ function showChapter(num, title, cb) {
   setTimeout(() => { o.classList.remove('active'); if (cb) cb(); }, skip.active() ? 600 : 3000);
 }
 
+// Endings reached, kept across playthroughs (fox ... snake, all). Drives the title-screen marks.
+const ENDINGS_KEY = 'dujuansen-endings';
+const ENDING_MARKS = [['fox', '#ff6b4a'], ['wolf', '#7eb8da'], ['deer', '#8fd4a0'], ['whitewolf', '#e8e0d0'], ['hawk', '#4a7eb8'], ['snake', '#9a5abf'], ['all', '#f3cf7a']];
+let endingsMem = {};
+function endingsSeen() { try { return JSON.parse(localStorage.getItem(ENDINGS_KEY) || '{}') || {}; } catch (e) { return endingsMem; } }
+function markEnding(k) { const s = endingsSeen(); s[k] = 1; endingsMem = s; try { localStorage.setItem(ENDINGS_KEY, JSON.stringify(s)); } catch (e) {} }
+
 function showEnding(e) {
   if (skip.active()) setSkip(false);
+  const route = /^ending_([a-z]+?)\d*$/.exec(state.currentNode || '');
+  if (route) markEnding(route[1]);
   const es = $('#ending-screen'), gen = state.gen;
   es.classList.add('active', 'intro');
   requestAnimationFrame(() => requestAnimationFrame(() => { if (gen === state.gen && es.classList.contains('intro')) es.classList.add('fig-on'); }));
@@ -5938,10 +6085,26 @@ function backToTitle() {
   playBgm('title');
 }
 
+// Fit the figure into the gap between the ending marks and the top button; skip it if the gap is too small.
+function layoutTitleFigure() {
+  const fig = $('#title-figure'), marks = $('#title-endings'), btn = [...$$('#title-buttons .title-btn')].find(b => !b.hidden);
+  if (!marks.innerHTML || !btn) return fig.classList.remove('fits');
+  const top = marks.getBoundingClientRect().bottom + 14, bottom = btn.getBoundingClientRect().top + 6; // feet tuck just behind the top button
+  const h = Math.min(bottom - top, window.innerHeight * 0.4);
+  fig.classList.toggle('fits', h >= 150);
+  fig.style.height = h + 'px'; fig.style.top = (bottom - h) + 'px';
+}
+window.addEventListener('resize', () => { if ($('#title-screen').classList.contains('cleared')) layoutTitleFigure(); });
+
 function refreshTitleButtons() {
   const any = hasAnySave();
   $('#continue-btn').hidden = !any;
   $('#title-load-btn').hidden = !any;
+  // After the first ending: the grown-up you stands on the steps, and a row of marks shows which endings you've seen.
+  const seen = endingsSeen(), n = ENDING_MARKS.filter(([k]) => seen[k]).length;
+  $('#title-screen').classList.toggle('cleared', n > 0);
+  requestAnimationFrame(layoutTitleFigure);
+  $('#title-endings').innerHTML = n ? ENDING_MARKS.map(([k, c]) => `<i class="${seen[k] ? 'on' : ''}${k === 'all' ? ' secret' : ''}" style="--c:${c}"></i>`).join('') + `<span>${n} / ${ENDING_MARKS.length}</span>` : '';
 }
 
 // ---- UI ----
