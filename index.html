@@ -712,6 +712,7 @@ function markCgSeen(id) { const s = cgSeen(); s[id] = 1; cgSeenMem = s; try { lo
 // ex/ey: where the eyes are in the source image (% of its width/height); bx: body centre x (defaults to ex).
 // h: displayed image height as % of screen height (the character's on-screen scale).
 // th: optional scale for the small menu/save thumbnails (defaults to h).
+// sx: extra outward shift (% of screen) when the character stands left/right of someone else; ss: the same while speaking (defaults to sx).
 // The eyes are pinned to EYE_Y on screen; the body centre goes to the slot anchor (+dx).
 const EYE_Y = 26;
 const SLOT_X = { center: 50, left: 32, right: 68 };
@@ -721,7 +722,7 @@ const PORTRAIT_POS = {
   'shiro-human':    { ex: 56.8, bx: 49, ey: 12.8, h: 100 },
   'yukimaru-human': { ex: 66,   bx: 56, ey: 10,   h: 108 },
   'sou-human':      { ex: 55.6, bx: 52, ey: 6.7,  h: 112 },
-  'genya-human':    { ex: 57.6, bx: 55, ey: 12.8, h: 66, th: 100 },  // seated pose: smaller h so the head matches the standing cast
+  'genya-human':    { ex: 57.6, bx: 55, ey: 12.8, h: 88, th: 100, sx: 4, ss: 17 }, // ss: don't slide in when speaking, or the snake's head covers his partner's face  // seated full-body pose: h set so his face (eye-to-chin) matches Ginro's on screen
   'kohaku-beast':   { ex: 61,   ey: 35,   h: 100 },
   'ginro-beast':    { ex: 81.6, ey: 19.7, h: 100, dx: 10 },
   'shiro-beast':    { ex: 76,   ey: 32.7, h: 100, dx: 8 },
@@ -801,8 +802,9 @@ function slotX(pos, role) {
 }
 
 function portraitStyle(key, pos, role) {
-  const { ex = 50, bx = ex, ey = 12, h = 100, dx = 0 } = PORTRAIT_POS[key] || {};
-  return `height:${h}%;top:${EYE_Y - ey * h / 100}%;left:${slotX(pos, role) + dx}%;transform:translateX(-${bx}%)`;
+  const { ex = 50, bx = ex, ey = 12, h = 100, dx = 0, sx = 0, ss = sx } = PORTRAIT_POS[key] || {};
+  const out = role === 'speaking' ? ss : sx, side = pos === 'left' ? -out : pos === 'right' ? out : 0; // wide sprites sit further out when sharing the stage
+  return `height:${h}%;top:${EYE_Y - ey * h / 100}%;left:${slotX(pos, role) + dx + side}%;transform:translateX(-${bx}%)`;
 }
 
 function getPortrait(charId, formKey, pos = 'center') {
