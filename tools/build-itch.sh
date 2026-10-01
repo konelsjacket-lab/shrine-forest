@@ -3,7 +3,7 @@
 # Usage: sh tools/build-itch.sh [out.zip]
 set -e
 cd "$(dirname "$0")/.."
-OUT="${1:-dist/shrine-forest-itch.zip}"
+OUT="${1:-download/shrine-forest-itch.zip}" # also served by GitHub Pages: raw.githubusercontent.com is often blocked in mainland China
 mkdir -p "$(dirname "$OUT")"
 rm -f "$OUT"
 zip -qr -9 "$OUT" index.html assets
