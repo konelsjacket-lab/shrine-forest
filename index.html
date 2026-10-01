@@ -2658,7 +2658,7 @@ const S = {
       { char: 'narrator', text: '你走上石阶的时候，回头看了一眼。' },
       { char: 'narrator', text: '棋盘边上，放着一个很旧的茶碗。碗里的茶，早就凉透了。碗沿上，有外婆常用的那种口红的颜色。' },
     ],
-    next: 'day4_breakfast',
+    next: 'night3',
   },
   // =============== DAY 4 ===============
   'day4_breakfast': {
@@ -3621,7 +3621,7 @@ const S = {
     ],
     choices: [
       { text: '「现在去告诉白露。我们一起去。」', affection: { hawk: 2, deer: 1 }, flag: 'told_truth', next: 'day5_truth' },
-      { text: '「谢谢你告诉我。这件事……让我想想怎么跟他说。」', affection: { hawk: 1 }, next: 'day5_evening' },
+      { text: '「谢谢你告诉我。这件事……让我想想怎么跟他说。」', affection: { hawk: 1 }, next: 'dusk5' },
     ],
   },
 
@@ -3655,7 +3655,7 @@ const S = {
       { char: 'genya', text: '……够用到满月。' },
       { char: 'genya', text: '回去吧。今晚，会很吵。' },
     ],
-    next: 'day5_evening',
+    next: 'dusk5',
   },
 
   'day5_yuki': {
@@ -3681,8 +3681,8 @@ const S = {
       { char: 'yukimaru', text: '哈哈，开玩笑的。我是从北边来的，名字是我娘取的，才不会忘呢。' },
     ],
     choices: [
-      { text: '「满月那天，我第一个念你的名字。」', affection: { whitewolf: 3 }, next: 'day5_evening' },
-      { text: '揉了揉他那只缺了口的耳朵：「雪丸。雪丸。雪丸。——记住了。」', affection: { whitewolf: 4 }, next: 'day5_evening' },
+      { text: '「满月那天，我第一个念你的名字。」', affection: { whitewolf: 3 }, next: 'dusk5' },
+      { text: '揉了揉他那只缺了口的耳朵：「雪丸。雪丸。雪丸。——记住了。」', affection: { whitewolf: 4 }, next: 'dusk5' },
     ],
   },
 
@@ -3708,8 +3708,8 @@ const S = {
       { char: 'ginro', text: '如果真到了那一步，我会在变成那种东西之前，自己走得远远的。' },
     ],
     choices: [
-      { text: '「我不会让你走的。」', affection: { wolf: 4 }, next: 'day5_evening' },
-      { text: '「那你要走在我左边。哪里都不许去。」', affection: { wolf: 3 }, next: 'day5_evening' },
+      { text: '「我不会让你走的。」', affection: { wolf: 4 }, next: 'dusk5' },
+      { text: '「那你要走在我左边。哪里都不许去。」', affection: { wolf: 3 }, next: 'dusk5' },
     ],
   },
 
@@ -3733,8 +3733,8 @@ const S = {
       { char: 'narrator', text: '她说得很轻，像是在说一个很久以前的故事。' },
     ],
     choices: [
-      { text: '「琥珀，你不许忘。」', affection: { fox: 4 }, next: 'day5_evening' },
-      { text: '从她身后，抱住了她剩下的八条尾巴', affection: { fox: 3 }, next: 'day5_evening' },
+      { text: '「琥珀，你不许忘。」', affection: { fox: 4 }, next: 'dusk5' },
+      { text: '从她身后，抱住了她剩下的八条尾巴', affection: { fox: 3 }, next: 'dusk5' },
     ],
   },
 
@@ -3880,7 +3880,7 @@ const S = {
       { char: 'narrator', text: '白露点了点头。他头上的角，开出了一朵花。' },
       { char: 'narrator', text: '是紫色的。他从来没开过紫色的花。' },
     ],
-    next: 'day5_evening',
+    next: 'dusk5',
   },
 
   'day5_evening': {
@@ -4952,6 +4952,467 @@ const S = {
     next_by_affection_ending: true,
   },
 
+  // =============== ROMANCE LADDER: whoever you're closest to comes to find you ===============
+  // night3: the first flutter (late on night 3, after you come back up from meeting Genya — so he can be the one too). dusk5: the almost-confession, cut off by the crisis.
+  'night3': { next_by_lead: 'night3' },
+
+  'night3_fox': {
+    scene: 'night-shrine', particles: 'fireflies',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '从地底回来以后，你怎么也睡不着。拉门外，传来很小很小的沙沙声。' },
+      { char: 'narrator', text: '是收音机。音量拧到最小，在缘廊上一闪一闪地亮着。琥珀抱着膝盖坐在旁边，耳朵贴在喇叭上。' },
+      { char: 'kohaku', text: '……吵醒你了？夜里的天气预报，比白天的准。' },
+      { char: 'narrator', text: '你在她旁边坐下。收音机里，一个很困的声音在念：「明日，晴转阴。山间有雾。」' },
+      { char: 'narrator', text: '琥珀从袖子里掏出那个小本子，一笔一画地写：「晴转阴，雾」。然后，在旁边很小很小地，又添了几个字。' },
+      { char: 'player', text: '（「……有人陪着听。」）' },
+      { char: 'narrator', text: '她发现你在偷看，「啪」地合上本子。耳朵一下子红到了尖。' },
+      { char: 'kohaku', text: '不许看！这是天气！只是天气！' },
+      { char: 'narrator', text: '「噗」。尾巴炸开了。' },
+      { char: 'narrator', text: '她按住一边，另一边又翘起来。按了半天，最后自暴自弃地，用一条尾巴把你整个人圈了进去。' },
+      { char: 'kohaku', text: '……夜里凉。就这一次。' },
+      { char: 'narrator', text: '尾巴很暖。暖得像外婆晒过的被子。你听见她的心跳，比收音机里的雨声还快。' },
+    ],
+    choices: [
+      { text: '「明天的天气，我也想跟你一起听。」', flag: 'n3_fox', next: 'night3_fox_2' },
+      { text: '假装睡着，靠在她的尾巴上', next: 'night3_fox_2' },
+    ],
+  },
+
+  'night3_fox_2': {
+    scene: 'night-shrine', particles: 'fireflies',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '琥珀愣了一下。然后，把脸埋进了自己的膝盖里。', if: 'n3_fox' },
+      { char: 'kohaku', text: '……一千年了。还是第一次有人，想跟我一起听天气。', if: 'n3_fox' },
+      { char: 'narrator', text: '你闭上眼睛。过了很久，有一只手，很轻很轻地，把你额前的头发拨开了。', ifnot: 'n3_fox' },
+      { char: 'kohaku', text: '……睡着的样子，也跟千代不一样呢。', ifnot: 'n3_fox' },
+      { char: 'narrator', text: '收音机里的声音念完了，只剩沙沙的白噪音。谁都没有去关。' },
+      { char: 'narrator', text: '那一夜，你是在狐狸尾巴里睡着的。' },
+    ],
+    next: 'day4_breakfast',
+  },
+
+  'night3_wolf': {
+    scene: 'moonlit', particles: 'fireflies',
+    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '从地底回来，你刚躺下，就听见院子里一阵很轻的脚步声。' },
+      { char: 'narrator', text: '推开窗，银朗站在院子里。他没有在巡逻。他只是站在你的窗户底下，抬头看着这扇窗。' },
+      { char: 'narrator', text: '看到你，他明显地僵了一下。' },
+      { char: 'ginro', text: '……数人头。' },
+      { char: 'player', text: '半夜数人头？' },
+      { char: 'ginro', text: '……睡着的，也要数。' },
+      { char: 'narrator', text: '他别过头去。耳朵在月光底下，红得很明显。' },
+      { char: 'narrator', text: '你披上外婆的羽织，走到缘廊上坐下。他犹豫了很久，在离你一步远的地方，也坐下了。' },
+      { char: 'narrator', text: '他没有说话。你也没有。萤火虫在院子里飞，一闪，一闪。' },
+      { char: 'ginro', text: '……你小时候，怕打雷。' },
+      { char: 'ginro', text: '打雷的晚上，千代就让我睡在你房门口。你隔着门，跟我说了一整夜的话。' },
+      { char: 'ginro', text: '我一句都没回。……你也说个不停。' },
+    ],
+    choices: [
+      { text: '「那今晚，换你说。我听着。」', flag: 'n3_wolf', next: 'night3_wolf_2' },
+      { text: '往他那边挪一步，把那一步的距离补上', next: 'night3_wolf_2' },
+    ],
+  },
+
+  'night3_wolf_2': {
+    scene: 'moonlit', particles: 'fireflies',
+    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '银朗看着你，像是没听懂。然后，很慢很慢地，开了口。', if: 'n3_wolf' },
+      { char: 'ginro', text: '……北边的雪，是蓝色的。夜里会响。', if: 'n3_wolf' },
+      { char: 'narrator', text: '他就那样说了很久。雪的声音，狼的名字，六百年前的月亮。声音很低，一句一句，像是在把攒了很多年的话，一颗一颗放到你手心里。', if: 'n3_wolf' },
+      { char: 'narrator', text: '他的手放在缘廊的木板上。你的手，也放在旁边。中间隔着一根手指的距离。', ifnot: 'n3_wolf' },
+      { char: 'narrator', text: '谁都没有动。可是那根手指的距离，谁也没有挪开。', ifnot: 'n3_wolf' },
+      { char: 'narrator', text: '天快亮的时候，你靠在柱子上睡着了。醒来时，身上盖着那件有松针味道的外褂。' },
+    ],
+    next: 'day4_breakfast',
+  },
+
+  'night3_deer': {
+    scene: 'garden-night', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '深夜，窗纸上「笃、笃」响了两下。' },
+      { char: 'narrator', text: '拉开一看，白露蹲在窗外，头发上沾着露水，怀里抱着一捧花。' },
+      { char: 'shiro', text: '嘘——琥珀姐会骂的。我是来……来还东西的。' },
+      { char: 'narrator', text: '他把花一股脑塞进你怀里。白的，粉的，还有几朵快要蔫了的黄花。' },
+      { char: 'shiro', text: '今天带你去看娘，让你难过了。……这是赔礼。' },
+      { char: 'player', text: '你不用赔礼的。' },
+      { char: 'shiro', text: '要的！人类不是说，「欠了人情要还」吗？我在书上看到的。' },
+      { char: 'narrator', text: '他认真地点着头，头上的花跟着一晃一晃。' },
+      { char: 'shiro', text: '还有……我想问你一件事。' },
+      { char: 'shiro', text: '你今天在娘的树下面，靠着我的时候……我的角，开了一朵从来没开过的花。' },
+      { char: 'shiro', text: '很小，是淡淡的粉色，可是又不完全是粉色。我不知道那是什么意思。' },
+      { char: 'narrator', text: '他低下头，脚趾头在草地上抠来抠去。' },
+    ],
+    choices: [
+      { text: '「那它下次开的时候，你第一个告诉我。」', flag: 'n3_deer', next: 'night3_deer_2' },
+      { text: '伸手摸了摸他角上那朵小小的花', next: 'night3_deer_2' },
+    ],
+  },
+
+  'night3_deer_2': {
+    scene: 'garden-night', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'shiro', text: '嗯！拉钩！', if: 'n3_deer' },
+      { char: 'narrator', text: '他伸出小拇指。勾住的那一刻，他角上那朵小花，又悄悄地开大了一点。', if: 'n3_deer' },
+      { char: 'narrator', text: '你的手指碰到花瓣的那一瞬间，他「啊」地叫了一声，整个人往后一缩，差点坐进花丛里。', ifnot: 'n3_deer' },
+      { char: 'shiro', text: '痒、痒的！……不对，不是痒。是……是心里痒。', ifnot: 'n3_deer' },
+      { char: 'narrator', text: '他抱着头跑掉了。跑到一半，又跑回来，把最后一朵花别在你的窗框上。' },
+      { char: 'narrator', text: '那天夜里，你梦见了一片很大很大的花谷。花的颜色，你叫不出名字。' },
+    ],
+    next: 'day4_breakfast',
+  },
+
+  'night3_whitewolf': {
+    scene: 'moonlit', particles: 'fireflies',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '半夜，屋顶上「咚」的一声。然后是一串很响的「嘘——」。' },
+      { char: 'narrator', text: '你推开窗。雪丸倒挂在屋檐上，头朝下，头发全竖着，冲你龇牙咧嘴地笑。' },
+      { char: 'yukimaru', text: '你还没睡？太好了！我睡不着！比赛吧！' },
+      { char: 'player', text: '半夜比什么？' },
+      { char: 'yukimaru', text: '比谁先数到一百颗星星！数错了的人，明天把鱼分给对方！' },
+      { char: 'narrator', text: '他翻身跳下来，拉着你爬上了屋顶。瓦片是凉的，天很高，星星多得数不清。' },
+      { char: 'narrator', text: '他数得很快。数到一半，忽然不出声了。' },
+      { char: 'yukimaru', text: '……北边的星星，比这里多。' },
+      { char: 'yukimaru', text: '我娘说，每一颗星星，都是一只回不了家的狼。' },
+      { char: 'narrator', text: '他把下巴搁在膝盖上。那只缺了口的耳朵，耷拉下来。' },
+      { char: 'yukimaru', text: '……喂。你也是一个人跑来这里的吧。你在城里，也有人跟你比赛吗？' },
+      { char: 'player', text: '……没有。' },
+    ],
+    choices: [
+      { text: '「那以后，我跟你比。」', flag: 'n3_whitewolf', next: 'night3_whitewolf_2' },
+      { text: '什么都没说，把他那只缺口的耳朵轻轻扶起来', next: 'night3_whitewolf_2' },
+    ],
+  },
+
+  'night3_whitewolf_2': {
+    scene: 'moonlit', particles: 'fireflies',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '雪丸转过头来。金色的眼睛，在星光底下亮得吓人。', if: 'n3_whitewolf' },
+      { char: 'yukimaru', text: '……说好了！不许反悔！输了不许哭！', if: 'n3_whitewolf' },
+      { char: 'narrator', text: '耳朵在你手心里抖了一下。他没有躲。', ifnot: 'n3_whitewolf' },
+      { char: 'yukimaru', text: '……别、别乱摸。狼的耳朵，只有……只有自己人才能摸。', ifnot: 'n3_whitewolf' },
+      { char: 'narrator', text: '他说完就后悔了，整个人缩成一团，用尾巴把脸挡住。尾巴尖，在拼命地摇。', ifnot: 'n3_whitewolf' },
+      { char: 'narrator', text: '那天晚上，你们谁都没数到一百。最后是他先睡着的，脑袋一歪，靠在了你的肩膀上。' },
+      { char: 'narrator', text: '他很重。很暖。睡着的时候，还在小声嘟囔：「……我赢了……」' },
+    ],
+    next: 'day4_breakfast',
+  },
+
+  'night3_hawk': {
+    scene: 'moonlit', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '深夜，窗外传来「咚」的一声闷响。然后是很长的安静。' },
+      { char: 'narrator', text: '你拉开窗。苍羽趴在窗台下面的草地上，长发散了一地，手里还捏着一个用竹叶包好的东西。' },
+      { char: 'sou', text: '……这个不算。' },
+      { char: 'narrator', text: '他站起来，拍掉身上的草，表情一点都没变。然后把竹叶包递给你。' },
+      { char: 'sou', text: '饭团。……今天你放的那个，我吃完了。这是还礼。' },
+      { char: 'narrator', text: '你打开。饭团捏得歪歪扭扭，一边大一边小，梅子露在外面。' },
+      { char: 'sou', text: '……第一次捏。手太大了。' },
+      { char: 'narrator', text: '他在窗外的廊柱旁边站着，不进来，也不走。' },
+      { char: 'sou', text: '千代以前，夜里会开着这扇窗。我就站在这里，她在里面说话，我在外面听。' },
+      { char: 'sou', text: '……你可以，不用说话。我就站一会儿。' },
+      { char: 'narrator', text: '你咬了一口饭团。很咸。米粒压得太实了。可是你一口一口，全吃完了。' },
+      { char: 'narrator', text: '他一直看着你吃。像是在数你咬了几口。' },
+    ],
+    choices: [
+      { text: '「明天也来。窗户我不关。」', flag: 'n3_hawk', next: 'night3_hawk_2' },
+      { text: '「……你一直这样，站在别人窗外吗？」', next: 'night3_hawk_2' },
+    ],
+  },
+
+  'night3_hawk_2': {
+    scene: 'moonlit', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'sou', text: '……嗯。', if: 'n3_hawk' },
+      { char: 'narrator', text: '他只说了一个字。可是第二天早上，你在窗台上发现了一根蓝色的羽毛，摆成了一个小小的箭头，指着你的枕头。', if: 'n3_hawk' },
+      { char: 'sou', text: '……不是。只站在两个人的窗外。', ifnot: 'n3_hawk' },
+      { char: 'narrator', text: '他说完，像是发现自己说多了，展开袖子就飞走了。起飞的时候，撞到了屋檐。', ifnot: 'n3_hawk' },
+      { char: 'narrator', text: '你听见屋顶上传来很小的一声——「……这个也不算」。', ifnot: 'n3_hawk' },
+      { char: 'narrator', text: '那天夜里，你一直没有关窗。风吹进来，带着一点点天空的味道。' },
+    ],
+    next: 'day4_breakfast',
+  },
+
+  'night3_snake': {
+    scene: 'night-shrine', particles: 'spirits',
+    chars: [], // a voice through the door
+    lines: [
+      { char: 'narrator', text: '你回到房间，躺下，又坐了起来。' },
+      { char: 'narrator', text: '棋盘边那只凉透的茶碗，一直在你眼前晃。' },
+      { char: 'narrator', text: '你又走到了正殿后面。这一次，没有下去。只是在那扇窄门前面，抱着膝盖坐下了。' },
+      { char: 'narrator', text: '门后面，有人轻轻笑了一声。' },
+      { char: 'genya', text: '……刚上去，又回来了。' },
+      { char: 'genya', text: '小孩子，不睡觉的吗。' },
+      { char: 'player', text: '睡不着。' },
+      { char: 'genya', text: '……我也是。' },
+      { char: 'narrator', text: '他的声音隔着木门，低低的，有点哑。比在地底下的时候，近了很多。' },
+      { char: 'genya', text: '今天吃了什么？' },
+      { char: 'player', text: '……琥珀煮的粥。还有白露送的花。' },
+      { char: 'genya', text: '花可吃不饱。……你小时候也是，挑食。胡萝卜全藏在袖子里。' },
+    ],
+    choices: [
+      { text: '把额头抵在门上：「明天，我想见你。」', flag: 'n3_snake', next: 'night3_snake_2' },
+      { text: '「你怎么知道我小时候的事？」', next: 'night3_snake_2' },
+    ],
+  },
+
+  'night3_snake_2': {
+    scene: 'night-shrine', particles: 'spirits',
+    chars: [], // a voice through the door
+    lines: [
+      { char: 'narrator', text: '门后面，很久很久没有声音。', if: 'n3_snake' },
+      { char: 'genya', text: '……小孩子，说话不要这么随便。', if: 'n3_snake' },
+      { char: 'genya', text: '会有蛇当真的。', if: 'n3_snake' },
+      { char: 'genya', text: '……因为我记性好。比所有人都好。', ifnot: 'n3_snake' },
+      { char: 'genya', text: '好到有时候，想忘也忘不掉。', ifnot: 'n3_snake' },
+      { char: 'narrator', text: '门上的木头，在你掌心底下，慢慢地变暖了。像是门的另一边，也有一只手，贴在同一个地方。' },
+      { char: 'genya', text: '回去睡吧。……睡着了，我就不吵你了。' },
+    ],
+    next: 'day4_breakfast',
+  },
+
+  'dusk5': { next_by_lead: 'dusk5' },
+
+  'dusk5_fox': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '傍晚，你在前庭找到了琥珀。她坐在台阶上，把八条尾巴摊在膝盖上，拿着一把旧梳子，一下一下地梳。' },
+      { char: 'narrator', text: '梳到第八条，她的手停住了。那里本来还有一条。' },
+      { char: 'kohaku', text: '……来得正好。帮个忙。后面的梳不到。' },
+      { char: 'narrator', text: '你接过梳子。她的尾巴很软，很暖，梳下来的毛在夕阳里飘成金色的雾。' },
+      { char: 'kohaku', text: '千代以前也帮我梳。每次都边梳边数：一，二，三……数到九，就拍拍我说「好啦，一条都没少」。' },
+      { char: 'kohaku', text: '……今天，你别数。' },
+      { char: 'narrator', text: '你没有数。你只是梳。一条，又一条。' },
+      { char: 'narrator', text: '梳到最后一条的时候，那条尾巴悄悄卷了过来，绕住了你的手腕。' },
+      { char: 'kohaku', text: '满月以后，你要是下山了——' },
+      { char: 'kohaku', text: '我会……' },
+      { char: 'narrator', text: '她没有说完。尾巴没有炸。只是绕着你的手腕，又紧了一点点。' },
+    ],
+    choices: [
+      { text: '「琥珀。我要是留下来，是因为喜欢——」', flag: 'd5_fox', next: 'dusk5_fox_2' },
+      { text: '握住那条尾巴，什么都不说', next: 'dusk5_fox_2' },
+    ],
+  },
+
+  'dusk5_fox_2': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'kohaku', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '她猛地转过身，用袖子捂住了你的嘴。', if: 'd5_fox' },
+      { char: 'kohaku', text: '……不许说。现在不许说。', if: 'd5_fox' },
+      { char: 'kohaku', text: '现在说了，我会舍不得让你选。等满月以后。等你自己选完了，再说给我听。', if: 'd5_fox' },
+      { char: 'narrator', text: '她的手在发抖。袖子上有杜鹃花茶的味道。', if: 'd5_fox' },
+      { char: 'narrator', text: '你握住那条尾巴。她的耳朵慢慢地垂了下来，靠在了你的肩上。', ifnot: 'd5_fox' },
+      { char: 'kohaku', text: '……狐狸是很贪心的。你再这样，我就不放你走了哦。', ifnot: 'd5_fox' },
+      { char: 'narrator', text: '远处，北坡的方向，所有的乌鸦一下子都飞了起来。琥珀的耳朵猛地竖直了。' },
+      { char: 'kohaku', text: '……回屋里去。今晚，别出门。' },
+    ],
+    next: 'day5_evening',
+  },
+
+  'dusk5_wolf': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '傍晚，银朗在鸟居下面磨刀。一下，一下，很慢。' },
+      { char: 'narrator', text: '他要去北坡。你不用问就知道。' },
+      { char: 'ginro', text: '……过来。' },
+      { char: 'narrator', text: '他把两根手指放在唇边，吹了一声。很短，很尖，像是夜鸟的叫声。' },
+      { char: 'ginro', text: '学。' },
+      { char: 'narrator', text: '你试了五次。第五次，终于吹出了一点像样的声音。他点了点头。' },
+      { char: 'ginro', text: '遇到危险，就吹这个。不管多远，我都听得见。' },
+      { char: 'player', text: '……要是不危险，只是想见你呢？' },
+      { char: 'narrator', text: '磨刀的声音停了。' },
+      { char: 'narrator', text: '他转过头来看着你。很久。冰蓝色的眼睛里，有什么东西，一层一层地化开。' },
+      { char: 'ginro', text: '……那也吹。' },
+      { char: 'ginro', text: '等满月过了。我有话——' },
+    ],
+    choices: [
+      { text: '拉住他的袖子：「早点回来。我等你说完。」', flag: 'd5_wolf', next: 'dusk5_wolf_2' },
+      { text: '把那把深蓝色的伞，塞进他手里', next: 'dusk5_wolf_2' },
+    ],
+  },
+
+  'dusk5_wolf_2': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'ginro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '他低头看着你拉着他袖子的手。然后，很轻很轻地，把手掌覆了上来。', if: 'd5_wolf' },
+      { char: 'ginro', text: '……嗯。', if: 'd5_wolf' },
+      { char: 'narrator', text: '他的手很大，很粗糙，很暖。只停了一下，就松开了。可是你觉得，那一下，比六百年还长。', if: 'd5_wolf' },
+      { char: 'ginro', text: '……狼不怕雨。', ifnot: 'd5_wolf' },
+      { char: 'narrator', text: '他这么说，却把伞收好，别在了刀旁边。', ifnot: 'd5_wolf' },
+      { char: 'narrator', text: '他站起来，往北边走。走了几步，回过头。' },
+      { char: 'narrator', text: '然后，他消失在了暮色里。北边的天，暗得有点不对劲。' },
+    ],
+    next: 'day5_evening',
+  },
+
+  'dusk5_deer': {
+    scene: 'garden-night', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '傍晚，你在花谷找到了白露。他坐在白樱树下，在编花环。' },
+      { char: 'narrator', text: '可是花谷里能用的花，已经不多了。他编了一会儿，就停下来，对着手里稀稀拉拉的花环发呆。' },
+      { char: 'shiro', text: '……二十年前编的那个，比这个好看多了。' },
+      { char: 'narrator', text: '他把编了一半的花环，戴在了你头上。歪的。' },
+      { char: 'shiro', text: '我在收集人类的词。你知道的。电车，便利店，加班……' },
+      { char: 'shiro', text: '可是有一个词，我收了好多年，一直不懂。' },
+      { char: 'shiro', text: '「喜欢」。' },
+      { char: 'narrator', text: '他抬起头，绿色的眼睛很认真。' },
+      { char: 'shiro', text: '千代婆婆说，她喜欢我们。琥珀姐说，她喜欢杯面。雪丸说，他喜欢赢。' },
+      { char: 'shiro', text: '都叫「喜欢」。可是，好像都不一样。' },
+      { char: 'shiro', text: '……那，我看着你的时候，角上开的那种花，叫什么？' },
+    ],
+    choices: [
+      { text: '「大概是……想一直在一起的那种喜欢。」', flag: 'd5_deer', next: 'dusk5_deer_2' },
+      { text: '「等你自己想明白了，第一个告诉我。」', next: 'dusk5_deer_2' },
+    ],
+  },
+
+  'dusk5_deer_2': {
+    scene: 'garden-night', particles: 'sakura',
+    chars: [{ id: 'shiro', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '白露呆住了。头上的角，「啪」地开出一大朵花。粉色的，比他开过的任何一朵都大。', if: 'd5_deer' },
+      { char: 'shiro', text: '想、想一直在一起……', if: 'd5_deer' },
+      { char: 'narrator', text: '他念了好几遍。然后把脸埋进了膝盖里，只露出两只红透了的耳朵。', if: 'd5_deer' },
+      { char: 'shiro', text: '……这个词，好难。比「加班」还难。', if: 'd5_deer' },
+      { char: 'shiro', text: '嗯！我会好好想的！想明白了，第一个告诉你！', ifnot: 'd5_deer' },
+      { char: 'narrator', text: '他头上那朵小花，在暮色里一亮一亮的，像是在替他着急。', ifnot: 'd5_deer' },
+      { char: 'narrator', text: '风忽然停了。花谷里所有的花，在同一个瞬间，轻轻地合上了花瓣。' },
+      { char: 'shiro', text: '……北边。北边在疼。' },
+    ],
+    next: 'day5_evening',
+  },
+
+  'dusk5_whitewolf': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '傍晚，你在鸟居旁边那棵最高的树上找到了雪丸。' },
+      { char: 'narrator', text: '他从早上砸了骨牌以后，就一直在上面。谁叫都不下来。' },
+      { char: 'narrator', text: '你开始往上爬。爬得很难看。爬到一半，一只手从上面伸下来，一把把你拎了上去。' },
+      { char: 'yukimaru', text: '……笨蛋。人类爬树，跟乌龟下山一样。' },
+      { char: 'narrator', text: '你们并排坐在树枝上。从这里，能看到北坡，也能看到神社的屋顶。' },
+      { char: 'yukimaru', text: '……我今天，是不是很难看。' },
+      { char: 'yukimaru', text: '又吼又砸东西，还跳窗户。跟小孩一样。' },
+      { char: 'player', text: '你本来就是小孩。' },
+      { char: 'yukimaru', text: '我不是！我……我比你大一百多岁！' },
+      { char: 'narrator', text: '他吼完，又泄了气。尾巴从树枝上垂下去，一晃一晃。' },
+      { char: 'yukimaru', text: '……满月以后，你也会走吧。你们人类，都有自己的窝。' },
+      { char: 'yukimaru', text: '我又不是想让你留下！是、是北坡巡逻太无聊，需要有人陪我比赛！就这样！' },
+    ],
+    choices: [
+      { text: '「那我留下来，陪你比。」', flag: 'd5_whitewolf', next: 'dusk5_whitewolf_2' },
+      { text: '揉了揉他乱糟糟的头发', next: 'dusk5_whitewolf_2' },
+    ],
+  },
+
+  'dusk5_whitewolf_2': {
+    scene: 'shrine', particles: 'sakura',
+    chars: [{ id: 'yukimaru', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '雪丸整个人僵在了树枝上。尾巴「啪」地停住，然后开始疯狂地摇，摇得整棵树都在响。', if: 'd5_whitewolf' },
+      { char: 'yukimaru', text: '你、你说的！你刚才说的！不许反悔！', if: 'd5_whitewolf' },
+      { char: 'yukimaru', text: '我、我会记住的！狼不会忘记！', if: 'd5_whitewolf' },
+      { char: 'yukimaru', text: '喂！说了别乱摸！', ifnot: 'd5_whitewolf' },
+      { char: 'narrator', text: '他嘴上这么说，却把脑袋往你手底下又顶了顶。', ifnot: 'd5_whitewolf' },
+      { char: 'narrator', text: '忽然，他的耳朵竖了起来。鼻子抽动了两下。' },
+      { char: 'yukimaru', text: '……那个味道。又来了。比上次还浓。' },
+      { char: 'narrator', text: '他把你拎回地面，拔腿就往北边跑。跑出去十几步，回头大喊——「回屋里去！不许出来！」' },
+    ],
+    next: 'day5_evening',
+  },
+
+  'dusk5_hawk': {
+    scene: 'shrine', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '傍晚，你又爬上了屋顶。苍羽在那里，看着北边。' },
+      { char: 'sou', text: '……十九片。' },
+      { char: 'narrator', text: '他在数黑斑。昨天，是十一片。' },
+      { char: 'narrator', text: '你在他旁边坐下。他往旁边让了让，又让回来了一点。' },
+      { char: 'sou', text: '……中午说的那些。第十七层。靠窗的桌子。' },
+      { char: 'sou', text: '吓到你了吗。' },
+      { char: 'player', text: '有一点。' },
+      { char: 'sou', text: '……一开始，是千代让我去看的。她说，「替我看看那孩子过得好不好」。' },
+      { char: 'sou', text: '我看了二十年。每年飞一次，看一眼，就回来告诉她。' },
+      { char: 'narrator', text: '风把他的长发吹到你的肩膀上。他没有拨开。' },
+      { char: 'sou', text: '后来……后来她不在了。我还是去了。' },
+      { char: 'sou', text: '那一次，不是替她看的。' },
+    ],
+    choices: [
+      { text: '「下次来的时候，敲窗户。」', flag: 'd5_hawk', next: 'dusk5_hawk_2' },
+      { text: '「那你看到我的时候，在想什么？」', next: 'dusk5_hawk_2' },
+    ],
+  },
+
+  'dusk5_hawk_2': {
+    scene: 'shrine', particles: 'feathers',
+    chars: [{ id: 'sou', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '苍羽转过头，看着你。他的表情一点都没变。可是耳朵尖，一点一点地红了。', if: 'd5_hawk' },
+      { char: 'sou', text: '……好。', if: 'd5_hawk' },
+      { char: 'sou', text: '我会练。落地。……不会摔在你窗台下面。', if: 'd5_hawk' },
+      { char: 'sou', text: '……在想，要是能落在你的窗台上，不摔倒就好了。', ifnot: 'd5_hawk' },
+      { char: 'narrator', text: '他说得非常认真。认真到你笑出了声。他看着你笑，嘴角也动了一下。', ifnot: 'd5_hawk' },
+      { char: 'narrator', text: '忽然，他站了起来。翅膀的影子在他身后张开。' },
+      { char: 'sou', text: '……二十三片。不对。在连起来。' },
+      { char: 'sou', text: '回屋里去。' },
+    ],
+    next: 'day5_evening',
+  },
+
+  'dusk5_snake': {
+    scene: 'cave', particles: 'spirits',
+    chars: [{ id: 'genya', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'narrator', text: '傍晚，你又下了一次石阶。' },
+      { char: 'narrator', text: '玄夜靠在要石旁边，手背上的鳞片比昨天裂得更厉害了。灯快灭了，他也没有去添油。' },
+      { char: 'genya', text: '……又来了。小孩子，不怕被那只狐狸骂吗。' },
+      { char: 'narrator', text: '你在他旁边坐下，往灯里添了油。光亮起来的时候，他眯起了眼睛。' },
+      { char: 'genya', text: '坐一会儿就回去。……等这盏灯烧完。' },
+      { char: 'narrator', text: '你们就那样坐着。他的呼吸很慢。每一次呼吸，要石的紫光就跟着暗一下，亮一下。' },
+      { char: 'genya', text: '你知道吗。被人叫名字的时候，鳞就不那么疼。' },
+      { char: 'genya', text: '千代每个月念一次。一次，能管一个月。' },
+      { char: 'genya', text: '……这个月，没有人念。' },
+      { char: 'narrator', text: '他说得很轻，像是在说别人的事。' },
+      { char: 'genya', text: '等满月过了。你要是……还记得我——' },
+      { char: 'narrator', text: '他停住了。没有说下去。' },
+    ],
+    choices: [
+      { text: '握住他冰凉的、长满裂鳞的手，念他的名字', flag: 'd5_snake', next: 'dusk5_snake_2' },
+      { text: '「我会记得的。你别想让我忘。」', next: 'dusk5_snake_2' },
+    ],
+  },
+
+  'dusk5_snake_2': {
+    scene: 'cave', particles: 'spirits',
+    chars: [{ id: 'genya', pos: 'center', form: 'human' }],
+    lines: [
+      { char: 'player', text: '玄夜。玄夜。玄夜。', if: 'd5_snake' },
+      { char: 'narrator', text: '他手背上的鳞片，在你掌心底下，一片一片地，慢慢合上了。', if: 'd5_snake' },
+      { char: 'genya', text: '……傻瓜。一次就够了。', if: 'd5_snake' },
+      { char: 'narrator', text: '他这么说，却没有把手抽回去。反而，很轻很轻地，回握住了你。', if: 'd5_snake' },
+      { char: 'genya', text: '……呵。口气倒不小。', ifnot: 'd5_snake' },
+      { char: 'narrator', text: '他笑了一下，把脸转开了。可是你看见，他的嘴角弯了很久。', ifnot: 'd5_snake' },
+      { char: 'narrator', text: '灯芯「噼」地爆了一下。要石的光，猛地暗了下去，暗得几乎看不见。' },
+      { char: 'genya', text: '……上去。现在就上去。别回头。' },
+    ],
+    next: 'day5_evening',
+  },
+
   // =============== ENDINGS ===============
   'ending_fox': {
     scene: 'night-shrine', particles: 'fireflies',
@@ -4973,6 +5434,13 @@ const S = {
       { char: 'narrator', text: '她踮起脚尖，在你额头上，留下了一个温热的吻。带着杜鹃花茶的香气。' },
       { char: 'kohaku', text: '这是狐狸的印记。有了它，不管你在城里哪个角落，我都找得到你。' },
       { char: 'kohaku', text: '……所以，不许再让我等二十年了哦。' },
+      { char: 'player', text: '琥珀。' },
+      { char: 'player', text: '我喜欢你。……不是外婆那样的喜欢。' },
+      { char: 'narrator', text: '她看着你。很久。身后的尾巴，一条都没有炸。' },
+      { char: 'kohaku', text: '……尾巴没炸。你看到了吧。' },
+      { char: 'kohaku', text: '上一次你说了一半，我捂住了。现在……我听完了。', if: 'd5_fox' },
+      { char: 'kohaku', text: '我也喜欢你。一千零七年里，第一次说这句话。' },
+      { char: 'kohaku', text: '……原来说出来，是这么吓人的事啊。', if: 'n3_fox' },
       { char: 'narrator', text: '她往后退了一步。身后，九条尾巴在月光里全部展开了。' },
       { char: 'kohaku', text: '今天早上，我照了镜子。' },
       { char: 'kohaku', text: '数了三遍。九条。' },
@@ -5046,6 +5514,13 @@ const S = {
       { char: 'ginro', text: '以后，不管你在哪里迷路——' },
       { char: 'narrator', text: '他低下头，额头轻轻抵在你的额头上。雨水和松针的味道。' },
       { char: 'ginro', text: '我都会找到你。' },
+      { char: 'player', text: '银朗。你说满月过了，有话要说。', if: 'd5_wolf' },
+      { char: 'player', text: '银朗。我喜欢你。' },
+      { char: 'narrator', text: '他整个人都僵住了。抵着你额头的那一点温度，烫得吓人。' },
+      { char: 'ginro', text: '……狼，一辈子只认一个人的气味。' },
+      { char: 'ginro', text: '……我也是。' },
+      { char: 'ginro', text: '那天没说完的话。就是这个。', if: 'd5_wolf' },
+      { char: 'ginro', text: '打雷的晚上，以后，换我说话。你听着。', if: 'n3_wolf' },
       { char: 'narrator', text: '他把手伸进衣襟，拿出一样东西，放在你手心。' },
       { char: 'narrator', text: '是一个木雕的小铃铛。第六百零四个。' },
       { char: 'ginro', text: '……本来是送你下山以后，才要刻的。昨晚睡不着，先刻好了。' },
@@ -5118,6 +5593,12 @@ const S = {
       { char: 'narrator', text: '他从角上摘下一朵花，塞进你手里。是蓝色的。' },
       { char: 'shiro', text: '这个月的第一朵。说好了给你的。' },
       { char: 'shiro', text: '……下个月的第一朵，也给你。' },
+      { char: 'shiro', text: '还、还有！那个词，我想明白了！' },
+      { char: 'shiro', text: '「想一直在一起的那种」。……我对你，就是那种。', if: 'd5_deer' },
+      { char: 'shiro', text: '我喜欢你。……这样用，对吗？' },
+      { char: 'player', text: '对。我也喜欢你，白露。' },
+      { char: 'narrator', text: '他头上的角，「啪」地一下，开满了花。粉色的。满满一头，连鹿角都看不见了。' },
+      { char: 'shiro', text: '……那天夜里开的那朵小花，原来是这个意思啊。', if: 'n3_deer' },
     ],
     next: 'ending_deer2',
   },
@@ -5189,6 +5670,13 @@ const S = {
       { char: 'yukimaru', text: '喂！' },
       { char: 'yukimaru', text: '你知道吗！今天早上，舅舅叫我名字了！叫了三次！' },
       { char: 'yukimaru', text: '第三次是因为我把他的伞弄坏了！可是那也算！' },
+      { char: 'yukimaru', text: '还有！还有一件事！' },
+      { char: 'narrator', text: '他深吸一口气。尾巴绷得笔直。' },
+      { char: 'yukimaru', text: '我喜欢你！！比喜欢鱼还喜欢！比喜欢赢还喜欢！' },
+      { char: 'narrator', text: '他的声音在整片林子里回荡。树上的鸟扑棱棱飞起来一大片。' },
+      { char: 'player', text: '我也喜欢你！比两百米还远的那种！' },
+      { char: 'yukimaru', text: '你说过要留下来陪我比赛的！说话算话！', if: 'd5_whitewolf' },
+      { char: 'yukimaru', text: '……那天数星星，其实是你赢了。我偷偷数错的。', if: 'n3_whitewolf' },
       { char: 'narrator', text: '他笑着跑进了林子。笑声一路荡到北坡的最高处。' },
     ],
     next: 'ending_whitewolf2',
@@ -5256,6 +5744,13 @@ const S = {
       { char: 'sou', text: '……因为我想知道，千代的外孙女，会不会捡起来。' },
       { char: 'player', text: '我捡了。' },
       { char: 'sou', text: '嗯。所以，这一根也要捡好。' },
+      { char: 'player', text: '苍羽。……我喜欢你。' },
+      { char: 'narrator', text: '他没有说话。风把他的长发吹起来，又落下。' },
+      { char: 'sou', text: '……嗯。' },
+      { char: 'sou', text: '我知道。' },
+      { char: 'sou', text: '我看了你二十年。……我也是。比二十年，还要早一点。' },
+      { char: 'sou', text: '下次，我会敲窗户。不会摔在窗台下面。', if: 'd5_hawk' },
+      { char: 'sou', text: '那扇窗，你没关。我看见了。每一个晚上。', if: 'n3_hawk' },
       { char: 'sou', text: '……还有。那叠信，最后一封。' },
       { char: 'sou', text: '「等你上山的时候——」后面，她没写完。' },
       { char: 'sou', text: '我想了很久。我替她写完了。写在信封背面。' },
@@ -5333,6 +5828,14 @@ const S = {
       { char: 'narrator', text: '你把它还给他。他没有接。' },
       { char: 'genya', text: '……留着。害怕的时候握着。' },
       { char: 'genya', text: '不害怕的时候……也可以握着。' },
+      { char: 'player', text: '玄夜。我喜欢你。' },
+      { char: 'genya', text: '……小孩子，不要乱说。' },
+      { char: 'narrator', text: '他别过头去。过了很久，又转回来。' },
+      { char: 'genya', text: '……你再说一遍。我想记住。' },
+      { char: 'player', text: '我喜欢你。' },
+      { char: 'genya', text: '就算铃拿走我所有的东西，这一句，我会藏在最底下那层皮里。谁都拿不走。' },
+      { char: 'genya', text: '那天你念了三遍我的名字。我数了。……一辈子都会记得。', if: 'd5_snake' },
+      { char: 'genya', text: '那扇门，以后不用隔着了。', if: 'n3_snake' },
     ],
     next: 'ending_snake2',
   },
@@ -5785,6 +6288,7 @@ function markSpeaker(id) {
 function afterLines(node) {
   if (node.choices) showChoices(node.choices);
   else if (node.next_by_affection) routeByAff();
+  else if (node.next_by_lead) playNode(node.next_by_lead + '_' + getMaxAff()); // romance beat with whoever you're closest to
   else if (node.next_by_affection_ending) routeToEnding();
   else if (node.ending) showEnding(node.ending);
   else if (node.next) playNode(node.next);
@@ -6032,7 +6536,7 @@ function updateDay() {
 //  SAVE / LOAD
 // ============================================================
 const SAVE_KEY = 'dujuansen-saves-v1';
-const STORY_VERSION = 15; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
+const STORY_VERSION = 16; // bump when node ids or line order change, so old saves can't resume mid-scene in the wrong place
 const MANUAL_SLOTS = ['1','2','3','4','5','6','7','8'];
 const storageOK = (() => {
   try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; }
@@ -6252,10 +6756,10 @@ function simulateStory(picks, stopAt) {
       if (c.flag) flags[c.flag] = true;
       id = c.next;
     } else if (n.next) id = n.next;
-    else if (n.next_by_affection) {
+    else if (n.next_by_affection || n.next_by_lead) {
       const k = Object.entries(aff).sort((x, y) => y[1] - x[1])[0][0]; // same tie-break as getMaxAff
-      steps.push({ id, chap, auto: k });
-      id = 'rescue_' + k;
+      steps.push({ id, chap, auto: k, kind: n.next_by_lead || 'rescue' });
+      id = (n.next_by_lead || 'rescue') + '_' + k;
     } else break;
   }
   return { reached: false, flags, aff, steps };
@@ -6283,6 +6787,7 @@ function openChapters() {
   $('#sys-layer').classList.add('active');
 }
 
+const AUTO_LABEL = { night3: '第三天深夜 · 来找你的人（好感最高）', dusk5: '第五天黄昏 · 想见的人（好感最高）', rescue: '危机之夜 · 好感最高的人会赶来' };
 let flowPicks = {}, flowAll = false;
 function openChapterFlow(target) {
   const hist = picksSeen();
@@ -6301,7 +6806,7 @@ function renderChapterFlow(target) {
     if (s.chap !== lastChap) { html += `<div class="flow-chap">${chapterLabel(s.chap)}</div>`; lastChap = s.chap; }
     if (s.auto) {
       const ch = CHARS[AFF_CHAR[s.auto]];
-      html += `<div class="flow-node auto"><div class="flow-q">危机之夜 · 好感最高的人会赶来</div><div class="flow-opt on" style="--c:${ch.color}">→ ${ch.name}</div></div>`;
+      html += `<div class="flow-node auto"><div class="flow-q">${AUTO_LABEL[s.kind]}</div><div class="flow-opt on" style="--c:${ch.color}">→ ${ch.name}</div></div>`;
       continue;
     }
     if (!s.key && !flowAll) { hidden++; continue; }
