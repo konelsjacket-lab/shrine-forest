@@ -1,16 +1,17 @@
 import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+const GAME = new URL('../index.html', import.meta.url).href;
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' }).catch(() => chromium.launch());
 const ctx = await browser.newContext({ viewport: { width: 390, height: 780 } });
 const page = await ctx.newPage();
 const errs = []; page.on('pageerror', e => errs.push(e.message));
-const URL = 'file:///home/user/Chorus-now-/shrine-forest-avg.html';
+
 const ok = (c, m) => console.log((c ? 'PASS ' : 'FAIL ') + m);
 const text = () => page.$eval('#dialogue-text', e => e.textContent);
 const vis = s => page.$eval(s, e => getComputedStyle(e).display !== 'none' && !e.hidden);
 const choiceOn = () => page.$eval("#choice-layer", e => e.classList.contains("active"));
 async function adv() { const t = await text(); for (let i = 0; i < 4 && (await text()) === t && !(await choiceOn()); i++) { await page.click('#dialogue-box'); await page.waitForTimeout(120); } }
 
-await page.goto(URL); await page.evaluate(() => localStorage.clear()); await page.reload();
+await page.goto(GAME); await page.evaluate(() => localStorage.clear()); await page.reload();
 await page.waitForTimeout(2500);
 ok(!(await vis('#continue-btn')), 'no saves: continue hidden');
 await page.screenshot({ path: '/tmp/s0-title-empty.png' });

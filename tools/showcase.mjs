@@ -1,10 +1,11 @@
 import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
-const OUT = '/home/user/Chorus-now-/screenshots';
+const GAME = new URL('../index.html', import.meta.url).href;
+const OUT = new URL('../screenshots', import.meta.url).pathname;
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--ignore-certificate-errors', '--autoplay-policy=no-user-gesture-required'] });
 const ctx = await b.newContext({ viewport: { width: 390, height: 780 }, deviceScaleFactor: 2, ignoreHTTPSErrors: true });
 const p = await ctx.newPage();
 const errs = []; p.on('pageerror', e => errs.push(e.message));
-await p.goto('file:///home/user/Chorus-now-/shrine-forest-avg.html');
+await p.goto(GAME);
 await p.evaluate(() => localStorage.clear());
 await p.reload(); await p.waitForTimeout(4500);
 const shot = n => p.screenshot({ path: `${OUT}/${n}.png` });

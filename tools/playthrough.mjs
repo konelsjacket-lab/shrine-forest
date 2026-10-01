@@ -1,4 +1,5 @@
 import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+const GAME = new URL('../index.html', import.meta.url).href;
 const targets = ['fox','wolf','deer','whitewolf','hawk','snake'];
 const shotAt = { fox: [], wolf: [], deer: [], whitewolf: [], hawk: [], snake: [] };
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' }).catch(() => chromium.launch());
@@ -6,7 +7,7 @@ async function run(t) {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 780 } });
   const page = await ctx.newPage();
   const errs = []; page.on('pageerror', e => errs.push(e.message));
-  await page.goto('file:///home/user/Chorus-now-/shrine-forest-avg.html');
+  await page.goto(GAME);
   await page.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
   await page.click('#start-btn');
   const path = []; const shots = new Set(); let steps = 0;

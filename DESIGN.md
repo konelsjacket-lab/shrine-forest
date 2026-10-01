@@ -1,7 +1,7 @@
 # 杜鹃森 — 扩写设计备忘（给接手的 Claude 看）
 
-游戏：`shrine-forest-avg.html`（单文件）+ `assets/`。发布为 Artifact：https://claude.ai/artifact/3X2sSDKqxwwwkzaddhscDQ
-分支：`claude/epic-cori-mrk91n`。用户直接玩，不看大纲；每步做完就发布 + 提交 + 推送。
+游戏：`index.html`（单文件）+ `assets/`。发布为 Artifact：https://claude.ai/artifact/3X2sSDKqxwwwkzaddhscDQ
+仓库：`konelsjacket-lab/shrine-forest`（私有）。从 `konelsjacket-lab/Chorus-now-` 的 `claude/serene-goodall-fv4qkj` 分支搬过来，更早的提交历史留在那边。用户直接玩，不看大纲；每步做完就发布 + 提交 + 推送。
 
 ## 进度
 
